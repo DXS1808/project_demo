@@ -7,9 +7,11 @@ part 'movie.g.dart';
 class Movie{
   int page;
   List<MovieListItem> results;
-  int total_result;
-  int total_pages;
-  Movie(this.page,this.results,this.total_pages,this.total_result);
+  @JsonKey(name: "total_results")
+  int totalResult;
+  @JsonKey(name: "total_pages")
+  int totalPages;
+  Movie(this.page,this.results,this.totalPages,this.totalResult);
 
   factory Movie.fromJson(Map<String,dynamic>json) => _$MovieFromJson(json);
 
@@ -18,36 +20,44 @@ class Movie{
 
 @JsonSerializable()
 class MovieListItem{
-  String ? poster_path;
-  bool boolean;
+  @JsonKey(name: "poster_path")
+  String ? posterPath;
+  bool adult;
   String overview;
-  String release_date;
-  List<int> genre_ids;
+  @JsonKey(name: "release_date")
+  String releaseDate;
+  @JsonKey(name: "genre_ids")
+  List<int> genreIds;
   int id;
-  String original_title;
-  String original_language;
+  @JsonKey(name: "original_title")
+  String originalTitle;
+  @JsonKey(name: "original_language")
+  String originalLanguage;
   String title;
-  String ? backdrop_path;
+  @JsonKey(name: "backdrop_path")
+  String ? backdropPath;
   num popularity;
-  int vote_count;
+  @JsonKey(name: "vote_count")
+  int voteCount;
   bool video;
-  num vote_average;
+  @JsonKey(name: "vote_average")
+  num voteAverage;
 
   MovieListItem(
-      this.poster_path,
-      this.boolean,
+      this.posterPath,
+      this.adult,
       this.overview,
-      this.release_date,
-      this.genre_ids,
+      this.releaseDate,
+      this.genreIds,
       this.id,
-      this.original_title,
-      this.original_language,
+      this.originalTitle,
+      this.originalLanguage,
       this.title,
-      this.backdrop_path,
+      this.backdropPath,
       this.popularity,
-      this.vote_count,
+      this.voteCount,
       this.video,
-      this.vote_average);
+      this.voteAverage);
 
   factory MovieListItem.fromJson(Map<String,dynamic>json) => _$MovieListItemFromJson(json);
 

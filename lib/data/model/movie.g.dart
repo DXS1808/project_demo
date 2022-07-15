@@ -12,14 +12,14 @@ Movie _$MovieFromJson(Map<String, dynamic> json) => Movie(
           .map((e) => MovieListItem.fromJson(e as Map<String, dynamic>))
           .toList(),
       json['total_pages'] as int,
-      json['total_result'] as int,
+      json['total_results'] as int,
     );
 
 Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{
       'page': instance.page,
       'results': instance.results,
-      'total_result': instance.total_result,
-      'total_pages': instance.total_pages,
+      'total_result': instance.totalResult,
+      'total_pages': instance.totalPages,
     };
 
 MovieListItem _$MovieListItemFromJson(Map<String, dynamic> json) =>
@@ -34,7 +34,7 @@ MovieListItem _$MovieListItemFromJson(Map<String, dynamic> json) =>
       json['original_language'] as String,
       json['title'] as String,
       json['backdrop_path'] as String?,
-      json['popalarity'] as num,
+      json['popularity'] as num,
       json['vote_count'] as int,
       json['video'] as bool,
       json['vote_average'] as num,
@@ -42,18 +42,18 @@ MovieListItem _$MovieListItemFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$MovieListItemToJson(MovieListItem instance) =>
     <String, dynamic>{
-      'poster_path': instance.poster_path,
-      'boolean': instance.boolean,
+      'poster_path': instance.posterPath,
+      'boolean': instance.adult,
       'overview': instance.overview,
-      'release_date': instance.release_date,
-      'genre_ids': instance.genre_ids,
+      'release_date': instance.releaseDate,
+      'genre_ids': instance.genreIds,
       'id': instance.id,
-      'original_title': instance.original_title,
-      'original_language': instance.original_language,
+      'original_title': instance.originalTitle,
+      'original_language': instance.originalLanguage,
       'title': instance.title,
-      'backdrop_path': instance.backdrop_path,
+      'backdrop_path': instance.backdropPath,
       'popularity': instance.popularity,
-      'vote_count': instance.vote_count,
+      'vote_count': instance.voteCount,
       'video': instance.video,
-      'vote_average': instance.vote_average,
+      'vote_average': instance.voteAverage,
     };

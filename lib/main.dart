@@ -1,12 +1,22 @@
+import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_demo/core/router/router.dart';
-import 'package:project_demo/presentation/bloc/home_bloc_cubit.dart';
+import 'package:project_demo/data/data_sources/remote/rest_client.dart';
+import 'package:project_demo/data/impl/movie_impl.dart';
+import 'package:project_demo/domain/usecase/movie_usecase.dart';
+import 'package:project_demo/presentation/view/home_screen/home_cubit/home_cubit.dart';
+import 'package:project_demo/presentation/view/home_screen/ui/home_screen.dart';
+import 'package:project_demo/presentation/view/login/login_cubit/login_cubit.dart';
+import 'package:project_demo/presentation/view/sign_up/sign_up_cubit/sign_up_cubit.dart';
+import 'package:project_demo/presentation/view/splash/ui/splash.dart';
 
 import 'firebase_options.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -24,17 +34,35 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: MultiBlocProvider(
-          providers: [
-            BlocProvider<HomeBlocCubit>(
-              create: (context) => HomeBlocCubit(),
-            ),
-          ],
-          child: MaterialApp(
-            routes: AppRouter.define,
-          ),
-        )
-    );
+        routes: AppRouter.define,
+        home: MultiBlocProvider(providers: [
+          BlocProvider<HomeCubit>(
+              create: (context) => HomeCubit(
+                    MovieUseCase(MovieImpl(RestClient(
+                        Dio(BaseOptions(contentType: "application/json"))))),
+                  )),
+          BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
+          BlocProvider<SignUpCubit>(create: (context) => SignUpCubit()),
+        ], child: const MainPage()));
   }
 }
 
+class MainPage extends StatelessWidget {
+  const MainPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            print(snapshot.error);
+          } else if (snapshot.hasData) {
+            return const HomeScreen();
+          }
+          return const Splash();
+        });
+  }
+}
