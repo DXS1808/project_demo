@@ -5,4 +5,6 @@ abstract class MovieRepository{
   Future<Movie> getListMovie(String apiKey);
 
   Future<Movie> getListTopRated(String apiKey);
+
+  Future<Movie> getListNowPlaying (String apiKey);
 }

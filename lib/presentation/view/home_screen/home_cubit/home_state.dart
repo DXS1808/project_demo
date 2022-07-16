@@ -1,23 +1,35 @@
 part of 'home_cubit.dart';
 
-enum HomeStatus { initial, loading, success, failed }
+enum HomeStatus { initial, loading, getPopularList, getTopRatedList, failed, getNowPlayingList }
 
 @immutable
 class HomeState extends Equatable {
-  final HomeStatus status;
-  final Movie ? movie;
+  HomeStatus homeStatus;
+  final List<MovieListItem> popularList;
+  final List<MovieListItem> topRatedList;
+  final List<MovieListItem> nowPlayingList;
 
-  const HomeState._({this.status = HomeStatus.initial, this.movie});
-
-  const HomeState.initial() : this._();
-
-  const HomeState.loading() : this._(status: HomeStatus.loading);
-
-  const HomeState.success(Movie movie)
-      : this._(status: HomeStatus.success, movie: movie);
-
-  const HomeState.failed() : this._(status: HomeStatus.failed);
+  HomeState(
+      {this.homeStatus = HomeStatus.initial,
+      this.popularList = const [],
+      this.topRatedList = const [],
+      this.nowPlayingList = const []});
 
   @override
-  List<Object?> get props => [status, movie];
+  // TODO: implement props
+  List<Object?> get props => [popularList, topRatedList, homeStatus,nowPlayingList];
+
+  HomeState copyWith({
+    HomeStatus? homeStatus,
+    List<MovieListItem>? popularList,
+    List<MovieListItem>? topRatedList,
+    List<MovieListItem>? nowPlayingList,
+  }) {
+    return HomeState(
+      homeStatus: homeStatus ?? this.homeStatus,
+      popularList: popularList ?? this.popularList,
+      topRatedList: topRatedList ?? this.topRatedList,
+      nowPlayingList: nowPlayingList ?? this.nowPlayingList,
+    );
+  }
 }

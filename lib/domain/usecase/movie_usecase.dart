@@ -7,11 +7,15 @@ class MovieUseCase{
 
   MovieUseCase(this.movieRepository);
 
-  Future<Movie> getListMovie(String apiKey){
+  Future<Movie> getListPopular(String apiKey){
     return movieRepository.getListMovie(apiKey);
   }
   Future<Movie> getListTopRated(String apiKey){
     return movieRepository.getListTopRated(apiKey);
+  }
+
+  Future<Movie> getListNowPlaying(String apiKey){
+    return movieRepository.getListNowPlaying(apiKey);
   }
 
 }

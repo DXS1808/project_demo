@@ -9,9 +9,7 @@ import 'package:project_demo/data/impl/movie_impl.dart';
 import 'package:project_demo/domain/usecase/movie_usecase.dart';
 import 'package:project_demo/presentation/view/home_screen/home_cubit/home_cubit.dart';
 import 'package:project_demo/presentation/view/home_screen/ui/home_screen.dart';
-import 'package:project_demo/presentation/view/login/login_cubit/login_cubit.dart';
-import 'package:project_demo/presentation/view/sign_up/sign_up_cubit/sign_up_cubit.dart';
-import 'package:project_demo/presentation/view/splash/ui/splash.dart';
+import 'package:project_demo/presentation/view/splash/ui/splash_screen.dart';
 
 import 'firebase_options.dart';
 
@@ -35,15 +33,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         routes: AppRouter.define,
-        home: MultiBlocProvider(providers: [
-          BlocProvider<HomeCubit>(
-              create: (context) => HomeCubit(
-                    MovieUseCase(MovieImpl(RestClient(
-                        Dio(BaseOptions(contentType: "application/json"))))),
-                  )),
-          BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
-          BlocProvider<SignUpCubit>(create: (context) => SignUpCubit()),
-        ], child: const MainPage()));
+        home: const MainPage());
   }
 }
 

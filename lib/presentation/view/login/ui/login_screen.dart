@@ -1,12 +1,17 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_demo/data/impl/movie_impl.dart';
+import 'package:project_demo/domain/usecase/movie_usecase.dart';
 import 'package:project_demo/presentation/view/login/login_cubit/login_cubit.dart';
 import 'package:project_demo/presentation/view/sign_up/sign_up_cubit/sign_up_cubit.dart';
 import 'package:project_demo/presentation/view/sign_up/ui/sign_up_screen.dart';
 import '../../../../config/constants.dart';
+import '../../../../data/data_sources/remote/rest_client.dart';
 import '../../../common/input_text_wrap.dart';
 import '../../../common/rouned_button.dart';
+import '../../home_screen/home_cubit/home_cubit.dart';
+import '../../home_screen/ui/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -78,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
           const SizedBox(
             height: 100,
           ),
-          inputUserName(),
+          inputEmail(),
           const SizedBox(
             height: 10.0,
           ),
@@ -94,8 +99,8 @@ class _LoginScreenState extends State<LoginScreen> {
               const Text(
                 "Don't have account?",
                 style: TextStyle(
-                    fontSize: Constants.kFontSize,
-                    fontFamily: Constants.kFontFamily),
+                    fontSize: Constants.FONT_SIZE,
+                    fontFamily: Constants.FONTFAMILY),
               ),
               TextButton(
                 onPressed: () {
@@ -111,9 +116,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   "Sign up",
                   style: TextStyle(
                       decoration: TextDecoration.underline,
-                      color: Constants.kBackgroundColor,
-                      fontSize: Constants.kFontSize,
-                      fontFamily: Constants.kFontFamily),
+                      color: Constants.BACKGROUND_COLOR,
+                      fontSize: Constants.FONT_SIZE,
+                      fontFamily: Constants.FONTFAMILY),
                 ),
               )
             ],
@@ -123,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  inputUserName() {
+  inputEmail() {
     var input = RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
     return InputTextWrap(
         label: "Email...",
@@ -132,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
         icon: const Icon(
           Icons.person_outline,
           size: 20,
-          color: Constants.kBackgroundColor,
+          color: Constants.BACKGROUND_COLOR,
         ),
         validator: (str) {
           if (input.hasMatch(str!) == false && str.isNotEmpty) {
@@ -158,13 +163,13 @@ class _LoginScreenState extends State<LoginScreen> {
         icon: const Icon(
           Icons.lock_outline,
           size: 20,
-          color: Constants.kBackgroundColor,
+          color: Constants.BACKGROUND_COLOR,
         ),
         obscureText: _passwordVisible,
         iconSuffix: GestureDetector(
           child: Icon(
             _passwordVisible ? Icons.visibility_off : Icons.visibility,
-            color: Constants.kBackgroundColor,
+            color: Constants.BACKGROUND_COLOR,
           ),
           onTap: () {
             setState(() {
@@ -196,20 +201,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
   loginButton() {
     Size size = MediaQuery.of(context).size;
+    // return BlocListener<LoginCubit,LoginState>(listener: (context, state) {
+    //   if(state.loginStatus == LoginStatus.success){
+    //
+    //   }else if(state.loginStatus == LoginStatus.failed){
+    //     AlertDropdown.error(state.errorMessage);
+    //   }
+    // },
     return RounedButton(
       onPress: () {
-        if (_key.currentState!.validate()) {
-          loginCubit.success(email.text, password.text);
-          // signInUser(context).then((value) {
-          // });
-          // for (int i = 0; i <= users.length - 1; i++) {
-          //   if (users[i].email == email.value.text &&
-          //       users[i].password == password.value.text) {
-          //     AllertDropdown.success("Login Success");
-          //     Navigator.pushNamed(context, "/homeScreen");
-          //   }
-          // }
-        }
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return BlocProvider<HomeCubit>.value(
+            value: HomeCubit(MovieUseCase(MovieImpl(RestClient(
+                Dio(BaseOptions(contentType: "application/json")))))),
+            child: const HomeScreen(),
+          );
+        }));
       },
       text: 'Login',
     );

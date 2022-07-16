@@ -7,22 +7,28 @@ class SignUpState extends Equatable {
   final SignUpStatus status;
   final String email;
   final String password;
+  final String errorMessage;
 
-  const SignUpState._(
+  const SignUpState(
       {this.status = SignUpStatus.initial,
       this.email = "",
-      this.password = ""});
-
-  const SignUpState.initial() : this._();
-
-  const SignUpState.loading() : this._(status: SignUpStatus.loading);
-
-  const SignUpState.success(String email, String password)
-      : this._(status: SignUpStatus.success, email: email, password: password);
-
-  const SignUpState.failed() : this._(status: SignUpStatus.failed);
+      this.password = "",
+      this.errorMessage = ""});
 
   @override
   // TODO: implement props
-  List<Object?> get props => [status, email, password];
+  List<Object?> get props => [status, email, password,errorMessage];
+
+  SignUpState copyWith(
+      {SignUpStatus? status,
+      String? email,
+      String? password,
+      String? errorMessage}) {
+    return SignUpState(
+      status: status ?? this.status,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
 }

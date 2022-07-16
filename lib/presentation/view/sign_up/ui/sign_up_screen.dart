@@ -16,7 +16,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-
   TextEditingController email = TextEditingController();
 
   TextEditingController password = TextEditingController();
@@ -44,21 +43,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
-        child: Form(
-          key: _key,
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 10.0, vertical: 20.0),
+      child: Form(
+        key: _key,
+        child: Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/login.png'),
-                    fit: BoxFit.cover)
-              // gradient: LinearGradient(colors: [
-              //   Constants.backgroundColor,
-              //   Color(0xffFFFFFF),
-              // ], begin: Alignment.topLeft, end: Alignment.bottomRight)
-            ),
-            child:body()
+                    image: AssetImage('assets/login.png'), fit: BoxFit.cover)
+                // gradient: LinearGradient(colors: [
+                //   Constants.backgroundColor,
+                //   Color(0xffFFFFFF),
+                // ], begin: Alignment.topLeft, end: Alignment.bottomRight)
+                ),
+            child: body()
             // child: BlocBuilder<SignUpCubit,SignUpState>(
             //     builder: (context, state) {
             //       if(state.status == SignUpStatus.loading) {
@@ -68,26 +66,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
             //       }
             //       return AlertDropdown.error("Email is exist");
             //     }),
-              ),
             ),
-        );
+      ),
+    );
   }
 
-  Widget body(){
-    Size size = MediaQuery
-        .of(context)
-        .size;
+  Widget body() {
+    Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: size.height / 4,),
+          SizedBox(
+            height: size.height / 4,
+          ),
           const Text(
             "SignUp",
             style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
-                color: Colors.white),
+                fontWeight: FontWeight.bold, fontSize: 30, color: Colors.white),
           ),
           const SizedBox(
             height: 60,
@@ -113,22 +109,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
             children: [
               const Text('You have account ? '),
               GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
                       return BlocProvider<LoginCubit>.value(
                         value: LoginCubit(),
                         child: LoginScreen(),
                       );
                     }));
                   },
-                  child : const Text(
+                  child: const Text(
                     "Sign in",
-                    style:TextStyle(
-                        color: Constants.kBackgroundColor,
-                        decoration: TextDecoration.underline
-                    ) ,
-                  )
-              )
+                    style: TextStyle(
+                        color: Constants.BACKGROUND_COLOR,
+                        decoration: TextDecoration.underline),
+                  ))
             ],
           )
         ],
@@ -144,7 +139,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         icon: const Icon(
           Icons.person_outline,
           size: 20,
-          color: Constants.kBackgroundColor,
+          color: Constants.BACKGROUND_COLOR,
         ),
         validator: (str) {
           if (str!.isNotEmpty) {
@@ -159,21 +154,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   inputPassword() {
     RegExp regex =
-    RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
     return InputTextWrap(
         label: "Password...",
         controller: password,
         icon: const Icon(
           Icons.lock_outline,
           size: 20,
-          color: Constants.kBackgroundColor,
+          color: Constants.BACKGROUND_COLOR,
         ),
         obscureText: _passwordVisible,
         iconSuffix: GestureDetector(
           child: Icon(
             // Based on passwordVisible state choose the icon
             _passwordVisible ? Icons.visibility_off : Icons.visibility,
-            color: Constants.kBackgroundColor,
+            color: Constants.BACKGROUND_COLOR,
           ),
           onTap: () {
             // Update the state i.e. toogle the state of passwordVisible variable
@@ -200,13 +195,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         icon: const Icon(
           Icons.lock_outline,
           size: 20,
-          color: Constants.kBackgroundColor,
+          color: Constants.BACKGROUND_COLOR,
         ),
         obscureText: passwordVisibleConfirm,
         iconSuffix: GestureDetector(
           child: Icon(
             passwordVisibleConfirm ? Icons.visibility_off : Icons.visibility,
-            color: Constants.kBackgroundColor,
+            color: Constants.BACKGROUND_COLOR,
           ),
           onTap: () {
             setState(() {
@@ -227,49 +222,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   signUpButton(BuildContext context) {
-    return BlocBuilder<SignUpCubit,SignUpState>(builder: (context, state) {
-      if(state.status == SignUpStatus.loading){
-        return CircularProgressIndicator();
+    return BlocListener<SignUpCubit, SignUpState>(
+      listener: (context, state) {
+        if (state.status == SignUpStatus.loading) {
+          // return const CircularProgressIndicator();
 
-      }else if(state.status == SignUpStatus.success){
-        return RounedButton(
-          onPress: () {
-            if (_key.currentState!.validate()) {
-              signUpCubit.success(email.text,password.text);
-              // addUser(email.value.text, password.value.text).then((value) {
-              //   // blocUser.user(email.value.text, password.value.text);
-              //   AllertDropdown.success("Sign up success");
-              //   Navigator.pushNamed(context, "/login");
-              // });
-              // box.put("account", email.value.text);
-              // box.put("password", password.value.text);
-            }
-          },
-          text: 'Sign up',
-        );
-      }
-      return const Text("failed");
-    });
+        } else if (state.status == SignUpStatus.success) {
+          Navigator.pushNamed(context, "/home_screen");
+        }
+        // AlertDropdown.error(state.errorMessage);
+      },
+      child: RounedButton(
+        onPress: () {
+          // if (_key.currentState!.validate()) {
+          print("abc");
+            signUpCubit.success(email.text, password.text);
+            // addUser(email.value.text, password.value.text).then((value) {
+            //   // blocUser.user(email.value.text, password.value.text);
+            //   AllertDropdown.success("Sign up success");
+            //   Navigator.pushNamed(context, "/login");
+            // });
+            // box.put("account", email.value.text);
+            // box.put("password", password.value.text);
+          // }
+        },
+        text: 'Sign up',
+      ),
+    );
+
   }
-  // Future addUser(String email, String password) async {
-  //   final user = Account(email, password)
-  //     ..email = email
-  //     ..password = password;
-  //
-  //   final box = Boxes.getUsers();
-  //   await box.add(user);
-  // }
-
-  // Future registerUser() async {
-  //   try {
-  //     await FirebaseAuth.instance
-  //         .createUserWithEmailAndPassword(
-  //         email: email.value.text.trim(), password: password.value.text.trim());
-  //     AlertDropdown.success("Sign up success");
-  //     // Navigator.pushNamed(context, AppRouter.homeScreen);
-  //   } catch (e){
-  //     AlertDropdown.error(e.toString());
-  //   }
-  // }
-
 }

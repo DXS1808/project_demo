@@ -5,14 +5,14 @@ import 'package:meta/meta.dart';
 part 'splash_state.dart';
 
 class SplashCubit extends Cubit<SplashState> {
-  SplashCubit() : super(const SplashState.initial());
+  SplashCubit() : super(const SplashState());
 
   void get(){
-    emit(const SplashState.initial());
+    emit(state.copyWith(splashStatus: SplashStatus.loading));
     try{
-      emit(const SplashState.success());
+      emit(state.copyWith(splashStatus: SplashStatus.success));
     }catch(e){
-      emit(const SplashState.failed());
+      emit(state.copyWith(splashStatus: SplashStatus.failed));
     }
   }
 }

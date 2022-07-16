@@ -12,4 +12,6 @@ abstract class RestClient {
   Future<Movie> getListMovie(@Query("api_key") String apiKey);
   @GET("top_rated")
   Future<Movie> getListTopRated(@Query("api_key") String apiKey);
+  @GET("now_playing")
+  Future<Movie> getListNowPlaying(@Query("api_key") String apiKey);
 }

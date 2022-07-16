@@ -9,16 +9,17 @@ class LoginCubit extends Cubit<LoginState> {
   // String email;
   // String password;
 
-  LoginCubit() : super(const LoginState.initial());
+  LoginCubit() : super(LoginState());
 
-  void success(String email,String password) async {
-    emit(const LoginState.initial());
+  void success(String email, String password) async {
+    emit(state.copyWith(loginStatus: LoginStatus.initial));
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      emit(LoginState.success(email, password));
-    } catch (e) {
-      emit(const LoginState.failed());
+      emit(state.copyWith(loginStatus: LoginStatus.success));
+    } on FirebaseAuthException catch (e) {
+      emit(state.copyWith(
+          loginStatus: LoginStatus.failed, errorMessage: e.message));
     }
   }
 }

@@ -6,20 +6,21 @@ import 'package:flutter/cupertino.dart';
 part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
+  SignUpCubit() : super(const SignUpState());
 
-  SignUpCubit() : super(const SignUpState.initial());
-
-  void loding(){
-    emit(const SignUpState.initial());
-  }
+  // void changEmail(String value){
+  //   emit(state.copyWith(email: value));
+  // }
 
   void success(String email, String password) async {
+    emit(state.copyWith(status: SignUpStatus.loading));
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      emit(SignUpState.success(email, password));
+      emit(state.copyWith(status: SignUpStatus.success));
     } on FirebaseAuthException catch (e) {
-      emit(const SignUpState.failed());
+      emit(
+          state.copyWith(status: SignUpStatus.failed, errorMessage: e.message));
     }
   }
 }
