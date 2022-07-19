@@ -33,7 +33,14 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         routes: AppRouter.define,
-        home: const MainPage());
+        home: MultiBlocProvider(providers: [
+          BlocProvider<HomeCubit>(
+              create: (context) => HomeCubit(
+                    MovieUseCase(MovieImpl(RestClient(
+                        Dio(BaseOptions(contentType: "application/json"))))),
+                  )),
+          // BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
+        ], child: const MainPage()));
   }
 }
 

@@ -9,7 +9,7 @@ class AppRouter{
   static const String LOGIN_SCREEN = "/login";
   static const String SIGN_UP = "/signup";
   static Map<String, WidgetBuilder> define = {
-    HOME_SCREEN : (context) => MovieScreen(),
+    HOME_SCREEN : (context) => const HomeScreen(),
     LOGIN_SCREEN : (context) => LoginScreen(),
     SIGN_UP : (context) => SignUpScreen()
   };

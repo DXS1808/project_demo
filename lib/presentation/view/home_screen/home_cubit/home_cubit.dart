@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:project_demo/config/constants.dart';
-import 'package:project_demo/data/model/movie.dart';
+import 'package:project_demo/data/model/movie/movie.dart';
 import 'package:project_demo/domain/usecase/movie_usecase.dart';
 
 part 'home_state.dart';
@@ -41,6 +41,17 @@ class HomeCubit extends Cubit<HomeState> {
       emit(state.copyWith(
           homeStatus: HomeStatus.getNowPlayingList,
           nowPlayingList: data.results));
+    } catch (e) {
+      emit(state.copyWith(homeStatus: HomeStatus.failed));
+    }
+  }
+
+  void getUpComingList() async {
+    emit(state.copyWith(homeStatus: HomeStatus.initial));
+    try {
+      final data = await movieUseCase.getListUpComing(Constants.API_KEY);
+      emit(state.copyWith(
+          homeStatus: HomeStatus.getUpComing, upComingList: data.results));
     } catch (e) {
       emit(state.copyWith(homeStatus: HomeStatus.failed));
     }

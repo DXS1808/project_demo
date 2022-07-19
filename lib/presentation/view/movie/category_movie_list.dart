@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:project_demo/data/model/movie/movie.dart';
 
-import '../../../common/movie_item.dart';
+import '../../common/movie_item.dart';
 
 class CategoryMovieList extends StatelessWidget {
   final List<MovieListItem> movieListItem;

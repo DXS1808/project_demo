@@ -1,12 +1,18 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_demo/presentation/allert_dropdown/allert_dropdown.dart';
+import 'package:project_demo/presentation/common/ultis/string_ultis.dart';
 import 'package:project_demo/presentation/view/login/login_cubit/login_cubit.dart';
 
 import '../../../../config/constants.dart';
+import '../../../../data/data_sources/remote/rest_client.dart';
+import '../../../../data/impl/movie_impl.dart';
+import '../../../../domain/usecase/movie_usecase.dart';
 import '../../../common/input_text_wrap.dart';
 import '../../../common/rouned_button.dart';
+import '../../home_screen/home_cubit/home_cubit.dart';
+import '../../home_screen/ui/home_screen.dart';
 import '../../login/ui/login_screen.dart';
 import '../sign_up_cubit/sign_up_cubit.dart';
 
@@ -24,12 +30,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
-  var input = RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
-
-  late SignUpCubit signUpCubit;
-
   bool _passwordVisible = true;
   bool passwordVisibleConfirm = true;
+  late SignUpCubit signUpCubit;
 
   // var box = Hive.box("user");
 
@@ -50,23 +53,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/login.png'), fit: BoxFit.cover)
-                // gradient: LinearGradient(colors: [
-                //   Constants.backgroundColor,
-                //   Color(0xffFFFFFF),
-                // ], begin: Alignment.topLeft, end: Alignment.bottomRight)
-                ),
-            child: body()
-            // child: BlocBuilder<SignUpCubit,SignUpState>(
-            //     builder: (context, state) {
-            //       if(state.status == SignUpStatus.loading) {
-            //         return const CircularProgressIndicator();
-            //       }else if(state.status == SignUpStatus.success){
-            //         return body();
-            //       }
-            //       return AlertDropdown.error("Email is exist");
-            //     }),
-            ),
+                    image: AssetImage('assets/login.png'), fit: BoxFit.cover)),
+            child: body()),
       ),
     );
   }
@@ -100,7 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           const SizedBox(
             height: 30.0,
           ),
-          signUpButton(context),
+          signUpButton(),
           const SizedBox(
             height: 15.0,
           ),
@@ -143,112 +131,104 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         validator: (str) {
           if (str!.isNotEmpty) {
-            if (input.hasMatch(str) == false) {
+            if (StringUltis.isEmail(str) == false) {
               return "Wrong email format";
             }
           } else {
             return "Email is required";
           }
+          return null;
         });
   }
 
   inputPassword() {
-    RegExp regex =
-        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
-    return InputTextWrap(
-        label: "Password...",
-        controller: password,
-        icon: const Icon(
-          Icons.lock_outline,
-          size: 20,
-          color: Constants.BACKGROUND_COLOR,
-        ),
-        obscureText: _passwordVisible,
-        iconSuffix: GestureDetector(
-          child: Icon(
-            // Based on passwordVisible state choose the icon
-            _passwordVisible ? Icons.visibility_off : Icons.visibility,
+    return BlocBuilder<SignUpCubit, SignUpState>(builder: (context, state) {
+      return InputTextWrap(
+          label: "Password...",
+          controller: password,
+          icon: const Icon(
+            Icons.lock_outline,
+            size: 20,
             color: Constants.BACKGROUND_COLOR,
           ),
-          onTap: () {
-            // Update the state i.e. toogle the state of passwordVisible variable
-            setState(() {
+          obscureText: state.obsText,
+          iconSuffix: GestureDetector(
+            child: Icon(
+              // Based on passwordVisible state choose the icon
+              state.obsText ? Icons.visibility_off : Icons.visibility,
+              color: Constants.BACKGROUND_COLOR,
+            ),
+            onTap: () {
               _passwordVisible = !_passwordVisible;
-            });
-          },
-        ),
-        validator: (str) {
-          if (str!.isEmpty) {
-            return "Password is required";
-          }
-          // else if (!regex.hasMatch(str)) {
-          //   return "Enter valid password";
-          // }
-          return null;
-        });
+              signUpCubit.obsText(_passwordVisible);
+            },
+          ),
+          validator: (str) {
+            if (str!.isEmpty) {
+              return "Password is required";
+            }
+            return null;
+          });
+    });
   }
 
   conFirmPassword() {
-    return InputTextWrap(
-        label: "ConfirmPassword...",
-        controller: confirmPassword,
-        icon: const Icon(
-          Icons.lock_outline,
-          size: 20,
-          color: Constants.BACKGROUND_COLOR,
-        ),
-        obscureText: passwordVisibleConfirm,
-        iconSuffix: GestureDetector(
-          child: Icon(
-            passwordVisibleConfirm ? Icons.visibility_off : Icons.visibility,
+    return BlocBuilder<SignUpCubit, SignUpState>(builder: (context, state) {
+      return InputTextWrap(
+          label: "ConfirmPassword...",
+          controller: confirmPassword,
+          icon: const Icon(
+            Icons.lock_outline,
+            size: 20,
             color: Constants.BACKGROUND_COLOR,
           ),
-          onTap: () {
-            setState(() {
+          obscureText: state.confirmObsText,
+          iconSuffix: GestureDetector(
+            child: Icon(
+              state.confirmObsText ? Icons.visibility_off : Icons.visibility,
+              color: Constants.BACKGROUND_COLOR,
+            ),
+            onTap: () {
               passwordVisibleConfirm = !passwordVisibleConfirm;
-            });
-          },
-        ),
-        validator: (str) {
-          if (str!.isNotEmpty) {
-            if (str != password.text) {
-              return "Incorrect Password";
+              signUpCubit.confirmObsText(passwordVisibleConfirm);
+            },
+          ),
+          validator: (str) {
+            if (str!.isNotEmpty) {
+              if (str != password.text) {
+                return "Incorrect Password";
+              }
+            } else if (str.isEmpty) {
+              return "Confirm Password is required";
             }
-          } else if (str.isEmpty) {
-            return "Confirm Password is required";
-          }
-          return null;
-        });
+            return null;
+          });
+    });
   }
 
-  signUpButton(BuildContext context) {
+  signUpButton() {
     return BlocListener<SignUpCubit, SignUpState>(
-      listener: (context, state) {
-        if (state.status == SignUpStatus.loading) {
-          // return const CircularProgressIndicator();
-
-        } else if (state.status == SignUpStatus.success) {
-          Navigator.pushNamed(context, "/home_screen");
-        }
-        // AlertDropdown.error(state.errorMessage);
-      },
-      child: RounedButton(
-        onPress: () {
-          // if (_key.currentState!.validate()) {
-          print("abc");
-            signUpCubit.success(email.text, password.text);
-            // addUser(email.value.text, password.value.text).then((value) {
-            //   // blocUser.user(email.value.text, password.value.text);
-            //   AllertDropdown.success("Sign up success");
-            //   Navigator.pushNamed(context, "/login");
-            // });
-            // box.put("account", email.value.text);
-            // box.put("password", password.value.text);
-          // }
+        listener: (context, state) {
+          if (state.status == SignUpStatus.loading) {
+            // return const CircularProgressIndicator();
+          } else if (state.status == SignUpStatus.success) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return BlocProvider<HomeCubit>.value(
+                value: HomeCubit(MovieUseCase(MovieImpl(RestClient(
+                    Dio(BaseOptions(contentType: "application/json")))))),
+                child: const HomeScreen(),
+              );
+            }));
+            AlertDropdown.success("Sign up success");
+          } else if (state.status == SignUpStatus.failed) {
+            AlertDropdown.error(state.errorMessage);
+          }
         },
-        text: 'Sign up',
-      ),
-    );
-
+        child: RounedButton(
+          onPress: () {
+            context.read<SignUpCubit>().success(email.text, password.text);
+          },
+          text: 'Sign up',
+        ));
   }
 }

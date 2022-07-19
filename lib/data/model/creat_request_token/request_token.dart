@@ -1,20 +1,20 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'creat_request_token.g.dart';
+part 'request_token.g.dart';
 
 @JsonSerializable()
-class CreatRequestToken{
-  bool ? success;
+class RequestToken{
+  bool success;
   @JsonKey(name:"expires_at")
-  String ? expiresAt;
+  String expiresAt;
   @JsonKey(name:"request_token")
-  String ? requestToken;
+  String  requestToken;
 
-  CreatRequestToken(this.success,this.expiresAt,this.requestToken);
+  RequestToken(this.success,this.expiresAt,this.requestToken);
 
-  factory CreatRequestToken.fromJson(Map<String,dynamic>json) => _$CreatRequestTokenFromJson(json);
+  factory RequestToken.fromJson(Map<String,dynamic>json) => _$RequestTokenFromJson(json);
 
-  Map<String ,dynamic> toJson() => _$CreatRequestTokenToJson(this);
+  Map<String ,dynamic> toJson() => _$RequestTokenToJson(this);
 
 }
 

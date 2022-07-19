@@ -1,9 +1,13 @@
-import 'dart:ui';
+
 
 import 'package:flutter/material.dart';
 
 class Constants {
   static const String API_KEY = "38858b6fa55df1d6d78ec15a7c887706";
+  static const String SESSION_ID = "b750ad5ce1513c22ce336acf364de84eaa280c16";
+  static const String REQUEST_TOKEN = "a93e407d1407e426fd086a3ee7eae158a3f88eb7";
+  static const MEDIA_TYPE = "movie";
+
   static const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
 
   static const String FONT_FAMILY = "Roboto";
