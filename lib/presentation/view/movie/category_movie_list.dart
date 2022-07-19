@@ -1,14 +1,12 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:project_demo/data/model/movie.dart';
-import 'package:project_demo/presentation/view/movie/toprated/toprated_item.dart';
+import 'package:project_demo/data/model/movie/movie.dart';
 
 import '../../../common/movie_item.dart';
 
-class TopRatedList extends StatelessWidget {
-  List<MovieListItem> movieListItem;
+class CategoryMovieList extends StatelessWidget {
+  final List<MovieListItem> movieListItem;
 
-  TopRatedList({Key? key, required this.movieListItem}) : super(key: key);
+  const CategoryMovieList({Key? key, required this.movieListItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
