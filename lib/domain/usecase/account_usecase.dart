@@ -10,10 +10,4 @@ class AccountUseCase {
   Future<Account> getAccount(String apiKey,String sessionId){
     return accountRepository.getAccount(apiKey,sessionId);
   }
-  Future<CreatSession> creatSession(String apiKey,String requestToken){
-    return accountRepository.creatSession(apiKey,requestToken);
-  }
-  Future<RequestToken> getRequestToken(String apiKey){
-    return accountRepository.getRequestToken(apiKey);
-  }
 }

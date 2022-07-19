@@ -101,41 +101,6 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<RequestToken> getRequestToken(apiKey) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'api_key': apiKey};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<RequestToken>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'authentication/token/new',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = RequestToken.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<CreatSession> creatSession(apiKey, requestToken) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'api_key': apiKey};
-    final _headers = <String, dynamic>{};
-    final _data = {'request_token': requestToken};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<CreatSession>(Options(
-                method: 'POST',
-                headers: _headers,
-                extra: _extra,
-                contentType: 'application/x-www-form-urlencoded')
-            .compose(_dio.options, 'authentication/session/new',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = CreatSession.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<Account> getAccount(apiKey, sessionId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -151,6 +116,47 @@ class _RestClient implements RestClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = Account.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<StatusFavorite> markFavorite(
+      apiKey, sessionId, accountId, markFavorite, contentType) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'api_key': apiKey,
+      r'session_id': sessionId
+    };
+    final _headers = <String, dynamic>{r'Content-Type': contentType};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(markFavorite.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<StatusFavorite>(Options(
+                method: 'POST',
+                headers: _headers,
+                extra: _extra,
+                contentType: contentType)
+            .compose(_dio.options, 'account/${accountId}/favorite',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = StatusFavorite.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<MovieDetail> getMovieDetail(apiKey, movieId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'api_key': apiKey};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<MovieDetail>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'movie/${movieId}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = MovieDetail.fromJson(_result.data!);
     return value;
   }
 

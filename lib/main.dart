@@ -9,6 +9,8 @@ import 'package:project_demo/data/impl/movie_impl.dart';
 import 'package:project_demo/domain/usecase/movie_usecase.dart';
 import 'package:project_demo/presentation/view/home_screen/home_cubit/home_cubit.dart';
 import 'package:project_demo/presentation/view/home_screen/ui/home_screen.dart';
+import 'package:project_demo/presentation/view/mark_favorite_cubit/mark_favorite_cubit.dart';
+import 'package:project_demo/presentation/view/movie_detail/movie_detail_cubit/movie_detail_cubit.dart';
 import 'package:project_demo/presentation/view/splash/ui/splash_screen.dart';
 
 import 'firebase_options.dart';
@@ -39,6 +41,12 @@ class MyApp extends StatelessWidget {
                     MovieUseCase(MovieImpl(RestClient(
                         Dio(BaseOptions(contentType: "application/json"))))),
                   )),
+          BlocProvider<MarkFavoriteCubit>(
+              create: (context) => MarkFavoriteCubit(
+                MovieUseCase(MovieImpl(RestClient(
+                    Dio(BaseOptions(contentType: "application/json"))))),
+              )),
+
           // BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
         ], child: const MainPage()));
   }

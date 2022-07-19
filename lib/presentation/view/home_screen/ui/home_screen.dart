@@ -36,7 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
     widgetOptions.add(BlocProvider<MovieFavoriteCubit>(
       create: (context) => MovieFavoriteCubit(MovieUseCase(MovieImpl(
           RestClient(Dio(BaseOptions(contentType: "application/json")))))),
-      child:  MovieFavoriteList(accountId: 13168499, sessionId: Constants.SESSION_ID),
+      child: MovieFavoriteList(
+          accountId: Constants.ACCOUNT_ID, sessionId: Constants.SESSION_ID),
     ));
     widgetOptions.add(TextButton(
       onPressed: () async {
@@ -137,60 +138,66 @@ class _MovieScreenState extends State<MovieScreen> {
         }
       },
       builder: (context, state) {
-        return state.homeStatus == HomeStatus.loading
-            ? const CircularProgressIndicator()
-            : DefaultTabController(
-                length: 4,
-                child: Scaffold(
-                    appBar: AppBar(
-                      centerTitle: true,
-                      backgroundColor: Colors.black,
-                      bottom: const TabBar(
-                        padding: EdgeInsets.only(bottom: 8.0),
-                        indicator: BoxDecoration(),
-                        isScrollable: true,
-                        indicatorColor: Colors.white,
-                        tabs: [
-                          Text(
-                            "TopRated",
-                            style: TextStyle(
-                                fontFamily: Constants.FONT_FAMILY,
-                                fontSize: 12),
+        return Scaffold(
+            backgroundColor: Colors.black,
+            body: state.homeStatus == HomeStatus.loading
+                ? const Center(
+                    child: CircularProgressIndicator(color: Colors.white),
+                  )
+                : DefaultTabController(
+                    length: 4,
+                    child: Scaffold(
+                        appBar: AppBar(
+                          centerTitle: true,
+                          backgroundColor: Colors.black,
+                          bottom: const TabBar(
+                            padding: EdgeInsets.only(bottom: 8.0),
+                            indicator: BoxDecoration(),
+                            isScrollable: true,
+                            indicatorColor: Colors.white,
+                            tabs: [
+                              Text(
+                                "TopRated",
+                                style: TextStyle(
+                                    fontFamily: Constants.FONT_FAMILY,
+                                    fontSize: 12),
+                              ),
+                              Text(
+                                "Popular",
+                                style: TextStyle(
+                                    fontFamily: Constants.FONT_FAMILY,
+                                    fontSize: 12),
+                              ),
+                              Text(
+                                "NowPlaying",
+                                style: TextStyle(
+                                    fontFamily: Constants.FONT_FAMILY,
+                                    fontSize: 12),
+                              ),
+                              Text(
+                                "UpComing",
+                                style: TextStyle(
+                                    fontFamily: Constants.FONT_FAMILY,
+                                    fontSize: 12),
+                              )
+                            ],
                           ),
-                          Text(
-                            "Popular",
+                          title: const Text(
+                            "Movie Screen",
                             style: TextStyle(
-                                fontFamily: Constants.FONT_FAMILY,
-                                fontSize: 12),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 18,
+                                fontFamily: Constants.FONT_FAMILY
+                            ),
                           ),
-                          Text(
-                            "NowPlaying",
-                            style: TextStyle(
-                                fontFamily: Constants.FONT_FAMILY,
-                                fontSize: 12),
-                          ),
-                          Text(
-                            "UpComing",
-                            style: TextStyle(
-                                fontFamily: Constants.FONT_FAMILY,
-                                fontSize: 12),
-                          )
-                        ],
-                      ),
-                      title: const Text(
-                        "Movie Screen",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: Constants.FONTFAMILY),
-                      ),
-                    ),
-                    backgroundColor: Colors.black,
-                    body: TabBarView(children: [
-                      CategoryMovieList(movieListItem: getTopRatedList),
-                      CategoryMovieList(movieListItem: getPopularList),
-                      CategoryMovieList(movieListItem: getNowPlayingList),
-                      CategoryMovieList(movieListItem: getUpComing)
-                    ])));
+                        ),
+                        backgroundColor: Colors.black,
+                        body: TabBarView(children: [
+                          CategoryMovieList(movieListItem: getTopRatedList),
+                          CategoryMovieList(movieListItem: getPopularList),
+                          CategoryMovieList(movieListItem: getNowPlayingList),
+                          CategoryMovieList(movieListItem: getUpComing)
+                        ]))));
       },
     );
   }

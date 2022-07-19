@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:project_demo/config/constants.dart';
 import 'package:project_demo/domain/usecase/movie_usecase.dart';
@@ -13,7 +14,7 @@ class MovieFavoriteCubit extends Cubit<MovieFavoriteState> {
   MovieFavoriteCubit(this.movieUseCase) : super(MovieFavoriteState());
 
   void get(int accountId,String sessionId) async {
-    emit(state.copyWith(movieFavoriteStatus: MovieFavoriteStatus.initial));
+    emit(state.copyWith(movieFavoriteStatus: MovieFavoriteStatus.loading));
     try {
       final data =
           await movieUseCase.getListFavorite(Constants.API_KEY, accountId,sessionId);

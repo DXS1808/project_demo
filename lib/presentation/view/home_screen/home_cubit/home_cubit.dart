@@ -13,7 +13,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.movieUseCase) : super(HomeState());
 
   void getPopularList() async {
-    emit(state.copyWith(homeStatus: HomeStatus.initial));
+    emit(state.copyWith(homeStatus: HomeStatus.loading));
     try {
       final data = await movieUseCase.getListPopular(Constants.API_KEY);
       emit(state.copyWith(
@@ -24,7 +24,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void getTopRatedList() async {
-    emit(state.copyWith(homeStatus: HomeStatus.initial));
+    emit(state.copyWith(homeStatus: HomeStatus.loading));
     try {
       final data = await movieUseCase.getListTopRated(Constants.API_KEY);
       emit(state.copyWith(
@@ -35,7 +35,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void getNowPlayingList() async {
-    emit(state.copyWith(homeStatus: HomeStatus.initial));
+    emit(state.copyWith(homeStatus: HomeStatus.loading));
     try {
       final data = await movieUseCase.getListNowPlaying(Constants.API_KEY);
       emit(state.copyWith(
@@ -47,7 +47,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void getUpComingList() async {
-    emit(state.copyWith(homeStatus: HomeStatus.initial));
+    emit(state.copyWith(homeStatus: HomeStatus.loading));
     try {
       final data = await movieUseCase.getListUpComing(Constants.API_KEY);
       emit(state.copyWith(

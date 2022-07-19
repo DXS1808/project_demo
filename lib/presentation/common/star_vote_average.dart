@@ -8,14 +8,22 @@ class StarVoteAverage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<Widget> starList = List<Widget>.generate(length, (index) {
+    List<Widget> starListYellow = List<Widget>.generate(length, (index) {
       return const Icon(Icons.star,
       color: Colors.yellow,
       );
     });
+    List<Widget> starListGrey = List<Widget>.generate(5-length, (index) {
+      return const Icon(Icons.star_border_outlined,
+        color: Colors.yellow,
+      );
+    });
 
     return Row(
-      children: starList,
+      children: [
+        Row(children: starListYellow),
+        Row(children: starListGrey,)
+      ],
     );
   }
 }

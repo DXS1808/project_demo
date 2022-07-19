@@ -3,7 +3,7 @@ part of 'account_cubit.dart';
 enum AccountStatus {initial,loading,success,failed,creatSession,requestToken,getAccount}
 
 @immutable
-class AccountState {
+class AccountState extends Equatable {
   AccountStatus accountStatus;
   Account  ? account;
   CreatSession ? creatSession;

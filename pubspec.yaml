@@ -29,6 +29,8 @@ dependencies:
   flutter_dropdown_alert: 1.0.4
   cached_network_image: ^3.2.1
   carousel_slider: ^4.1.1
+  like_button: ^2.0.4
+  readmore: ^2.2.0
 
 dev_dependencies:
   flutter_test:

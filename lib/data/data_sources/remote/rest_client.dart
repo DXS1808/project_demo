@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:project_demo/data/model/creat_request_token/request_token.dart';
+import 'package:project_demo/data/model/favorite/mark_favorite/mark_favorite.dart';
+import 'package:project_demo/data/model/favorite/status_favorite/status_favorite.dart';
+import 'package:project_demo/data/model/movie_detail/movie_detail.dart';
 import 'package:retrofit/http.dart';
 
 import '../../model/account/account.dart';
@@ -25,21 +28,28 @@ abstract class RestClient {
   Future<Movie> getListUpComing(@Query("api_key") String apiKey);
 
   @GET("account/{account_id}/favorite/movies")
-  Future<Movie> getListFavorite(
-      @Query("api_key") String apiKey, @Path("account_id") int accountId ,@Query("session_id") String sessionId);
-
-  // creat request token
-  @GET("authentication/token/new")
-  Future<RequestToken> getRequestToken(@Query("api_key") String apiKey);
-
-  // creat session_id
-  @POST("authentication/session/new")
-  @FormUrlEncoded()
-  Future<CreatSession> creatSession(
-      @Query("api_key") String apiKey, @Field("request_token") requestToken);
+  Future<Movie> getListFavorite(@Query("api_key") String apiKey,
+      @Path("account_id") int accountId, @Query("session_id") String sessionId);
 
   //get account
   @GET("account")
   Future<Account> getAccount(
       @Query("api_key") String apiKey, @Query("session_id") String sessionId);
+
+  //mark favorite
+  @POST("account/{account_id}/favorite")
+  Future<StatusFavorite> markFavorite(
+      @Query("api_key") String apiKey,
+      @Query("session_id") String sessionId,
+      @Path("account_id") int accountId,
+      @Body() MarkFavorite markFavorite,
+      @Header("Content-Type") String contentType);
+
+  @GET('movie/{movie_id}')
+  Future<MovieDetail> getMovieDetail(
+      @Query("api_key") String apiKey,
+      @Path("movie_id") int movieId,
+      );
+
+
 }

@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 
 class Constants {
   static const String API_KEY = "38858b6fa55df1d6d78ec15a7c887706";
-  static const String SESSION_ID = "b750ad5ce1513c22ce336acf364de84eaa280c16";
-  static const String REQUEST_TOKEN = "a93e407d1407e426fd086a3ee7eae158a3f88eb7";
+  static const String SESSION_ID = "a61ebda17d9d0cb71e4501883b9d5d86b519dfcf";
+  static const String REQUEST_TOKEN = "614e9b6c4056135dd1d1e43cb2b043e6ecd343ce";
+
+  static const FontWeight FONT_WEIGHT = FontWeight.w400;
+
+  static const int ACCOUNT_ID = 13168499;
   static const MEDIA_TYPE = "movie";
 
   static const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';

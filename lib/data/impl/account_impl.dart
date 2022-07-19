@@ -12,15 +12,4 @@ class AccountImpl implements AccountRepository{
   Future<Account> getAccount(String apiKey,String sessionId) {
     return restClient.getAccount(apiKey,sessionId);
   }
-
-  @override
-  Future<CreatSession> creatSession(String apiKey, String requestToken) {
-    return restClient.creatSession(apiKey, requestToken);
-  }
-
-  @override
-  Future<RequestToken> getRequestToken(String apiKey) {
-    return restClient.getRequestToken(apiKey);
-  }
-
 }

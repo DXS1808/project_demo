@@ -5,8 +5,10 @@ part 'mark_favorite.g.dart';
 
 @JsonSerializable()
 class MarkFavorite {
+  @JsonKey(name: "media_type")
   String mediaType;
-  String mediaId;
+  @JsonKey(name:"media_id")
+  int mediaId;
   bool favorite;
   MarkFavorite(this.mediaType,this.mediaId,this.favorite);
 

@@ -25,6 +25,7 @@ class MovieDetail {
   String? posterPath;
   @JsonKey(name:"production_companies")
   List<ProductionCompanies>? productionCompanies;
+  @JsonKey(name:"production_countries")
   List<ProductionCountries>? productionCountries;
   String? releaseDate;
   int? revenue;

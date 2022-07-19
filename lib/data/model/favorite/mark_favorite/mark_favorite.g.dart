@@ -7,14 +7,14 @@ part of 'mark_favorite.dart';
 // **************************************************************************
 
 MarkFavorite _$MarkFavoriteFromJson(Map<String, dynamic> json) => MarkFavorite(
-      json['mediaType'] as String,
-      json['mediaId'] as String,
+      json['media_type'] as String,
+      json['media_id'] as int,
       json['favorite'] as bool,
     );
 
 Map<String, dynamic> _$MarkFavoriteToJson(MarkFavorite instance) =>
     <String, dynamic>{
-      'mediaType': instance.mediaType,
-      'mediaId': instance.mediaId,
+      'media_type': instance.mediaType,
+      'media_id': instance.mediaId,
       'favorite': instance.favorite,
     };

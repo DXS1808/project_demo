@@ -4,6 +4,4 @@ import '../../data/model/creat_session/creat_session.dart';
 
 abstract class AccountRepository{
   Future<Account> getAccount(String apiKey,String sessionId);
-  Future <CreatSession> creatSession(String apiKey, String requestToken);
-  Future<RequestToken> getRequestToken(String apiKey);
 }

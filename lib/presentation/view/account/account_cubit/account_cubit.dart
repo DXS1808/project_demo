@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:project_demo/data/model/creat_request_token/request_token.dart';
 import 'package:project_demo/data/model/creat_session/creat_session.dart';
@@ -27,26 +28,4 @@ class AccountCubit extends Cubit<AccountState> {
     }
   }
 
-  void creatSession(String requestToken) async {
-    emit(state.copyWith(accountStatus: AccountStatus.initial));
-    try {
-      final data =
-          await accountUseCase.creatSession(Constants.API_KEY, requestToken);
-      emit(state.copyWith(
-          accountStatus: AccountStatus.creatSession, creatSession: data));
-    } catch (e) {
-      emit(state.copyWith(accountStatus: AccountStatus.failed));
-    }
-  }
-
-  void requestToken() async {
-    emit(state.copyWith(accountStatus: AccountStatus.initial));
-    try {
-      final data = await accountUseCase.getRequestToken(Constants.API_KEY);
-      emit(state.copyWith(
-          accountStatus: AccountStatus.requestToken, requestToken: data));
-    } catch (e) {
-      emit(state.copyWith(accountStatus: AccountStatus.failed));
-    }
-  }
 }

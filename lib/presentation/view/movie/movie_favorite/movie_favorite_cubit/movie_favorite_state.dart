@@ -3,7 +3,7 @@ part of 'movie_favorite_cubit.dart';
 enum MovieFavoriteStatus { initial, loading, success, failed }
 
 @immutable
-class MovieFavoriteState {
+class MovieFavoriteState extends Equatable {
   MovieFavoriteStatus movieFavoriteStatus;
 
   List<MovieListItem> getListFavorite;

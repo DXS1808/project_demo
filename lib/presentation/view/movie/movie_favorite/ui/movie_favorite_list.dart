@@ -21,7 +21,7 @@ class _MovieFavoriteListState extends State<MovieFavoriteList> {
   void initState() {
     context
         .read<MovieFavoriteCubit>()
-        .get(13168499, "b750ad5ce1513c22ce336acf364de84eaa280c16");
+        .get(widget.accountId, widget.sessionId);
     // TODO: implement initState
     super.initState();
   }
@@ -34,15 +34,23 @@ class _MovieFavoriteListState extends State<MovieFavoriteList> {
         backgroundColor: Colors.black,
         centerTitle: true,
         title: const Text("MovieFavorite",
-        style: TextStyle(
-          fontFamily: Constants.FONTFAMILY,
-        ),
+          style: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 18,
+              fontFamily: Constants.FONT_FAMILY
+          ),
         ),
       ),
       body: BlocBuilder<MovieFavoriteCubit, MovieFavoriteState>(
           builder: (context, state) {
             if (state.movieFavoriteStatus == MovieFavoriteStatus.loading) {
-              return Container();
+              return const Center(
+                widthFactor: 40,
+                heightFactor: 40,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              );
             } else if (state.movieFavoriteStatus == MovieFavoriteStatus.success) {
               return state.getListFavorite == []
                     ? Container(
@@ -59,7 +67,7 @@ class _MovieFavoriteListState extends State<MovieFavoriteList> {
                     ],
                   ),
                 )
-                    : CategoryMovieList(movieListItem: state.getListFavorite);
+                    : CategoryMovieList(movieListItem: state.getListFavorite.reversed.toList());
             }
             return Container();
           }),
