@@ -5,12 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_demo/config/constants.dart';
 import 'package:project_demo/data/data_sources/remote/rest_client.dart';
 import 'package:project_demo/data/model/movie/movie.dart';
+import 'package:project_demo/presentation/common/ultis/rest_client_dio.dart';
+import 'package:project_demo/presentation/view/auth/sign_out/sign_out_cubit/sign_out_cubit.dart';
 import 'package:project_demo/presentation/view/home_screen/home_cubit/home_cubit.dart';
 import 'package:project_demo/presentation/view/movie/movie_favorite/movie_favorite_cubit/movie_favorite_cubit.dart';
 import 'package:project_demo/presentation/view/movie/movie_favorite/ui/movie_favorite_list.dart';
+import 'package:project_demo/presentation/view/profile/profile_screen.dart';
 import '../../../../data/impl/movie_impl.dart';
 import '../../../../domain/usecase/movie_usecase.dart';
 import '../../movie/category_movie_list.dart';
+import '../../search_movie/ui/search_movie.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -32,21 +36,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    widgetOptions.add(const MovieScreen());
+    widgetOptions.add(
+      BlocProvider<HomeCubit>(
+        create: (context) =>
+            HomeCubit(MovieUseCase(MovieImpl(RestClientDio.restClient))),
+        child: const MovieScreen(),
+      ),
+    );
     widgetOptions.add(BlocProvider<MovieFavoriteCubit>(
       create: (context) => MovieFavoriteCubit(MovieUseCase(MovieImpl(
           RestClient(Dio(BaseOptions(contentType: "application/json")))))),
       child: MovieFavoriteList(
           accountId: Constants.ACCOUNT_ID, sessionId: Constants.SESSION_ID),
     ));
-    widgetOptions.add(TextButton(
-      onPressed: () async {
-        await FirebaseAuth.instance.signOut().then((value) {
-          Navigator.pushNamed(context, "/home_Screen");
-        });
-      },
-      child: const Text("Sign out"),
-    ));
+    widgetOptions.add(
+      BlocProvider<SignOutCubit>(
+        create: (context) => SignOutCubit(),
+        child: const ProfileScreen(),
+      ),
+    );
 
     // TODO: implement initState
     super.initState();
@@ -69,8 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
               label: 'Favorite',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.school),
-              label: 'School',
+              icon: Icon(Icons.settings),
+              label: 'Settings',
             ),
           ],
           currentIndex: _selectedIndex,
@@ -91,10 +99,15 @@ class MovieScreen extends StatefulWidget {
 }
 
 class _MovieScreenState extends State<MovieScreen> {
+  TextEditingController controller = TextEditingController();
+  late FocusNode focusNode;
   List<MovieListItem> getPopularList = [];
   List<MovieListItem> getTopRatedList = [];
   List<MovieListItem> getNowPlayingList = [];
   List<MovieListItem> getUpComing = [];
+  List<MovieListItem> getSearchList = [];
+  bool check = false;
+  late HomeCubit homeCubit;
 
   @override
   void initState() {
@@ -102,6 +115,7 @@ class _MovieScreenState extends State<MovieScreen> {
     context.read<HomeCubit>().getTopRatedList();
     context.read<HomeCubit>().getNowPlayingList();
     context.read<HomeCubit>().getUpComingList();
+    homeCubit = context.read<HomeCubit>();
 
     // TODO: implement initState
     super.initState();
@@ -109,96 +123,122 @@ class _MovieScreenState extends State<MovieScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {
-        switch (state.homeStatus) {
-          case HomeStatus.getPopularList:
-            getPopularList = state.popularList;
-            break;
+    return BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
+      switch (state.homeStatus) {
+        case HomeStatus.getPopularList:
+          getPopularList = state.popularList;
+          break;
 
-          case HomeStatus.getTopRatedList:
-            getTopRatedList = state.topRatedList;
-            break;
+        case HomeStatus.getTopRatedList:
+          getTopRatedList = state.topRatedList;
+          break;
 
-          case HomeStatus.getNowPlayingList:
-            getNowPlayingList = state.nowPlayingList;
-            break;
-          case HomeStatus.getUpComing:
-            getUpComing = state.upComingList;
-            break;
-          case HomeStatus.initial:
-            // TODO: Handle this case.
-            break;
-          case HomeStatus.loading:
-            // TODO: Handle this case.
-            break;
-          case HomeStatus.failed:
-            // TODO: Handle this case.
-            break;
-        }
-      },
-      builder: (context, state) {
-        return Scaffold(
-            backgroundColor: Colors.black,
-            body: state.homeStatus == HomeStatus.loading
-                ? const Center(
-                    child: CircularProgressIndicator(color: Colors.white),
-                  )
-                : DefaultTabController(
-                    length: 4,
-                    child: Scaffold(
-                        appBar: AppBar(
-                          centerTitle: true,
-                          backgroundColor: Colors.black,
-                          bottom: const TabBar(
-                            padding: EdgeInsets.only(bottom: 8.0),
-                            indicator: BoxDecoration(),
-                            isScrollable: true,
-                            indicatorColor: Colors.white,
-                            tabs: [
-                              Text(
-                                "TopRated",
-                                style: TextStyle(
-                                    fontFamily: Constants.FONT_FAMILY,
-                                    fontSize: 12),
-                              ),
-                              Text(
-                                "Popular",
-                                style: TextStyle(
-                                    fontFamily: Constants.FONT_FAMILY,
-                                    fontSize: 12),
-                              ),
-                              Text(
-                                "NowPlaying",
-                                style: TextStyle(
-                                    fontFamily: Constants.FONT_FAMILY,
-                                    fontSize: 12),
-                              ),
-                              Text(
-                                "UpComing",
-                                style: TextStyle(
-                                    fontFamily: Constants.FONT_FAMILY,
-                                    fontSize: 12),
-                              )
-                            ],
-                          ),
-                          title: const Text(
+        case HomeStatus.getNowPlayingList:
+          getNowPlayingList = state.nowPlayingList;
+          break;
+        case HomeStatus.getUpComing:
+          getUpComing = state.upComingList;
+          break;
+        case HomeStatus.initial:
+          // TODO: Handle this case.
+          break;
+        case HomeStatus.loading:
+          // TODO: Handle this case.
+          break;
+        case HomeStatus.failed:
+          // TODO: Handle this case.
+          break;
+        case HomeStatus.getSearchMovie:
+          getSearchList = state.searchMovieList;
+          break;
+      }
+    }, builder: (context, state) {
+      return DefaultTabController(
+          length: 4,
+          child: Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                centerTitle: true,
+                title: BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    return state.checkSearch == false
+                        ? const Text(
                             "Movie Screen",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 18,
-                                fontFamily: Constants.FONT_FAMILY
-                            ),
-                          ),
-                        ),
-                        backgroundColor: Colors.black,
-                        body: TabBarView(children: [
+                                fontFamily: Constants.FONT_FAMILY),
+                          )
+                        : SearchMovie(controller, FocusNode());
+                  },
+                ),
+                backgroundColor: Colors.black,
+                actions: [
+                  state.checkSearch == false
+                      ? IconButton(
+                          onPressed: () {
+                            check = true;
+                            homeCubit.checkSearch(check);
+                          },
+                          icon: const Icon(
+                            Icons.search,
+                            color: Colors.white,
+                          ))
+                      : IconButton(
+                          onPressed: () {
+                            check = false;
+                            homeCubit.checkSearch(check);
+                            controller.clear();
+                          },
+                          icon: const Icon(
+                            Icons.clear,
+                            color: Colors.white,
+                          ))
+                ],
+                bottom: const TabBar(
+                  padding: EdgeInsets.only(bottom: 8.0),
+                  indicator: BoxDecoration(),
+                  isScrollable: true,
+                  indicatorColor: Colors.white,
+                  tabs: [
+                    Text(
+                      "TopRated",
+                      style: TextStyle(
+                          fontFamily: Constants.FONT_FAMILY, fontSize: 12),
+                    ),
+                    Text(
+                      "Popular",
+                      style: TextStyle(
+                          fontFamily: Constants.FONT_FAMILY, fontSize: 12),
+                    ),
+                    Text(
+                      "NowPlaying",
+                      style: TextStyle(
+                          fontFamily: Constants.FONT_FAMILY, fontSize: 12),
+                    ),
+                    Text(
+                      "UpComing",
+                      style: TextStyle(
+                          fontFamily: Constants.FONT_FAMILY, fontSize: 12),
+                    )
+                  ],
+                ),
+              ),
+              backgroundColor: Colors.black,
+              body: state.homeStatus == HomeStatus.loading
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    )
+                  : state.homeStatus == HomeStatus.getSearchMovie && controller.text != ""
+                      ? CategoryMovieList(movieListItem: getSearchList,searchText: controller.text,)
+                      : TabBarView(children: [
                           CategoryMovieList(movieListItem: getTopRatedList),
                           CategoryMovieList(movieListItem: getPopularList),
                           CategoryMovieList(movieListItem: getNowPlayingList),
                           CategoryMovieList(movieListItem: getUpComing)
-                        ]))));
-      },
-    );
+                        ])));
+    });
   }
 }

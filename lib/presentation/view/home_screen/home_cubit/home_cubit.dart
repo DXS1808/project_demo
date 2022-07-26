@@ -56,4 +56,20 @@ class HomeCubit extends Cubit<HomeState> {
       emit(state.copyWith(homeStatus: HomeStatus.failed));
     }
   }
+
+  void getSearchMovieList(String query) async{
+    emit(state.copyWith(homeStatus: HomeStatus.loading));
+    try {
+      final data = await movieUseCase.getSearchMovie(Constants.API_KEY,query);
+      emit(state.copyWith(
+          homeStatus: HomeStatus.getSearchMovie, searchMovieList: data.results));
+    } catch (e) {
+      emit(state.copyWith(homeStatus: HomeStatus.failed));
+    }
+
+  }
+
+  void checkSearch(bool check){
+    emit(state.copyWith(checkSearch: check));
+  }
 }

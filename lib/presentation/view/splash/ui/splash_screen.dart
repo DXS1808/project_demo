@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_demo/config/constants.dart';
-import 'package:project_demo/presentation/view/login/login_cubit/login_cubit.dart';
-import 'package:project_demo/presentation/view/login/ui/login_screen.dart';
 import 'package:splashscreen/splashscreen.dart';
+
+import '../../auth/login/login_cubit/login_cubit.dart';
+import '../../auth/login/ui/login_screen.dart';
 
 class Splash extends StatelessWidget {
   const Splash({Key? key}) : super(key: key);

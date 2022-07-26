@@ -1,6 +1,16 @@
 part of 'home_cubit.dart';
 
-enum HomeStatus { initial, loading, getPopularList, getTopRatedList, failed, getNowPlayingList,getUpComing }
+enum HomeStatus {
+  initial,
+  loading,
+  getPopularList,
+  getTopRatedList,
+  failed,
+  noSearch,
+  getNowPlayingList,
+  getUpComing,
+  getSearchMovie
+}
 
 @immutable
 class HomeState extends Equatable {
@@ -9,18 +19,30 @@ class HomeState extends Equatable {
   final List<MovieListItem> topRatedList;
   final List<MovieListItem> nowPlayingList;
   final List<MovieListItem> upComingList;
+  final List<MovieListItem> searchMovieList;
+  final bool checkSearch;
 
-  HomeState(
-      {this.homeStatus = HomeStatus.initial,
-      this.popularList = const [],
-      this.topRatedList = const [],
-      this.nowPlayingList = const [],
-      this.upComingList = const [],
-      });
+  HomeState({
+    this.homeStatus = HomeStatus.initial,
+    this.popularList = const [],
+    this.topRatedList = const [],
+    this.nowPlayingList = const [],
+    this.upComingList = const [],
+    this.searchMovieList = const [],
+    this.checkSearch = false,
+  });
 
   @override
   // TODO: implement props
-  List<Object?> get props => [popularList, topRatedList, homeStatus,nowPlayingList,upComingList];
+  List<Object?> get props => [
+        popularList,
+        topRatedList,
+        homeStatus,
+        nowPlayingList,
+        upComingList,
+        searchMovieList,
+        checkSearch
+      ];
 
   HomeState copyWith({
     HomeStatus? homeStatus,
@@ -28,6 +50,8 @@ class HomeState extends Equatable {
     List<MovieListItem>? topRatedList,
     List<MovieListItem>? nowPlayingList,
     List<MovieListItem>? upComingList,
+    List<MovieListItem>? searchMovieList,
+    bool? checkSearch,
   }) {
     return HomeState(
       homeStatus: homeStatus ?? this.homeStatus,
@@ -35,6 +59,8 @@ class HomeState extends Equatable {
       topRatedList: topRatedList ?? this.topRatedList,
       nowPlayingList: nowPlayingList ?? this.nowPlayingList,
       upComingList: upComingList ?? this.upComingList,
+      searchMovieList: searchMovieList ?? this.searchMovieList,
+      checkSearch: checkSearch ?? this.checkSearch,
     );
   }
 }

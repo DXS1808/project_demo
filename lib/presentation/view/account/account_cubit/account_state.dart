@@ -6,27 +6,21 @@ enum AccountStatus {initial,loading,success,failed,creatSession,requestToken,get
 class AccountState extends Equatable {
   AccountStatus accountStatus;
   Account  ? account;
-  CreatSession ? creatSession;
-  RequestToken ? requestToken;
   AccountState({
-    this.accountStatus = AccountStatus.initial,this.account,this.creatSession,this.requestToken
+    this.accountStatus = AccountStatus.initial,this.account
 });
 
   @override
   // TODO: implement props
-  List<Object?> get props => [accountStatus,account,creatSession,requestToken];
+  List<Object?> get props => [accountStatus,account];
 
   AccountState copyWith({
     AccountStatus? accountStatus,
     Account? account,
-    CreatSession? creatSession,
-    RequestToken? requestToken,
   }) {
     return AccountState(
       accountStatus: accountStatus ?? this.accountStatus,
       account: account ?? this.account,
-      creatSession: creatSession ?? this.creatSession,
-      requestToken: requestToken ?? this.requestToken,
     );
   }
 }

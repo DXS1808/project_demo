@@ -1,12 +1,16 @@
 import 'package:dio/dio.dart';
-import 'package:project_demo/data/model/creat_request_token/request_token.dart';
+import 'package:project_demo/data/model/cast/cast_detail.dart';
+import 'package:project_demo/data/model/credit_movie/credit_movie.dart';
 import 'package:project_demo/data/model/favorite/mark_favorite/mark_favorite.dart';
 import 'package:project_demo/data/model/favorite/status_favorite/status_favorite.dart';
 import 'package:project_demo/data/model/movie_detail/movie_detail.dart';
+import 'package:project_demo/data/model/movie_image/movie_image.dart';
+import 'package:project_demo/data/model/reviews/reviews.dart';
 import 'package:retrofit/http.dart';
 
 import '../../model/account/account.dart';
-import '../../model/creat_session/creat_session.dart';
+import '../../model/cast/cast.dart';
+import '../../model/image_person/cast_image.dart';
 import '../../model/movie/movie.dart';
 
 part 'rest_client.g.dart';
@@ -45,11 +49,74 @@ abstract class RestClient {
       @Body() MarkFavorite markFavorite,
       @Header("Content-Type") String contentType);
 
+  //get movie detail
+
   @GET('movie/{movie_id}')
   Future<MovieDetail> getMovieDetail(
-      @Query("api_key") String apiKey,
-      @Path("movie_id") int movieId,
-      );
+    @Query("api_key") String apiKey,
+    @Path("movie_id") int movieId,
+  );
 
+  // get movie recommendations
 
+  @GET('movie/{movie_id}/recommendations')
+  Future<Movie> getListRecommendations(
+    @Query("api_key") String apiKey,
+    @Path("movie_id") int movieId,
+  );
+
+  @GET('movie/{movie_id}/credits')
+  Future<CreditCast> getCreditCast(
+    @Query("api_key") String apiKey,
+    @Path("movie_id") int movieId,
+  );
+
+  @GET('movie/{movie_id}/reviews')
+  Future<Reviews> getReviews(
+    @Query("api_key") String apiKey,
+    @Path("movie_id") int movieId,
+  );
+
+  @GET('movie/{movie_id}/similar')
+  Future<Movie> getSimilar(
+    @Query("api_key") String apiKey,
+    @Path("movie_id") int movieId,
+  );
+
+  @GET('movie/{movie_id}/images')
+  Future<MovieImage> getMovieImage(
+    @Query("api_key") String apiKey,
+    @Path("movie_id") int movieId,
+  );
+
+  //get cast detail
+
+  @GET('person/{person_id}')
+  Future<CastDetail> getCastDetail(
+    @Query("api_key") String apiKey,
+    @Path("person_id") int personId,
+  );
+
+  //get castImage
+
+  @GET('person/{person_id}/images')
+  Future<CastImage> getCastImage(
+    @Query("api_key") String apiKey,
+    @Path("person_id") int castId,
+  );
+
+  //get credit movie
+  @GET('person/{person_id}/movie_credits')
+  Future<CreditMovie> getCreditMovie(
+    @Query("api_key") String apiKey,
+    @Path("person_id") int castId,
+  );
+
+  // serach movie
+
+  @GET('search/movie')
+  Future<Movie> getSearchMovie(
+    @Query("api_key") String apiKey,
+    @Query("query") String query,
+  );
 }

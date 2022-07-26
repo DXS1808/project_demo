@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -17,6 +19,7 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
     try {
       final data =
           await movieUseCase.getMovieDetail(Constants.API_KEY, movieId);
+      // print(jsonEncode(data));
       emit(state.copyWith(
           movieDetailStatus: MovieDetailStatus.success, movieDetail: data));
     } catch (e) {

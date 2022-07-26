@@ -1,26 +1,12 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:like_button/like_button.dart';
 import 'package:project_demo/config/constants.dart';
-import 'package:project_demo/data/model/favorite/mark_favorite/mark_favorite.dart';
+import 'package:project_demo/core/router/router.dart';
 import 'package:project_demo/data/model/movie/movie.dart';
-import 'package:project_demo/data/model/movie_detail/movie_detail.dart';
-import 'package:project_demo/presentation/allert_dropdown/allert_dropdown.dart';
 import 'package:project_demo/presentation/common/cache_image.dart';
 import 'package:project_demo/presentation/common/category_text.dart';
 import 'package:project_demo/presentation/common/star_vote_average.dart';
-import 'package:project_demo/presentation/common/ultis/rest_client_dio.dart';
-import 'package:project_demo/presentation/view/home_screen/home_cubit/home_cubit.dart';
-import 'package:project_demo/presentation/view/mark_favorite_cubit/mark_favorite_cubit.dart';
-import 'package:project_demo/presentation/view/movie_detail/movie_detail_screen.dart';
 
-import '../../data/data_sources/remote/rest_client.dart';
-import '../../data/impl/movie_impl.dart';
-import '../../domain/usecase/movie_usecase.dart';
-import '../view/movie/movie_favorite/movie_favorite_cubit/movie_favorite_cubit.dart';
-import '../view/movie_detail/movie_detail_cubit/movie_detail_cubit.dart';
 
 class MovieItem extends StatefulWidget {
   MovieListItem movieListItem;
@@ -36,27 +22,14 @@ class _MovieItemState extends State<MovieItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return MultiBlocProvider(providers: [
-            BlocProvider<MovieDetailCubit>(
-              create: (context) => MovieDetailCubit(
-                MovieUseCase(MovieImpl(RestClientDio.restClient)),
-              ),
-            ),
-            BlocProvider<MarkFavoriteCubit>(
-              create: (context) => MarkFavoriteCubit(
-                MovieUseCase(MovieImpl(RestClientDio.restClient)),
-              ),
-            ),
-          ], child: MovieDetailScreen(movieId: widget.movieListItem.id));
-        }));
+        Navigator.pushNamed(context, AppRouter.MOVIE_DETAIL,arguments: widget.movieListItem.id);
       },
       child: Stack(
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Card(
-                color: Colors.white24,
+                color: Colors.white24.withOpacity(0.2),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
@@ -66,11 +39,23 @@ class _MovieItemState extends State<MovieItem> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      widget.movieListItem.posterPath != null ?
                       ClipRRect(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10.0)),
                         child: CacheImage(widget.movieListItem.posterPath!, 150,
                             100, BoxFit.cover),
+                      ): Container(
+                        height: 150,
+                        width: 100,
+                        decoration: const BoxDecoration(
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(10.0)),
+                          color: Colors.grey,
+                        ),
+                        child: const Icon(Icons.person,
+                        size: 30,
+                        ),
                       ),
                       const SizedBox(
                         width: 5.0,
@@ -113,6 +98,37 @@ class _MovieItemState extends State<MovieItem> {
                   ),
                 )),
           ),
+          Positioned(
+              top: 0,
+              right: 10,
+              child: Opacity(
+                opacity: 0.8,
+                child: Container(
+                  padding: const EdgeInsets.only(bottom: 5.0,right: 5.0,left: 5.0),
+                  decoration: const BoxDecoration(
+                      color: Colors.yellow,
+                      borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(10),
+                          bottomLeft: Radius.circular(10))),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.movieListItem.voteAverage.toStringAsFixed(1),
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600),
+                      ),
+                      const Icon(
+                        Icons.star,
+                        size: 20,
+                        color: Colors.black,
+                      )
+                    ],
+                  ),
+                ),
+              ))
         ],
       ),
     );
