@@ -5,8 +5,9 @@ import 'package:project_demo/presentation/view/movie_detail/movie_detail_cubit/m
 import 'package:project_demo/presentation/view/movie_detail/movie_detail_header.dart';
 
 class MovieDetailScreen extends StatefulWidget {
-  int movieId;
-  MovieDetailScreen({Key? key,required this.movieId}) : super(key: key);
+  final int movieId;
+  // int userId;
+  const MovieDetailScreen({Key? key,required this.movieId}) : super(key: key);
 
   @override
   _MovieDetailScreenState createState() => _MovieDetailScreenState();

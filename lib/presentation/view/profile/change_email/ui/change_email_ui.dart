@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project_demo/presentation/allert_dropdown/allert_dropdown.dart';
+import 'package:project_demo/presentation/common/alert_dialog.dart';
 import 'package:project_demo/presentation/common/rouned_button.dart';
 import 'package:project_demo/presentation/view/profile/change_email/change_email_cubit/change_email_cubit.dart';
 
@@ -31,36 +31,58 @@ class _ChangeEmailState extends State<ChangeEmail> {
   }
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
-          title: const Text(
+          title:  const Text(
             "Change Email",
             style: TextStyle(
-              color: Colors.white,
-              fontFamily: Constants.FONT_FAMILY,
+                color: Colors.white,
+                fontFamily: Constants.FONT_FAMILY,
+                fontSize: 16
             ),
           ),
+          centerTitle: true,
         ),
         body: Form(
           key: _key,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Column(
+          child: SingleChildScrollView(
+            child: Stack(
               children: [
-                const SizedBox(
-                  height: 150,
+                Container(
+                  color: Colors.black,
+                  height: size.height,
+                  width: size.width,
                 ),
-                inputEmail(),
-                const SizedBox(height: 20),
-                inputEmailNew(),
-                const SizedBox(
-                  height: 25,
-                ),
-                btnUpdate()
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    width: size.width,
+                    height: size.height*0.9,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(50))
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 100,
+                        ),
+                        inputEmail(),
+                        const SizedBox(height: 20),
+                        inputEmailNew(),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        btnUpdate()
+                      ],
+                    ),
+                  ),)
               ],
             ),
-          ),
+          )
         ));
   }
 
@@ -73,7 +95,7 @@ class _ChangeEmailState extends State<ChangeEmail> {
         icon: const Icon(
           Icons.person_outline,
           size: 20,
-          color: Constants.BACKGROUND_COLOR,
+          color: Constants.BACKGROUND,
         ),
         validator: (str) {
           if (StringUltis.isEmail(str!) == false && str.isNotEmpty) {
@@ -95,7 +117,7 @@ class _ChangeEmailState extends State<ChangeEmail> {
         icon: const Icon(
           Icons.person_outline,
           size: 20,
-          color: Constants.BACKGROUND_COLOR,
+          color: Constants.BACKGROUND,
         ),
         validator: (str) {
           if (StringUltis.isEmail(str!) == false && str.isNotEmpty) {
@@ -113,9 +135,9 @@ class _ChangeEmailState extends State<ChangeEmail> {
     return BlocListener<ChangeEmailCubit, ChangeEmailState>(
       listener: (context, state) {
         if (state.changeEmailStatus == ChangeEmailStatus.success) {
-          AlertDropdown.success(state.message);
+          AlertShowMessage.success(context,state.message);
         } else if (state.changeEmailStatus == ChangeEmailStatus.failed) {
-          AlertDropdown.error(state.message);
+          AlertShowMessage.error(context,state.message);
         }
       },
       child: RounedButton(

@@ -1,6 +1,5 @@
 
-import 'package:project_demo/data/model/favorite/mark_favorite/mark_favorite.dart';
-import 'package:project_demo/data/model/favorite/status_favorite/status_favorite.dart';
+import 'package:project_demo/data/model/video_movie/video_movie.dart';
 import 'package:project_demo/domain/repository/movie_repository.dart';
 
 import '../../data/model/cast/cast.dart';
@@ -35,13 +34,6 @@ class MovieUseCase {
     return movieRepository.getListFavorite(apiKey, accountId, sessionId);
   }
 
-  //mark Favorite
-
-  Future<StatusFavorite> markFavoriteMovie(String apiKey, String sessionId,
-      int accountId, MarkFavorite markFavorite, String contentType) {
-    return movieRepository.markFavoriteMovie(
-        apiKey, sessionId, accountId, markFavorite, contentType);
-  }
 
   //get Movie Detail
   Future<MovieDetail> getMovieDetail(String apiKey, int movieId) {
@@ -89,6 +81,7 @@ class MovieUseCase {
     return movieRepository.getMovieImage(apiKey, movieId);
   }
 
+  //get Search Movie
   Future<Movie> getSearchMovie(String apiKey, String query){
     try {
       return movieRepository.getSearchMovie(apiKey, query);
@@ -96,5 +89,24 @@ class MovieUseCase {
       print(e);
     }
     return movieRepository.getSearchMovie(apiKey, query);
+  }
+
+  //get Movie Video
+
+  Future<MovieVideo> getVideo(String apiKey, int movieId){
+    try{
+      return movieRepository.getVideo(apiKey, movieId);
+    }catch (e){
+      print(e);
+    }
+    return movieRepository.getVideo(apiKey, movieId);
+  }
+
+  Future removeFavorite(String userId, int movieId) async {
+    try {
+      return movieRepository.removeFavorite(userId, movieId);
+    } catch (e) {
+      print(e);
+    }
   }
 }

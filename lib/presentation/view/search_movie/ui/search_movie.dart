@@ -5,10 +5,10 @@ import 'package:project_demo/config/constants.dart';
 import 'package:project_demo/presentation/view/home_screen/home_cubit/home_cubit.dart';
 
 class SearchMovie extends StatelessWidget {
-  TextEditingController controller;
-  FocusNode focusNode;
+  final TextEditingController controller;
+  final FocusNode focusNode;
 
-  SearchMovie(this.controller, this.focusNode);
+  const SearchMovie(this.controller, this.focusNode, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

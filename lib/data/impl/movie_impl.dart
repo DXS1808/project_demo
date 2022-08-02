@@ -1,10 +1,9 @@
 import 'package:project_demo/data/data_sources/remote/rest_client.dart';
-import 'package:project_demo/data/model/favorite/mark_favorite/mark_favorite.dart';
-import 'package:project_demo/data/model/favorite/status_favorite/status_favorite.dart';
 import 'package:project_demo/data/model/movie/movie.dart';
 import 'package:project_demo/data/model/movie_detail/movie_detail.dart';
 import 'package:project_demo/data/model/movie_image/movie_image.dart';
 import 'package:project_demo/data/model/reviews/reviews.dart';
+import 'package:project_demo/data/model/video_movie/video_movie.dart';
 import 'package:project_demo/domain/repository/movie_repository.dart';
 
 import '../model/cast/cast.dart';
@@ -40,12 +39,6 @@ class MovieImpl implements MovieRepository {
     return restClient.getListFavorite(apiKey, accountId, sessionId);
   }
 
-  @override
-  Future<StatusFavorite> markFavoriteMovie(String apiKey, String sessionId,
-      int accountId, MarkFavorite markFavorite, String contentType) {
-    return restClient.markFavorite(
-        apiKey, sessionId, accountId, markFavorite, contentType);
-  }
 
   @override
   Future<MovieDetail> getMovieDetail(String apiKey, int movieId) {
@@ -80,5 +73,16 @@ class MovieImpl implements MovieRepository {
   @override
   Future<Movie> getSearchMovie(String apiKey, String query) {
     return restClient.getSearchMovie(apiKey, query);
+  }
+
+  @override
+  Future<MovieVideo> getVideo(String apiKey,int movieId) {
+    return restClient.getVideo(apiKey, movieId);
+  }
+
+  @override
+  Future removeFavorite(String userId, int movieId) {
+    // TODO: implement removeFavorite
+    throw UnimplementedError();
   }
 }

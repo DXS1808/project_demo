@@ -51,7 +51,15 @@ class _ImageListState extends State<ImageList> {
                   )
                 ],
               )
-            : Container();
+            : Container(
+                width: MediaQuery.of(context).size.width,
+                child: CategoryText(
+                  category: "No Image Movie",
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              );
       }
       return Container();
     });

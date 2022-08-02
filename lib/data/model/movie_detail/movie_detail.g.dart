@@ -28,7 +28,7 @@ MovieDetail _$MovieDetailFromJson(Map<String, dynamic> json) => MovieDetail(
       (json['production_countries'] as List<dynamic>?)
           ?.map((e) => ProductionCountries.fromJson(e as Map<String, dynamic>))
           .toList(),
-      json['releaseDate'] as String?,
+      json['release_date'] as String?,
       json['revenue'] as int?,
       json['runtime'] as int?,
       (json['spokenLanguages'] as List<dynamic>?)
@@ -59,7 +59,7 @@ Map<String, dynamic> _$MovieDetailToJson(MovieDetail instance) =>
       'poster_path': instance.posterPath,
       'production_companies': instance.productionCompanies,
       'production_countries': instance.productionCountries,
-      'releaseDate': instance.releaseDate,
+      'release_date': instance.releaseDate,
       'revenue': instance.revenue,
       'runtime': instance.runtime,
       'spokenLanguages': instance.spokenLanguages,

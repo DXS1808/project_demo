@@ -6,7 +6,7 @@ class ImageUrlNull extends StatelessWidget {
   final double height;
   final double width;
 
-  ImageUrlNull(this.icon,this.height,this.width);
+  const ImageUrlNull(this.icon,this.height,this.width,{Key?key}):super(key:key);
 
   @override
   Widget build(BuildContext context) {

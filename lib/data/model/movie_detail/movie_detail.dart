@@ -27,6 +27,7 @@ class MovieDetail {
   List<ProductionCompanies>? productionCompanies;
   @JsonKey(name:"production_countries")
   List<ProductionCountries>? productionCountries;
+  @JsonKey(name:"release_date")
   String? releaseDate;
   int? revenue;
   int? runtime;

@@ -1,27 +1,38 @@
 part of 'movie_favorite_cubit.dart';
 
-enum MovieFavoriteStatus { initial, loading, success, failed }
+enum MovieFavoriteStatus {
+  initial,
+  loading,
+  success,
+  failed,
+  marked,
+  notMarked,
+  markedSuccess,
+  markedFailed,
+  removeFavorite
+}
 
 @immutable
 class MovieFavoriteState extends Equatable {
-  MovieFavoriteStatus movieFavoriteStatus;
+  final MovieFavoriteStatus movieFavoriteStatus;
 
-  List<MovieListItem> getListFavorite;
+  final List<Favorite> getListFavorite;
 
-  String errorMessage;
+  final String errorMessage;
 
-  MovieFavoriteState(
+  const MovieFavoriteState(
       {this.movieFavoriteStatus = MovieFavoriteStatus.initial,
       this.getListFavorite = const [],
       this.errorMessage = ""});
+
   @override
   // TODO: implement props
   List<Object?> get props =>
-      [movieFavoriteStatus,getListFavorite,errorMessage];
+      [movieFavoriteStatus, getListFavorite, errorMessage];
 
   MovieFavoriteState copyWith({
     MovieFavoriteStatus? movieFavoriteStatus,
-    List<MovieListItem>? getListFavorite,
+    List<Favorite>? getListFavorite,
     String? errorMessage,
   }) {
     return MovieFavoriteState(

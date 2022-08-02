@@ -4,9 +4,9 @@ enum CastDetailStatus{initial,loading,success,failed}
 
 @immutable
 class CastDetailState extends Equatable {
-  CastDetailStatus castDetailStatus;
-  CastDetail ? castDetail;
-  CastDetailState({this.castDetailStatus = CastDetailStatus.initial,this.castDetail});
+  final CastDetailStatus castDetailStatus;
+  final CastDetail ? castDetail;
+  const CastDetailState({this.castDetailStatus = CastDetailStatus.initial,this.castDetail});
   @override
   // TODO: implement props
   List<Object?> get props => [castDetailStatus,castDetail];

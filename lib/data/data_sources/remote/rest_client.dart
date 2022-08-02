@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:project_demo/data/model/cast/cast_detail.dart';
 import 'package:project_demo/data/model/credit_movie/credit_movie.dart';
-import 'package:project_demo/data/model/favorite/mark_favorite/mark_favorite.dart';
-import 'package:project_demo/data/model/favorite/status_favorite/status_favorite.dart';
 import 'package:project_demo/data/model/movie_detail/movie_detail.dart';
 import 'package:project_demo/data/model/movie_image/movie_image.dart';
 import 'package:project_demo/data/model/reviews/reviews.dart';
+import 'package:project_demo/data/model/video_movie/video_movie.dart';
 import 'package:retrofit/http.dart';
 
 import '../../model/account/account.dart';
@@ -39,15 +38,6 @@ abstract class RestClient {
   @GET("account")
   Future<Account> getAccount(
       @Query("api_key") String apiKey, @Query("session_id") String sessionId);
-
-  //mark favorite
-  @POST("account/{account_id}/favorite")
-  Future<StatusFavorite> markFavorite(
-      @Query("api_key") String apiKey,
-      @Query("session_id") String sessionId,
-      @Path("account_id") int accountId,
-      @Body() MarkFavorite markFavorite,
-      @Header("Content-Type") String contentType);
 
   //get movie detail
 
@@ -119,4 +109,10 @@ abstract class RestClient {
     @Query("api_key") String apiKey,
     @Query("query") String query,
   );
+
+  @GET('movie/{movie_id}/videos')
+  Future<MovieVideo> getVideo(
+      @Query("api_key") String apiKey,
+      @Path("movie_id") int movieId,
+      );
 }

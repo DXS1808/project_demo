@@ -1,16 +1,14 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_demo/presentation/view/movie_detail/reviews/ui/reviews_item.dart';
-
-import '../../../../../data/model/reviews/reviews.dart';
 import '../../../../common/category_text.dart';
 import '../reviews_cubit/reviews_cubit.dart';
 
 class ReviewsList extends StatefulWidget {
-  int movieId;
+  final int movieId;
 
-  ReviewsList({Key? key, required this.movieId}) : super(key: key);
+  const ReviewsList({Key? key, required this.movieId}) : super(key: key);
 
   @override
   State<ReviewsList> createState() => _ReviewsListState();

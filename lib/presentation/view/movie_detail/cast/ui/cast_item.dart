@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_demo/config/constants.dart';
 import 'package:project_demo/core/router/router.dart';
-import 'package:project_demo/data/impl/cast_detail_impl.dart';
-import 'package:project_demo/data/model/cast/cast_detail.dart';
-import 'package:project_demo/domain/usecase/cast_detail_usecase.dart';
 import 'package:project_demo/presentation/common/cache_image.dart';
 import 'package:project_demo/presentation/common/category_text.dart';
-import 'package:project_demo/presentation/common/ultis/rest_client_dio.dart';
-import 'package:project_demo/presentation/view/movie_detail/cast/cast_detail/cast_detail_cubit/cast_detail_cubit.dart';
-import 'package:project_demo/presentation/view/movie_detail/cast/cast_detail/ui/cast_detail_screen.dart';
 import '../../../../../data/model/cast/cast.dart';
 
 class CreditCastItem extends StatelessWidget {
@@ -48,8 +41,8 @@ class CreditCastItem extends StatelessWidget {
   Widget creditCastItem(Cast item, BuildContext context) {
     return GestureDetector(
       onTap: () {
-          Navigator.pushNamed(context, AppRouter.CAST_DETAIL,arguments: item.id!);
-
+        Navigator.pushNamed(context, AppRouter.CAST_DETAIL,
+            arguments: item.id!);
       },
       child: Container(
         height: 220,

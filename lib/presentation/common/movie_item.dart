@@ -1,15 +1,16 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_demo/config/constants.dart';
+import 'package:project_demo/core/router/movie_favorite_router.dart';
 import 'package:project_demo/core/router/router.dart';
-import 'package:project_demo/data/model/movie/movie.dart';
 import 'package:project_demo/presentation/common/cache_image.dart';
 import 'package:project_demo/presentation/common/category_text.dart';
 import 'package:project_demo/presentation/common/star_vote_average.dart';
 
+import '../view/movie/movie_favorite/movie_favorite_cubit/movie_favorite_cubit.dart';
 
 class MovieItem extends StatefulWidget {
-  MovieListItem movieListItem;
+  dynamic movieListItem;
 
   MovieItem({Key? key, required this.movieListItem}) : super(key: key);
 
@@ -22,7 +23,9 @@ class _MovieItemState extends State<MovieItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, AppRouter.MOVIE_DETAIL,arguments: widget.movieListItem.id);
+        Navigator.pushNamed(context, AppRouter.MOVIE_DETAIL,
+            arguments: MovieFavoriteRouter(
+                context.read<MovieFavoriteCubit>(), widget.movieListItem.id));
       },
       child: Stack(
         children: [
@@ -39,24 +42,29 @@ class _MovieItemState extends State<MovieItem> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      widget.movieListItem.posterPath != null ?
-                      ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10.0)),
-                        child: CacheImage(widget.movieListItem.posterPath!, 150,
-                            100, BoxFit.cover),
-                      ): Container(
-                        height: 150,
-                        width: 100,
-                        decoration: const BoxDecoration(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(10.0)),
-                          color: Colors.grey,
-                        ),
-                        child: const Icon(Icons.person,
-                        size: 30,
-                        ),
-                      ),
+                      widget.movieListItem.posterPath != null
+                          ? ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10.0)),
+                              child: CacheImage(
+                                  widget.movieListItem.posterPath!,
+                                  150,
+                                  100,
+                                  BoxFit.cover),
+                            )
+                          : Container(
+                              height: 150,
+                              width: 100,
+                              decoration: const BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                color: Colors.grey,
+                              ),
+                              child: const Icon(
+                                Icons.movie_creation_outlined,
+                                size: 30,
+                              ),
+                            ),
                       const SizedBox(
                         width: 5.0,
                       ),
@@ -104,7 +112,8 @@ class _MovieItemState extends State<MovieItem> {
               child: Opacity(
                 opacity: 0.8,
                 child: Container(
-                  padding: const EdgeInsets.only(bottom: 5.0,right: 5.0,left: 5.0),
+                  padding:
+                      const EdgeInsets.only(bottom: 5.0, right: 5.0, left: 5.0),
                   decoration: const BoxDecoration(
                       color: Colors.yellow,
                       borderRadius: BorderRadius.only(
@@ -115,10 +124,10 @@ class _MovieItemState extends State<MovieItem> {
                     children: [
                       Text(
                         widget.movieListItem.voteAverage.toStringAsFixed(1),
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w600),
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600),
                       ),
                       const Icon(
                         Icons.star,
@@ -132,10 +141,6 @@ class _MovieItemState extends State<MovieItem> {
         ],
       ),
     );
-  }
-
-  Future<bool> markFavoriteMovie() async {
-    return true;
   }
 
   Widget voteAverage(num voteAverage) {

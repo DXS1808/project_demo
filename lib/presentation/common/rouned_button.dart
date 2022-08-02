@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_demo/config/constants.dart';
 
 class RounedButton extends StatelessWidget {
   VoidCallback onPress;
@@ -10,9 +11,9 @@ class RounedButton extends StatelessWidget {
     return OutlinedButton(
       onPressed: onPress,
       style: TextButton.styleFrom(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 20.0),
         elevation: 5.0,
-        backgroundColor:const Color(0xff79D0C0),
+        backgroundColor:Constants.BACKGROUND,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // <-- Radius
         ),
@@ -24,7 +25,7 @@ class RounedButton extends StatelessWidget {
         style: const TextStyle(
           fontSize: 16,
           color: Colors.white,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );

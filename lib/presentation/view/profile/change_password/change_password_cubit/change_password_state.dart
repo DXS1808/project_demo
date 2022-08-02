@@ -11,7 +11,7 @@ class ChangePasswordState extends Equatable {
   final bool obsTextNew;
   final bool obsTextConfirm;
 
-  ChangePasswordState(
+  const ChangePasswordState(
       {this.changePasswordStatus = ChangePasswordStatus.initial,
       this.messageSuccess = "",
       this.messageFailed = "",

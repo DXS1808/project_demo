@@ -12,6 +12,7 @@ class InputTextWrap extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?) validator;
   final List<TextInputFormatter> ? inputFormatters;
+  final Color ? colors;
 
   InputTextWrap(
       {required this.label,
@@ -20,6 +21,7 @@ class InputTextWrap extends StatelessWidget {
         required this.validator,
         this.iconSuffix,
         this.inputFormatters,
+        this.colors,
         required this.obscureText});
 
   @override
@@ -28,26 +30,33 @@ class InputTextWrap extends StatelessWidget {
       inputFormatters: inputFormatters,
       controller: controller,
       obscureText: obscureText,
+      onFieldSubmitted: (value){
+        if(value.isNotEmpty){
+          FocusManager.instance.primaryFocus?.unfocus();
+        }
+      },
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(15.0),
-          labelStyle: const TextStyle(color: Constants.BACKGROUND_COLOR),
+          labelStyle: const TextStyle(color: Constants.BACKGROUND,fontSize: 14),
           labelText: label,
           prefixIcon: icon,
+          fillColor: Colors.white,
+          filled: true,
           suffixIcon: iconSuffix,
-          focusedBorder: const OutlineInputBorder(
-            borderRadius:  BorderRadius.all(Radius.circular(20.0)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius:  const BorderRadius.all( Radius.circular(20.0)),
             borderSide:
-            BorderSide(color: Constants.BACKGROUND_COLOR, width: 1.0),
+            BorderSide(color: colors ?? Constants.BACKGROUND, width: 1.0),
           ),
-          enabledBorder:const OutlineInputBorder(
-            borderRadius:  BorderRadius.all(Radius.circular(20.0)),
+          enabledBorder:OutlineInputBorder(
+            borderRadius:  const BorderRadius.all(Radius.circular(20.0)),
             borderSide:
-            BorderSide(color: Constants.BACKGROUND_COLOR, width: 1.0),
+            BorderSide(color: colors ?? Constants.BACKGROUND, width: 1.0),
           ),
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
             borderSide: BorderSide(
-              color: Color(0xff79D0C0),
+              color: Constants.BACKGROUND,
             ),
           )),
       validator: validator,

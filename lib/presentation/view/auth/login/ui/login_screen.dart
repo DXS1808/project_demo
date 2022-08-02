@@ -1,8 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_demo/core/router/router.dart';
+import 'package:project_demo/presentation/common/social_media.dart';
 import 'package:project_demo/presentation/common/ultis/string_ultis.dart';
+import 'package:project_demo/presentation/view/auth/login/login_with_facebook/login_facebook_cubit.dart';
+import 'package:project_demo/presentation/view/auth/login/login_with_google/login_google_cubit.dart';
 import '../../../../../config/constants.dart';
 import '../../../../allert_dropdown/allert_dropdown.dart';
 import '../../../../common/input_text_wrap.dart';
@@ -37,17 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Material(
           child: Form(
             key: _key,
-            child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                        "assets/login.png",
-                      ),
-                      fit: BoxFit.cover)),
-              child: body(),
-            ),
+            child: body(),
           ),
         ));
   }
@@ -55,61 +48,99 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget body() {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
         children: [
-          SizedBox(
-            height: size.height / 5,
-          ),
-          const Text(
-            "Login",
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 30, color: Colors.white),
-          ),
-          const SizedBox(
-            height: 100,
-          ),
-          inputEmail(),
-          const SizedBox(
-            height: 10.0,
-          ),
-         inputPassword(),
-          const SizedBox(
-            height: 50.0,
-          ),
-          loginButton(),
-          const SizedBox(height: 20.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "Don't have account?",
-                style: TextStyle(
-                    fontSize: Constants.FONT_SIZE,
-                    fontFamily: Constants.FONTFAMILY),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, AppRouter.SIGN_UP);
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  //   return BlocProvider<SignUpCubit>.value(
-                  //     value: SignUpCubit(),
-                  //     child: SignUpScreen(),
-                  //   );
-                  // }));
-                  // print(users);
-                },
-                child: const Text(
-                  "Sign up",
-                  style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      color: Constants.BACKGROUND_COLOR,
-                      fontSize: Constants.FONT_SIZE,
-                      fontFamily: Constants.FONTFAMILY),
+          Container(
+            color: Colors.black,
+            height: size.height,
+            width: size.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: size.height / 10,
                 ),
-              )
-            ],
-          )
+                Image.asset(
+                  "assets/logo.png",
+                  height: 120,
+                  width: 120,
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+              bottom: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.95),
+                  borderRadius:
+                      const BorderRadius.only(topLeft: Radius.circular(50.0)),
+                ),
+                width: size.width,
+                height: size.height * 0.7,
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Text(
+                      "Login",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.black),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    inputEmail(),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    inputPassword(),
+                    const SizedBox(
+                      height: 30.0,
+                    ),
+                    loginButton(),
+                    const SizedBox(height: 50.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        signInGoogle(),
+                        const SizedBox(width: 15.0,),
+                        signInFaceBook(),
+                      ],
+                    ),
+                    const SizedBox(height: 20.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Don't have account?",
+                          style: TextStyle(
+                              fontSize: Constants.FONT_SIZE,
+                              color: Colors.black,
+                              fontFamily: Constants.FONTFAMILY),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, AppRouter.SIGN_UP);
+                          },
+                          child: const Text(
+                            "Sign up",
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Constants.BACKGROUND,
+                                fontSize: Constants.FONT_SIZE,
+                                fontFamily: Constants.FONTFAMILY),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ))
         ],
       ),
     );
@@ -123,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
         icon: const Icon(
           Icons.person_outline,
           size: 20,
-          color: Constants.BACKGROUND_COLOR,
+          color: Colors.black,
         ),
         validator: (str) {
           if (StringUltis.isEmail(str!) == false && str.isNotEmpty) {
@@ -143,13 +174,13 @@ class _LoginScreenState extends State<LoginScreen> {
           icon: const Icon(
             Icons.lock_outline,
             size: 20,
-            color: Constants.BACKGROUND_COLOR,
+            color: Colors.black,
           ),
           obscureText: state.obscureText,
           iconSuffix: GestureDetector(
             child: Icon(
               state.obscureText ? Icons.visibility_off : Icons.visibility,
-              color: Constants.BACKGROUND_COLOR,
+              color: Colors.black,
             ),
             onTap: () {
               obsText = !obsText;
@@ -170,17 +201,8 @@ class _LoginScreenState extends State<LoginScreen> {
         listener: (context, state) {
           if (state.loginStatus == LoginStatus.success) {
             AlertDropdown.success(state.successMessage);
-            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('asdj')));
-            // Navigator.push(context, MaterialPageRoute(builder: (context) {
-            //   return BlocProvider<HomeCubit>.value(
-            //     value: HomeCubit(MovieUseCase(MovieImpl(RestClient(
-            //         Dio(BaseOptions(contentType: "application/json")))))),
-            //     child: const HomeScreen(),
-            //   );
-            // }));
             Navigator.pushNamed(context, AppRouter.HOME_SCREEN);
-
-          }else if(state.loginStatus == LoginStatus.failed){
+          } else if (state.loginStatus == LoginStatus.failed) {
             AlertDropdown.error(state.errorMessage);
           }
         },
@@ -189,6 +211,45 @@ class _LoginScreenState extends State<LoginScreen> {
               context.read<LoginCubit>().success(email.text, password.text);
             },
             text: "Login"));
+  }
+
+  signInGoogle() {
+    return BlocListener<LoginGoogleCubit, LoginGoogleState>(
+      listener: (context, state) {
+        if (state.loginGoogleStatus == LoginGoogleStatus.failed) {
+          AlertDropdown.error(state.message);
+        } else if (state.loginGoogleStatus == LoginGoogleStatus.success) {
+          AlertDropdown.success(state.message);
+          Navigator.pushNamed(context, "/home_screen");
+        }
+      },
+      child: SocialMedia(
+          press: () {
+            context.read<LoginGoogleCubit>().signIn();
+          },
+          icon: const FaIcon(FontAwesomeIcons.google,size: 20, color: Colors.white),
+          color: Colors.redAccent),
+    );
+  }
+
+  signInFaceBook() {
+    return BlocListener<LoginFacebookCubit, LoginFacebookState>(
+      listener: (context, state) {
+        if (state.loginFacebookStatus == LoginFacebookStatus.failed) {
+          AlertDropdown.error(state.message);
+        } else if (state.loginFacebookStatus == LoginFacebookStatus.success) {
+          AlertDropdown.success(state.message);
+          Navigator.pushNamed(context, "/home_screen");
+        }
+      },
+      child: SocialMedia(
+        press: () {
+          context.read<LoginFacebookCubit>().signInFacebook();
+        },
+        color: Colors.blue,
+        icon: const FaIcon(FontAwesomeIcons.facebookF,size: 20, color: Colors.white),
+      ),
+    );
   }
 
   @override

@@ -66,12 +66,6 @@ class _CastDetailScreenState extends State<CastDetailScreen> {
             backgroundColor: Colors.transparent,
             centerTitle: true,
             elevation: 0,
-            // title: CategoryText(
-            //   category: "Cast Detail",
-            //   color: Colors.white,
-            //   fontWeight: FontWeight.w400,
-            //   fontSize: 18,
-            // ),
           ),
           body: profileCast(state.castDetail!, context),
         );
@@ -143,7 +137,7 @@ class _CastDetailScreenState extends State<CastDetailScreen> {
               const SizedBox(
                 height: 10.0,
               ),
-              if (castDetail.biography != null)
+              if (castDetail.biography!.isNotEmpty)
                 Card(
                   elevation: 5.0,
                   child: Container(
@@ -153,7 +147,6 @@ class _CastDetailScreenState extends State<CastDetailScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (castDetail.biography != null)
                           CategoryText(
                             category: "Biography",
                             color: Colors.black,

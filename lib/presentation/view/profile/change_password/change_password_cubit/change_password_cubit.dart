@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 part 'change_password_state.dart';
 
 class ChangePasswordCubit extends Cubit<ChangePasswordState> {
-  ChangePasswordCubit() : super(ChangePasswordState());
+  ChangePasswordCubit() : super(const ChangePasswordState());
 
   void changePassword(String newPassword) async {
     try {

@@ -1,19 +1,21 @@
-import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_demo/config/constants.dart';
-import 'package:project_demo/data/data_sources/remote/rest_client.dart';
+import 'package:project_demo/data/impl/favorite_impl.dart';
 import 'package:project_demo/data/model/movie/movie.dart';
+import 'package:project_demo/domain/usecase/favorite_usecase.dart';
+import 'package:project_demo/presentation/common/no_internet.dart';
 import 'package:project_demo/presentation/common/ultis/rest_client_dio.dart';
 import 'package:project_demo/presentation/view/auth/sign_out/sign_out_cubit/sign_out_cubit.dart';
 import 'package:project_demo/presentation/view/home_screen/home_cubit/home_cubit.dart';
 import 'package:project_demo/presentation/view/movie/movie_favorite/movie_favorite_cubit/movie_favorite_cubit.dart';
 import 'package:project_demo/presentation/view/movie/movie_favorite/ui/movie_favorite_list.dart';
 import 'package:project_demo/presentation/view/profile/profile_screen.dart';
+import 'package:project_demo/services/network_services/network_services_cubit.dart';
 import '../../../../data/impl/movie_impl.dart';
 import '../../../../domain/usecase/movie_usecase.dart';
 import '../../movie/category_movie_list.dart';
+import '../../profile/profile_cubit/profile_cubit.dart';
 import '../../search_movie/ui/search_movie.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -44,18 +46,21 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
     widgetOptions.add(BlocProvider<MovieFavoriteCubit>(
-      create: (context) => MovieFavoriteCubit(MovieUseCase(MovieImpl(
-          RestClient(Dio(BaseOptions(contentType: "application/json")))))),
-      child: MovieFavoriteList(
-          accountId: Constants.ACCOUNT_ID, sessionId: Constants.SESSION_ID),
+      create: (context) => MovieFavoriteCubit(FavoriteUseCase(FavoriteImpl())),
+      child: const MovieFavoriteList(),
     ));
-    widgetOptions.add(
-      BlocProvider<SignOutCubit>(
-        create: (context) => SignOutCubit(),
-        child: const ProfileScreen(),
-      ),
-    );
-
+    widgetOptions.add(MultiBlocProvider(
+      providers: [
+        BlocProvider<SignOutCubit>(
+          create: (context) => SignOutCubit(),
+        ),
+        BlocProvider<ProfileCubit>(
+          create: (context) => ProfileCubit(),
+        )
+      ],
+      child: const ProfileScreen(),
+    ));
+    context.read<NetworkServicesCubit>().checkNetWork();
     // TODO: implement initState
     super.initState();
   }
@@ -151,94 +156,125 @@ class _MovieScreenState extends State<MovieScreen> {
         case HomeStatus.getSearchMovie:
           getSearchList = state.searchMovieList;
           break;
+        case HomeStatus.noSearch:
+          // TODO: Handle this case.
+          break;
       }
     }, builder: (context, state) {
       return DefaultTabController(
           length: 4,
           child: Scaffold(
-              appBar: AppBar(
-                automaticallyImplyLeading: false,
-                centerTitle: true,
-                title: BlocBuilder<HomeCubit, HomeState>(
-                  builder: (context, state) {
-                    return state.checkSearch == false
-                        ? const Text(
-                            "Movie Screen",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 18,
-                                fontFamily: Constants.FONT_FAMILY),
-                          )
-                        : SearchMovie(controller, FocusNode());
-                  },
-                ),
-                backgroundColor: Colors.black,
-                actions: [
-                  state.checkSearch == false
-                      ? IconButton(
-                          onPressed: () {
-                            check = true;
-                            homeCubit.checkSearch(check);
-                          },
-                          icon: const Icon(
-                            Icons.search,
-                            color: Colors.white,
-                          ))
-                      : IconButton(
-                          onPressed: () {
-                            check = false;
-                            homeCubit.checkSearch(check);
-                            controller.clear();
-                          },
-                          icon: const Icon(
-                            Icons.clear,
-                            color: Colors.white,
-                          ))
-                ],
-                bottom: const TabBar(
-                  padding: EdgeInsets.only(bottom: 8.0),
-                  indicator: BoxDecoration(),
-                  isScrollable: true,
-                  indicatorColor: Colors.white,
-                  tabs: [
-                    Text(
-                      "TopRated",
-                      style: TextStyle(
-                          fontFamily: Constants.FONT_FAMILY, fontSize: 12),
-                    ),
-                    Text(
-                      "Popular",
-                      style: TextStyle(
-                          fontFamily: Constants.FONT_FAMILY, fontSize: 12),
-                    ),
-                    Text(
-                      "NowPlaying",
-                      style: TextStyle(
-                          fontFamily: Constants.FONT_FAMILY, fontSize: 12),
-                    ),
-                    Text(
-                      "UpComing",
-                      style: TextStyle(
-                          fontFamily: Constants.FONT_FAMILY, fontSize: 12),
-                    )
-                  ],
-                ),
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              centerTitle: true,
+              title: BlocBuilder<HomeCubit, HomeState>(
+                builder: (context, state) {
+                  return state.checkSearch == false
+                      ? const Text(
+                          "Movie Screen",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18,
+                              fontFamily: Constants.FONT_FAMILY),
+                        )
+                      : SearchMovie(controller, FocusNode());
+                },
               ),
               backgroundColor: Colors.black,
-              body: state.homeStatus == HomeStatus.loading
-                  ? const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
+              actions: [
+                state.checkSearch == false
+                    ? IconButton(
+                        onPressed: () {
+                          check = true;
+                          homeCubit.checkSearch(check);
+                        },
+                        icon: const Icon(
+                          Icons.search,
+                          color: Colors.white,
+                        ))
+                    : IconButton(
+                        onPressed: () {
+                          check = false;
+                          homeCubit.checkSearch(check);
+                          controller.clear();
+                        },
+                        icon: const Icon(
+                          Icons.clear,
+                          color: Colors.white,
+                        ))
+              ],
+              bottom: const TabBar(
+                padding: EdgeInsets.only(bottom: 8.0),
+                indicator: BoxDecoration(),
+                isScrollable: true,
+                indicatorColor: Colors.white,
+                tabs: [
+                  Text(
+                    "TopRated",
+                    style: TextStyle(
+                        fontFamily: Constants.FONT_FAMILY, fontSize: 12),
+                  ),
+                  Text(
+                    "Popular",
+                    style: TextStyle(
+                        fontFamily: Constants.FONT_FAMILY, fontSize: 12),
+                  ),
+                  Text(
+                    "NowPlaying",
+                    style: TextStyle(
+                        fontFamily: Constants.FONT_FAMILY, fontSize: 12),
+                  ),
+                  Text(
+                    "UpComing",
+                    style: TextStyle(
+                        fontFamily: Constants.FONT_FAMILY, fontSize: 12),
+                  )
+                ],
+              ),
+            ),
+            backgroundColor: Colors.black,
+            body: state.homeStatus == HomeStatus.loading
+                ? const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  )
+                : state.homeStatus == HomeStatus.getSearchMovie &&
+                        controller.text != ""
+                    ? BlocProvider(
+                        create: (context) =>
+                            MovieFavoriteCubit(FavoriteUseCase(FavoriteImpl())),
+                        child: CategoryMovieList(
+                          movieListItem: getSearchList,
+                          searchText: controller.text,
+                        ),
+                      )
+                    : BlocBuilder<NetworkServicesCubit, NetworkServicesState>(
+                        builder: (context, state) {
+                          print("State: ${state.networkServicesStatus}");
+                          if (state.networkServicesStatus ==
+                              NetworkServicesStatus.online) {
+                            return BlocProvider(
+                              create: (context) => MovieFavoriteCubit(
+                                  FavoriteUseCase(FavoriteImpl())),
+                              child: TabBarView(children: [
+                                CategoryMovieList(
+                                    movieListItem: getTopRatedList),
+                                CategoryMovieList(
+                                    movieListItem: getPopularList),
+                                CategoryMovieList(
+                                    movieListItem: getNowPlayingList),
+                                CategoryMovieList(movieListItem: getUpComing)
+                              ]),
+                            );
+                          } else if (state.networkServicesStatus ==
+                              NetworkServicesStatus.offline) {
+                            return NoInternet();
+                          }
+                          return Container();
+                        },
                       ),
-                    )
-                  : state.homeStatus == HomeStatus.getSearchMovie && controller.text != ""
-                      ? CategoryMovieList(movieListItem: getSearchList,searchText: controller.text,)
-                      : TabBarView(children: [
-                          CategoryMovieList(movieListItem: getTopRatedList),
-                          CategoryMovieList(movieListItem: getPopularList),
-                          CategoryMovieList(movieListItem: getNowPlayingList),
-                          CategoryMovieList(movieListItem: getUpComing)
-                        ])));
+          ));
     });
   }
 }

@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_demo/config/constants.dart';
-import 'package:project_demo/presentation/allert_dropdown/allert_dropdown.dart';
+import 'package:project_demo/presentation/common/alert_dialog.dart';
 import 'package:project_demo/presentation/common/rouned_button.dart';
 import 'package:project_demo/presentation/view/profile/change_password/change_password_cubit/change_password_cubit.dart';
 
@@ -34,32 +33,56 @@ class _ChangePassWordState extends State<ChangePassWord> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        centerTitle: true,
         title: const Text(
           "Reset Password",
           style: TextStyle(
-            color: Colors.white,
-            fontFamily: Constants.FONT_FAMILY,
-          ),
+              color: Colors.white,
+              fontFamily: Constants.FONT_FAMILY,
+              fontSize: 16),
         ),
+        centerTitle: true,
       ),
       body: Form(
           key: _key,
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Column(
+          child: SingleChildScrollView(
+            child: Stack(
               children: [
-                const SizedBox(height: 150),
-                inputPasswordOld(),
-                const SizedBox(height: 20),
-                inputPasswordNew(),
-                const SizedBox(height: 20),
-                conFirmPassword(),
-                const SizedBox(height: 25),
-                btnUpdate(),
+                Row(
+                  children: [
+                    Container(
+                      height: size.height,
+                      width: size.width,
+                      color: Colors.black,
+                    ),
+                  ],
+                ),
+                Positioned(
+                    bottom: 0,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              BorderRadius.only(topLeft: Radius.circular(50))),
+                      height: size.height * 0.9,
+                      width: size.width,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 100),
+                          inputPasswordOld(),
+                          const SizedBox(height: 20),
+                          inputPasswordNew(),
+                          const SizedBox(height: 20),
+                          conFirmPassword(),
+                          const SizedBox(height: 25),
+                          btnUpdate(),
+                        ],
+                      ),
+                    ))
               ],
             ),
           )),
@@ -75,14 +98,14 @@ class _ChangePassWordState extends State<ChangePassWord> {
           icon: const Icon(
             Icons.lock_outline,
             size: 20,
-            color: Constants.BACKGROUND_COLOR,
+            color: Constants.BACKGROUND,
           ),
           obscureText: state.obsTextOld,
           iconSuffix: GestureDetector(
             child: Icon(
               // Based on passwordVisible state choose the icon
               state.obsTextOld ? Icons.visibility_off : Icons.visibility,
-              color: Constants.BACKGROUND_COLOR,
+              color: Constants.BACKGROUND,
             ),
             onTap: () {
               obsTextOld = !obsTextOld;
@@ -107,13 +130,13 @@ class _ChangePassWordState extends State<ChangePassWord> {
           icon: const Icon(
             Icons.lock_outline,
             size: 20,
-            color: Constants.BACKGROUND_COLOR,
+            color: Constants.BACKGROUND,
           ),
           obscureText: state.obsTextNew,
           iconSuffix: GestureDetector(
             child: Icon(
               state.obsTextNew ? Icons.visibility_off : Icons.visibility,
-              color: Constants.BACKGROUND_COLOR,
+              color: Constants.BACKGROUND,
             ),
             onTap: () {
               obsTextNew = !obsTextNew;
@@ -140,13 +163,13 @@ class _ChangePassWordState extends State<ChangePassWord> {
           icon: const Icon(
             Icons.lock_outline,
             size: 20,
-            color: Constants.BACKGROUND_COLOR,
+            color: Constants.BACKGROUND,
           ),
           obscureText: state.obsTextConfirm,
           iconSuffix: GestureDetector(
             child: Icon(
               state.obsTextConfirm ? Icons.visibility_off : Icons.visibility,
-              color: Constants.BACKGROUND_COLOR,
+              color: Constants.BACKGROUND,
             ),
             onTap: () {
               obsTextConfirm = !obsTextConfirm;
@@ -170,11 +193,9 @@ class _ChangePassWordState extends State<ChangePassWord> {
     return BlocListener<ChangePasswordCubit, ChangePasswordState>(
       listener: (context, state) {
         if (state.changePasswordStatus == ChangePasswordStatus.success) {
-          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("abc")));
-          AlertDropdown.success(state.messageSuccess);
-          print("done");
+          AlertShowMessage.success(context, state.messageSuccess);
         } else if (state.changePasswordStatus == ChangePasswordStatus.failed) {
-          AlertDropdown.error(state.messageFailed);
+          AlertShowMessage.error(context, state.messageFailed);
         }
       },
       child: RounedButton(

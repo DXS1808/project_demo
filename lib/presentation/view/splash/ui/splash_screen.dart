@@ -1,31 +1,71 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_demo/config/constants.dart';
-import 'package:splashscreen/splashscreen.dart';
+import 'package:project_demo/core/router/router.dart';
+import 'package:project_demo/presentation/view/splash/splash_cubit/splash_cubit.dart';
 
-import '../../auth/login/login_cubit/login_cubit.dart';
-import '../../auth/login/ui/login_screen.dart';
 
-class Splash extends StatelessWidget {
+class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
 
   @override
+  State<Splash> createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> with TickerProviderStateMixin {
+  @override
+  void initState() {
+    context.read<SplashCubit>().get();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SplashScreen(
-      seconds: 3,
-      navigateAfterSeconds:BlocProvider(
-        create: (context) => LoginCubit(),
-        child: LoginScreen(),
-      ),
-      title: const Text(
-        'Welcome In MovieFilm',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0,
-        fontFamily: Constants.FONTFAMILY),
-      ),
-      image: Image.asset(
-          'assets/images.png'),
-      backgroundColor: Colors.white,
-      loaderColor: Colors.red,
-    );
+    return BlocListener<SplashCubit, SplashState>(
+        listener: (context, state) {
+          if (state.splashStatus == SplashStatus.success) {
+            Navigator.pushNamed(context, AppRouter.LOGIN_SCREEN);
+          }
+        },
+        child: splashScreen());
+  }
+
+  Widget splashScreen() {
+    return Material(
+        color: Colors.black,
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 200,
+            ),
+            Image.asset(
+              'assets/logo.png',
+              height: 120,
+              width: 120,
+            ),
+            AnimatedTextKit(
+              animatedTexts: [
+                ColorizeAnimatedText(
+                  'Welcome In MovieFilm',
+                  textStyle: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      fontFamily: Constants.FONTFAMILY),
+                  colors: [
+                    Colors.purple,
+                    Colors.tealAccent,
+                    Colors.yellow,
+                    Colors.white,
+                  ],
+                ),
+              ],
+              isRepeatingAnimation: true,
+              onTap: () {
+              },
+            ),
+          ],
+        ));
   }
 }

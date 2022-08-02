@@ -10,6 +10,8 @@ import 'package:project_demo/presentation/view/movie_detail/reviews/reviews_cubi
 import 'package:project_demo/presentation/view/movie_detail/reviews/ui/reviews_list.dart';
 import 'package:project_demo/presentation/view/movie_detail/similar/similar_cubit/similar_cubit.dart';
 import 'package:project_demo/presentation/view/movie_detail/similar/ui/similar.dart';
+import 'package:project_demo/presentation/view/movie_detail/video_movie/ui/video_movie_ui.dart';
+import 'package:project_demo/presentation/view/movie_detail/video_movie/video_movie_cubit/video_movie_cubit.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../data/impl/movie_impl.dart';
@@ -56,19 +58,24 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
                 fontFamily: Constants.FONT_FAMILY,
                 fontWeight: FontWeight.w400),
           ),
-          Row(
-            children: [
-              const Icon(
-                Icons.location_on_outlined,
-                color: Constants.BACKGROUND_COLOR,
-                size: 15,
-              ),
-              const SizedBox(
-                width: 5.0,
-              ),
-              productionCountries(widget.movieDetail.productionCountries!),
-            ],
-          ),
+          if (widget.movieDetail.productionCountries!.isNotEmpty)
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(top: 1.0),
+                  child: const Icon(
+                    Icons.location_on_outlined,
+                    color: Constants.BACKGROUND_COLOR,
+                    size: 15,
+                  ),
+                ),
+                const SizedBox(
+                  width: 3.0,
+                ),
+                productionCountries(widget.movieDetail.productionCountries!),
+              ],
+            ),
           if (widget.movieDetail.productionCompanies!.isNotEmpty)
             Row(
               children: [
@@ -78,7 +85,7 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
                   size: 15,
                 ),
                 const SizedBox(
-                  width: 5.0,
+                  width: 3.0,
                 ),
                 productionCompanies(widget.movieDetail.productionCompanies!)
               ],
@@ -112,13 +119,9 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
                   )
                 ],
               ),
-              voteStar(
-                const Icon(
-                  Icons.remove_red_eye,
-                  color: Colors.white,
-                  size: 16,
-                ),
-                "${widget.movieDetail.voteCount}",
+              Text(
+                "Vote Count: ${widget.movieDetail.voteCount}",
+                style: const TextStyle(fontSize: 11, color: Colors.white),
               )
             ],
           ),
@@ -129,17 +132,27 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
           const SizedBox(
             height: 20.0,
           ),
-          elevationCategory(
-            plotSummary(widget.movieDetail.overview!),
-          ),
+          if (widget.movieDetail.overview!.isNotEmpty)
+            elevationCategory(
+              plotSummary(widget.movieDetail.overview!),
+            ),
           const SizedBox(
             height: 20.0,
+          ),
+          BlocProvider<VideoMovieCubit>(
+            create: (context) => VideoMovieCubit(
+              MovieUseCase(MovieImpl(RestClientDio.restClient)),
+            ),
+            child: MovieVideo(movieId: widget.movieDetail.id!),
+          ),
+          const SizedBox(
+            height: 15.0,
           ),
           BlocProvider<CreditCastCubit>(
             create: (context) => CreditCastCubit(
               MovieUseCase(MovieImpl(RestClientDio.restClient)),
             ),
-            child:  elevationCategory(
+            child: elevationCategory(
               CreditCastList(movieId: widget.movieDetail.id!),
             ),
           ),
@@ -147,7 +160,8 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
             create: (context) => RecommendationCubit(
               MovieUseCase(MovieImpl(RestClientDio.restClient)),
             ),
-            child: elevationCategory(Recommendations(movieId: widget.movieDetail.id!)),
+            child: elevationCategory(
+                Recommendations(movieId: widget.movieDetail.id!)),
           ),
           Opacity(
             opacity: 0.5,
@@ -182,7 +196,8 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
             create: (context) => ImageCubit(
               MovieUseCase(MovieImpl(RestClientDio.restClient)),
             ),
-            child: elevationCategory(ImageList(movieId: widget.movieDetail.id!)),
+            child:
+                elevationCategory(ImageList(movieId: widget.movieDetail.id!)),
           ),
           const SizedBox(
             height: 15.0,
@@ -208,7 +223,7 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
         ),
         Text(
           text,
-          style: const TextStyle(fontSize: 12, color: Colors.white),
+          style: const TextStyle(fontSize: 11, color: Colors.white),
         ),
       ],
     );
@@ -271,14 +286,17 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
   Widget productionCountries(List<ProductionCountries> productionCountries) {
     List<Widget> listProductionCountries =
         productionCountries.map((e) => productionCountry(e)).toList();
-    return Row(
-      children: listProductionCountries,
+    return Flexible(
+      child: Wrap(
+        children: listProductionCountries,
+      ),
     );
   }
 
   Widget productionCountry(ProductionCountries productionCountry) {
     return Text(
-      productionCountry.name!,
+      "${productionCountry.name!} ",
+      softWrap: true,
       style: const TextStyle(
           fontSize: 10,
           color: Colors.grey,
@@ -304,7 +322,7 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
 
   Widget productionCompany(ProductionCompanies productionCompanies) {
     return Text(
-      productionCompanies.name!,
+      "${productionCompanies.name!} ",
       softWrap: true,
       style: const TextStyle(
           fontSize: 10,

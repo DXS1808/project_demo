@@ -7,6 +7,7 @@ class Constants {
   static const String SESSION_ID = "a61ebda17d9d0cb71e4501883b9d5d86b519dfcf";
   static const String REQUEST_TOKEN = "614e9b6c4056135dd1d1e43cb2b043e6ecd343ce";
 
+
   static const FontWeight FONT_WEIGHT = FontWeight.w400;
 
   static const int ACCOUNT_ID = 13168499;
@@ -17,6 +18,7 @@ class Constants {
   static const String FONT_FAMILY = "Roboto";
   static const double FONT_STYLE = 13;
   static const Color BACKGROUND_COLOR = Color(0xff79D0C0);
+  static const Color BACKGROUND = Colors.black;
   static const Color TEXT_COLOR = Colors.black;
 
   static const FontWeight FONTWEIGHT = FontWeight.w400;

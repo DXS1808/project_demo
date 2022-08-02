@@ -4,10 +4,10 @@ import 'package:flutter_dropdown_alert/alert_controller.dart';
 import 'package:project_demo/config/constants.dart';
 
 class ProfileItem extends StatelessWidget {
-  String content;
-  IconData icon;
-  VoidCallBack onTap;
-  ProfileItem({required this.content,required this.icon,required this.onTap});
+  final String content;
+  final IconData icon;
+  final VoidCallBack onTap;
+  const ProfileItem({required this.content,required this.icon,required this.onTap});
 
   @override
   Widget build(BuildContext context) {

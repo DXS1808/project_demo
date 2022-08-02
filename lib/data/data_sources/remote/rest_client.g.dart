@@ -120,31 +120,6 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<StatusFavorite> markFavorite(
-      apiKey, sessionId, accountId, markFavorite, contentType) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'api_key': apiKey,
-      r'session_id': sessionId
-    };
-    final _headers = <String, dynamic>{r'Content-Type': contentType};
-    _headers.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    _data.addAll(markFavorite.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<StatusFavorite>(Options(
-                method: 'POST',
-                headers: _headers,
-                extra: _extra,
-                contentType: contentType)
-            .compose(_dio.options, 'account/${accountId}/favorite',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = StatusFavorite.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<MovieDetail> getMovieDetail(apiKey, movieId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'api_key': apiKey};
@@ -304,6 +279,22 @@ class _RestClient implements RestClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = Movie.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<MovieVideo> getVideo(apiKey, movieId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'api_key': apiKey};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<MovieVideo>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'movie/${movieId}/videos',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = MovieVideo.fromJson(_result.data!);
     return value;
   }
 

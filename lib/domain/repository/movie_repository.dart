@@ -1,8 +1,9 @@
 
-import 'package:project_demo/data/model/favorite/status_favorite/status_favorite.dart';
+
 import 'package:project_demo/data/model/movie_detail/movie_detail.dart';
 import 'package:project_demo/data/model/movie_image/movie_image.dart';
 import 'package:project_demo/data/model/reviews/reviews.dart';
+import 'package:project_demo/data/model/video_movie/video_movie.dart';
 
 import '../../data/model/cast/cast.dart';
 import '../../data/model/favorite/mark_favorite/mark_favorite.dart';
@@ -19,10 +20,6 @@ abstract class MovieRepository {
 
   Future<Movie> getListFavorite(String apiKey, int accountId, String sessionId);
 
-  //mark Favorite
-
-  Future<StatusFavorite> markFavoriteMovie(String apiKey, String sessionId,
-      int accountId, MarkFavorite markFavorite, String contentType);
 
   // movie detail
 
@@ -39,9 +36,17 @@ abstract class MovieRepository {
   //get Reviews
   Future<Reviews> getReviews(String apiKey, int movieId);
 
+  //get list similar
   Future<Movie> getListSimilar(String apiKey, int movieId);
 
+  //get MovieImage
   Future<MovieImage> getMovieImage(String apiKey,int movieId);
 
+  //get SearchMovie
   Future<Movie> getSearchMovie(String apiKey, String query);
+
+  //get video Movie
+
+  Future<MovieVideo> getVideo(String apiKey,int movieId);
+  Future removeFavorite(String userId,int movieId);
 }

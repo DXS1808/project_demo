@@ -1,12 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:like_button/like_button.dart';
-import 'package:project_demo/config/constants.dart';
+import 'package:project_demo/data/model/favorite/favorite.dart';
 import 'package:project_demo/data/model/movie_detail/movie_detail.dart';
-
-import '../../../data/model/favorite/mark_favorite/mark_favorite.dart';
-import '../../allert_dropdown/allert_dropdown.dart';
-import '../mark_favorite_cubit/mark_favorite_cubit.dart';
+import 'package:project_demo/presentation/common/alert_dialog.dart';
+import '../movie/movie_favorite/check_favorite_cubit/check_favorite_cubit.dart';
+import '../movie/movie_favorite/movie_favorite_cubit/movie_favorite_cubit.dart';
 
 class MovieDetailHeader extends AppBar {
   MovieDetail movieDetail;
@@ -19,6 +18,14 @@ class MovieDetailHeader extends AppBar {
 
 class _MovieDetailHeaderState extends State<MovieDetailHeader> {
   @override
+  void initState() {
+    context.read<CheckFavoriteCubit>().checkFavorite(
+        widget.movieDetail.id!, FirebaseAuth.instance.currentUser!.uid);
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.transparent,
@@ -29,59 +36,77 @@ class _MovieDetailHeaderState extends State<MovieDetailHeader> {
         child: CircleAvatar(
           backgroundColor: Colors.grey.withOpacity(0.5),
           child: IconButton(
-            onPressed: (){
+            onPressed: () {
               Navigator.pop(context);
             },
-            icon: const Icon(Icons.arrow_back,color: Colors.tealAccent,),
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.tealAccent,
+            ),
           ),
         ),
       ),
-      // title: const Text(
-      //   "MovieDetail",
-      //   style: TextStyle(
-      //       fontWeight: FontWeight.w400,
-      //       fontSize: 18,
-      //       fontFamily: Constants.FONT_FAMILY),
-      // ),
       actions: [
         Container(
-          padding:  const EdgeInsets.all(5.0),
-          child: LikeButton(
-            likeBuilder: (bool isLike) {
-              context.read<MarkFavoriteCubit>().isFavorite(isLike);
-              return BlocBuilder<MarkFavoriteCubit, MarkFavoriteState>(
-                // buildWhen: (previous, current) =>
-                // (current.comment!=null&&current.comment!.id == widget.comment.id) ||
-                //     (previous.comment != null &&
-                //         previous.comment!.id == widget.comment.id),
-                  builder: (context, state) {
-                    return Icon(
-                      Icons.favorite,
-                      color: state.isFavorite! ? Colors.pinkAccent : Colors.grey,
-                      size: 30,
-                    );
-                  });
-            },
-            onTap: (bool isLike) {
-              MarkFavorite markFavorite = MarkFavorite(
-                  Constants.MEDIA_TYPE, widget.movieDetail.id!, true);
-              context.read<MarkFavoriteCubit>().markFavorite(markFavorite);
-              BlocListener<MarkFavoriteCubit, MarkFavoriteState>(
-                listener: (context, state) {
-                  if (state.markFavoriteStatus == MarkFavoriteStatus.success) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text(state.message)));
-                  }
-                },);
-              return onLikeButtonTapped(false);
-            },
-          ),
-        )
+            padding: const EdgeInsets.all(5.0),
+            child: BlocBuilder<CheckFavoriteCubit, CheckFavoriteState>(
+              builder: (context, state) {
+                Favorite favorite = Favorite(
+                    widget.movieDetail.posterPath,
+                    widget.movieDetail.overview!,
+                    widget.movieDetail.id!,
+                    widget.movieDetail.releaseDate!,
+                    widget.movieDetail.originalTitle!,
+                    widget.movieDetail.title!,
+                    widget.movieDetail.voteCount!,
+                    widget.movieDetail.voteAverage!);
+                return state.checkFavoriteStatus == CheckFavoriteStatus.marked
+                    ? BlocListener<MovieFavoriteCubit, MovieFavoriteState>(
+                        listener: (context, state) {
+                          if (state.movieFavoriteStatus ==
+                              MovieFavoriteStatus.success) {
+                            AlertShowMessage.success(context, "Remove Favorite Success");
+                            context
+                                .read<CheckFavoriteCubit>()
+                                .checkFavorite(widget.movieDetail.id!,FirebaseAuth.instance.currentUser!.uid);
+                          }
+                        },
+                        child: IconButton(
+                            onPressed: () {
+                              context.read<MovieFavoriteCubit>().removeFavorite(
+                                  FirebaseAuth.instance.currentUser!.uid,
+                                  widget.movieDetail.id!);
+                            },
+                            splashRadius: 15.0,
+                            icon: const Icon(
+                              Icons.favorite,
+                              color: Colors.pinkAccent,
+                            )),
+                      )
+                    : BlocListener<MovieFavoriteCubit, MovieFavoriteState>(
+                        listener: (context, state) {
+                          if (state.movieFavoriteStatus ==
+                              MovieFavoriteStatus.markedSuccess) {
+                            AlertShowMessage.success(context,"Add Favorite Success");
+                            context
+                                .read<CheckFavoriteCubit>()
+                                .checkFavorite(widget.movieDetail.id!,FirebaseAuth.instance.currentUser!.uid);
+                          }
+                        },
+                        child: IconButton(
+                            onPressed: () {
+                              context.read<MovieFavoriteCubit>().markFavorite(
+                                  FirebaseAuth.instance.currentUser!.uid, widget.movieDetail.id!, favorite);
+                            },
+                            splashRadius: 15.0,
+                            icon: const Icon(
+                              Icons.favorite,
+                              color: Colors.grey,
+                            )),
+                      );
+              },
+            ))
       ],
     );
-  }
-
-  Future<bool> onLikeButtonTapped(bool isLiked) async {
-    return !isLiked;
   }
 }
