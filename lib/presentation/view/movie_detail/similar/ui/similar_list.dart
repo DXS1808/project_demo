@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:project_demo/data/model/movie/movie.dart';
+import 'package:project_demo/presentation/common/movie_see_all.dart';
 
 import '../../../../../core/router/moive_router_data.dart';
 import '../../../../../core/router/router.dart';
+import '../../../../../data/impl/favorite_impl.dart';
+import '../../../../../domain/usecase/favorite_usecase.dart';
 import '../../../../common/category_text.dart';
 import '../../../../common/movie_detail_item.dart';
+import '../../../movie/movie_favorite/movie_favorite_cubit/movie_favorite_cubit.dart';
 
 class SimilarList extends StatelessWidget {
   List<MovieListItem> movieListItem;
@@ -28,8 +34,17 @@ class SimilarList extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, AppRouter.MOVIE_SEE_ALL,
-                          arguments: MovieRouterData("Similar", movieListItem));
+
+                      showMaterialModalBottomSheet(context: context, builder: (context){
+                        return BlocProvider<MovieFavoriteCubit>.value(
+                          value: MovieFavoriteCubit(FavoriteUseCase(FavoriteImpl())),
+                          child:  MovieSeeAll(
+                              movieListItem: movieListItem,
+                              category: "Similar"),
+                        );
+                      });
+                      // Navigator.pushNamed(context, AppRouter.MOVIE_SEE_ALL,
+                      //     arguments: MovieRouterData("Similar", movieListItem));
                     },
                     child: CategoryText(
                       category: "See all",

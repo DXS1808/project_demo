@@ -1,6 +1,16 @@
 part of 'login_cubit.dart';
 
-enum LoginStatus { initial, loading, success, failed, obsText }
+enum LoginStatus {
+  initial,
+  loading,
+  success,
+  failed,
+  obsText,
+  successFacebook,
+  successGoogle,
+  failedFb,
+  failedGoogle
+}
 
 @immutable
 class LoginState extends Equatable {

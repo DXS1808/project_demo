@@ -34,7 +34,7 @@ class _CastImageState extends State<CastImage> {
           ),
         );
       } else if (state.castImageStatus == CastImageStatus.success) {
-        return Card(
+        return state.profiles.isNotEmpty ? Card(
           elevation: 5.0,
           child: Container(
             padding: const EdgeInsets.all(5.0),
@@ -55,7 +55,7 @@ class _CastImageState extends State<CastImage> {
               ],
             ),
           ),
-        );
+        ):Container();
       }
       return Container();
     });

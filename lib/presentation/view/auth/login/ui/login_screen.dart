@@ -4,8 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_demo/core/router/router.dart';
 import 'package:project_demo/presentation/common/social_media.dart';
 import 'package:project_demo/presentation/common/ultis/string_ultis.dart';
-import 'package:project_demo/presentation/view/auth/login/login_with_facebook/login_facebook_cubit.dart';
-import 'package:project_demo/presentation/view/auth/login/login_with_google/login_google_cubit.dart';
 import '../../../../../config/constants.dart';
 import '../../../../allert_dropdown/allert_dropdown.dart';
 import '../../../../common/input_text_wrap.dart';
@@ -58,12 +56,12 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: size.height / 10,
+                  height: size.height / 11,
                 ),
                 Image.asset(
-                  "assets/logo.png",
-                  height: 120,
-                  width: 120,
+                  "assets/logo-image.png",
+                  height: 150,
+                  width: 150,
                 ),
               ],
             ),
@@ -102,13 +100,46 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 30.0,
                     ),
-                    loginButton(),
-                    const SizedBox(height: 50.0),
+                    BlocConsumer<LoginCubit, LoginState>(
+                      builder: (context, state) {
+                        if (state.loginStatus == LoginStatus.loading ||
+                            state.loginStatus == LoginStatus.success ||
+                            state.loginStatus == LoginStatus.successGoogle ||
+                            state.loginStatus == LoginStatus.successFacebook) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.black,
+                            ),
+                          );
+                        }
+                        return loginButton();
+                      },
+                      listener: (context, state) {
+                        if (state.loginStatus == LoginStatus.success) {
+                          AlertDropdown.success(state.successMessage);
+                          Navigator.pushNamed(context, AppRouter.HOME_SCREEN);
+                        } else if (state.loginStatus == LoginStatus.failed) {
+                          AlertDropdown.error(state.errorMessage);
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 20.0),
+                    const Text(
+                      'OR',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: Constants.FONT_FAMILY),
+                    ),
+                    const SizedBox(height: 20.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         signInGoogle(),
-                        const SizedBox(width: 15.0,),
+                        const SizedBox(
+                          width: 15.0,
+                        ),
                         signInFaceBook(),
                       ],
                     ),
@@ -132,6 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: TextStyle(
                                 decoration: TextDecoration.underline,
                                 color: Constants.BACKGROUND,
+                                fontWeight: FontWeight.w600,
                                 fontSize: Constants.FONT_SIZE,
                                 fontFamily: Constants.FONTFAMILY),
                           ),
@@ -197,57 +229,53 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   loginButton() {
-    return BlocListener<LoginCubit, LoginState>(
-        listener: (context, state) {
-          if (state.loginStatus == LoginStatus.success) {
-            AlertDropdown.success(state.successMessage);
-            Navigator.pushNamed(context, AppRouter.HOME_SCREEN);
-          } else if (state.loginStatus == LoginStatus.failed) {
-            AlertDropdown.error(state.errorMessage);
+    return RounedButton(
+        onPress: () {
+          if (_key.currentState!.validate()) {
+            context.read<LoginCubit>().signIn(email.text, password.text);
           }
         },
-        child: RounedButton(
-            onPress: () {
-              context.read<LoginCubit>().success(email.text, password.text);
-            },
-            text: "Login"));
+        text: "Login");
   }
 
   signInGoogle() {
-    return BlocListener<LoginGoogleCubit, LoginGoogleState>(
+    return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
-        if (state.loginGoogleStatus == LoginGoogleStatus.failed) {
-          AlertDropdown.error(state.message);
-        } else if (state.loginGoogleStatus == LoginGoogleStatus.success) {
-          AlertDropdown.success(state.message);
+        if (state.loginStatus == LoginStatus.failedGoogle) {
+          AlertDropdown.error(state.errorMessage);
+        } else if (state.loginStatus == LoginStatus.successGoogle) {
+          print(state.loginStatus);
+          AlertDropdown.success(state.successMessage);
           Navigator.pushNamed(context, "/home_screen");
         }
       },
       child: SocialMedia(
           press: () {
-            context.read<LoginGoogleCubit>().signIn();
+            context.read<LoginCubit>().signInGoogle();
           },
-          icon: const FaIcon(FontAwesomeIcons.google,size: 20, color: Colors.white),
+          icon: const FaIcon(FontAwesomeIcons.google,
+              size: 20, color: Colors.white),
           color: Colors.redAccent),
     );
   }
 
   signInFaceBook() {
-    return BlocListener<LoginFacebookCubit, LoginFacebookState>(
+    return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
-        if (state.loginFacebookStatus == LoginFacebookStatus.failed) {
-          AlertDropdown.error(state.message);
-        } else if (state.loginFacebookStatus == LoginFacebookStatus.success) {
-          AlertDropdown.success(state.message);
+        if (state.loginStatus == LoginStatus.failedFb) {
+          AlertDropdown.error(state.errorMessage);
+        } else if (state.loginStatus == LoginStatus.successFacebook) {
+          AlertDropdown.success(state.successMessage);
           Navigator.pushNamed(context, "/home_screen");
         }
       },
       child: SocialMedia(
         press: () {
-          context.read<LoginFacebookCubit>().signInFacebook();
+          context.read<LoginCubit>().signInFacebook();
         },
         color: Colors.blue,
-        icon: const FaIcon(FontAwesomeIcons.facebookF,size: 20, color: Colors.white),
+        icon: const FaIcon(FontAwesomeIcons.facebookF,
+            size: 20, color: Colors.white),
       ),
     );
   }

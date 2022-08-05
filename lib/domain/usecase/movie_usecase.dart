@@ -101,12 +101,4 @@ class MovieUseCase {
     }
     return movieRepository.getVideo(apiKey, movieId);
   }
-
-  Future removeFavorite(String userId, int movieId) async {
-    try {
-      return movieRepository.removeFavorite(userId, movieId);
-    } catch (e) {
-      print(e);
-    }
-  }
 }

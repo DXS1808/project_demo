@@ -52,8 +52,7 @@ class _VideoItemState extends State<VideoItem> {
       ),
       builder: (BuildContext context, Widget child) {
         return Stack(
-          children: const [
-          ],
+          children: const [],
         );
       },
     );

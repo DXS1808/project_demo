@@ -9,7 +9,8 @@ enum HomeStatus {
   noSearch,
   getNowPlayingList,
   getUpComing,
-  getSearchMovie
+  getSearchMovie,
+  loadingSearch
 }
 
 @immutable

@@ -4,9 +4,7 @@ import 'package:project_demo/data/model/movie_detail/movie_detail.dart';
 import 'package:project_demo/data/model/movie_image/movie_image.dart';
 import 'package:project_demo/data/model/reviews/reviews.dart';
 import 'package:project_demo/data/model/video_movie/video_movie.dart';
-
 import '../../data/model/cast/cast.dart';
-import '../../data/model/favorite/mark_favorite/mark_favorite.dart';
 import '../../data/model/movie/movie.dart';
 
 abstract class MovieRepository {
@@ -48,5 +46,5 @@ abstract class MovieRepository {
   //get video Movie
 
   Future<MovieVideo> getVideo(String apiKey,int movieId);
-  Future removeFavorite(String userId,int movieId);
+
 }

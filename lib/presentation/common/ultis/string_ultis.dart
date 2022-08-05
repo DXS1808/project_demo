@@ -9,4 +9,9 @@ class StringUltis {
         RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
     return regExp.hasMatch(password.trim());
   }
+
+  static bool isImage(String url){
+    final RegExp regExp = RegExp("([/|.|\w|\s|-])*\.(?:jpg|gif|png)");
+    return regExp.hasMatch(url.trim());
+  }
 }

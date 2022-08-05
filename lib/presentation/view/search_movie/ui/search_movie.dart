@@ -15,8 +15,14 @@ class SearchMovie extends StatelessWidget {
     return TextFormField(
       controller: controller,
       focusNode: focusNode,
+      // onEditingComplete: (){
+      //   FocusManager.instance.primaryFocus!.unfocus();
+      // },
       style: const TextStyle(color: Colors.white),
       autofocus: true,
+      onFieldSubmitted: (value){
+        FocusScope.of(context).unfocus();
+      },
       decoration: const InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(15.0)),
@@ -39,7 +45,7 @@ class SearchMovie extends StatelessWidget {
       onChanged: (value) {
         EasyDebounce.debounce(
             'search-keyword',
-            const Duration(milliseconds: 500),
+            const Duration(milliseconds: 100),
             () => context.read<HomeCubit>().getSearchMovieList(value));
       },
     );

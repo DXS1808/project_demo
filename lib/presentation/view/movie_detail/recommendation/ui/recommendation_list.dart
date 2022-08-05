@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:project_demo/core/router/moive_router_data.dart';
 import 'package:project_demo/data/model/movie/movie.dart';
 import 'package:project_demo/presentation/common/category_text.dart';
@@ -6,6 +8,10 @@ import 'package:project_demo/presentation/common/movie_detail_item.dart';
 import 'package:project_demo/presentation/common/movie_item.dart';
 
 import '../../../../../core/router/router.dart';
+import '../../../../../data/impl/favorite_impl.dart';
+import '../../../../../domain/usecase/favorite_usecase.dart';
+import '../../../../common/movie_see_all.dart';
+import '../../../movie/movie_favorite/movie_favorite_cubit/movie_favorite_cubit.dart';
 
 class RecommendationList extends StatelessWidget {
   List<MovieListItem> movieListItem;
@@ -29,9 +35,15 @@ class RecommendationList extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, AppRouter.MOVIE_SEE_ALL,
-                          arguments: MovieRouterData(
-                              "Recommendations", movieListItem));
+                      showMaterialModalBottomSheet(context: context, builder: (context){
+                        return BlocProvider<MovieFavoriteCubit>.value(
+                          value: MovieFavoriteCubit(FavoriteUseCase(FavoriteImpl())),
+                          child: MovieSeeAll(movieListItem: movieListItem, category: "Recommendations")
+                        );
+                      });
+                      // Navigator.pushNamed(context, AppRouter.MOVIE_SEE_ALL,
+                      //     arguments: MovieRouterData(
+                      //         "Recommendations", movieListItem));
                     },
                     child: CategoryText(
                       category: "See all",

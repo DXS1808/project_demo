@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
@@ -16,14 +17,16 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
 
   void getDetail(int movieId) async {
     emit(state.copyWith(movieDetailStatus: MovieDetailStatus.loading));
-    try {
-      final data =
-          await movieUseCase.getMovieDetail(Constants.API_KEY, movieId);
-      // print(jsonEncode(data));
-      emit(state.copyWith(
-          movieDetailStatus: MovieDetailStatus.success, movieDetail: data));
-    } catch (e) {
-      emit(state.copyWith(movieDetailStatus: MovieDetailStatus.failed));
-    }
+    Timer(const Duration(seconds: 1),() async {
+      try {
+        final data =
+            await movieUseCase.getMovieDetail(Constants.API_KEY, movieId);
+        // print(jsonEncode(data));
+        emit(state.copyWith(
+            movieDetailStatus: MovieDetailStatus.success, movieDetail: data));
+      } catch (e) {
+        emit(state.copyWith(movieDetailStatus: MovieDetailStatus.failed));
+      }
+    });
   }
 }

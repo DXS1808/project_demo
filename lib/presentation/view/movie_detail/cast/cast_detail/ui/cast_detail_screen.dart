@@ -14,8 +14,8 @@ import 'package:project_demo/presentation/view/movie_detail/cast/cast_detail/cas
 import 'package:readmore/readmore.dart';
 import '../cast_image/cast_image_cubit/cast_image_cubit.dart';
 import '../cast_image/ui/cast_image_ui.dart';
-import '../credit_movie/credit_movie_cubit/credit_movie_cubit.dart';
-import '../credit_movie/ui/credit_movie_ui.dart';
+import '../cast_movie/cast_movie_cubit/cast_movie_cubit.dart';
+import '../cast_movie/ui/cast_movie_ui.dart';
 
 class CastDetailScreen extends StatefulWidget {
   int personId;
@@ -31,6 +31,7 @@ class _CastDetailScreenState extends State<CastDetailScreen> {
   void initState() {
     // TODO: implement initState
     context.read<CastDetailCubit>().getCastDetail(widget.personId);
+    super.initState();
   }
 
   @override
@@ -174,9 +175,9 @@ class _CastDetailScreenState extends State<CastDetailScreen> {
                 child: CastImage(castId: castDetail.id!),
               ),
               BlocProvider(
-                create: (context) => CreditMovieCubit(CastDetailUseCase(
+                create: (context) => CastMovieCubit(CastDetailUseCase(
                     CastDetailImpl(RestClientDio.restClient))),
-                child: CreditMovieUI(castId: castDetail.id!),
+                child: CastMovieUI(castId: castDetail.id!),
               )
             ],
           ),

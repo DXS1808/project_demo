@@ -45,7 +45,7 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
                 ? CacheImage(widget.movieDetail.posterPath!, size.height * 0.5,
                     size.width, BoxFit.fill)
                 : ImageUrlNull(const Icon(Icons.image, size: 30),
-                    size.height * 0.3, size.width),
+                    size.height * 0.5, size.width),
           ),
           const SizedBox(
             height: 20.0,
@@ -90,9 +90,34 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
                 productionCompanies(widget.movieDetail.productionCompanies!)
               ],
             ),
-          const SizedBox(
-            height: 30.0,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 1.0),
+                child: const Icon(
+                  Icons.language,
+                  color: Constants.BACKGROUND_COLOR,
+                  size: 15,
+                ),
+              ),
+              const SizedBox(
+                width: 3.0,
+              ),
+              Text("${widget.movieDetail.originalLanguage}",
+                style: const TextStyle(
+                    fontSize: 10,
+                    color: Colors.grey,
+                    fontFamily: Constants.FONT_FAMILY,
+                    fontWeight: FontWeight.w400),
+              ),
+            ],
           ),
+          const SizedBox(height: 15.0,),
+          const Divider(
+            color: Colors.white,
+          ),
+          const SizedBox(height: 10.0,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -124,6 +149,10 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
                 style: const TextStyle(fontSize: 11, color: Colors.white),
               )
             ],
+          ),
+          const SizedBox(height: 10.0,),
+          const Divider(
+            color: Colors.white,
           ),
           const SizedBox(
             height: 15.0,

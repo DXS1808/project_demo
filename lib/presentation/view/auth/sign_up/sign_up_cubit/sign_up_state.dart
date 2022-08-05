@@ -1,6 +1,6 @@
 part of 'sign_up_cubit.dart';
 
-enum SignUpStatus { initial, loading, success, failed }
+enum SignUpStatus { initial, loading, success, failed,successFb,successGoogle,failedFb,failedGoogle }
 
 @immutable
 class SignUpState extends Equatable {

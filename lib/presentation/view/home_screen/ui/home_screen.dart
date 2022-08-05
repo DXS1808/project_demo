@@ -5,6 +5,7 @@ import 'package:project_demo/data/impl/favorite_impl.dart';
 import 'package:project_demo/data/model/movie/movie.dart';
 import 'package:project_demo/domain/usecase/favorite_usecase.dart';
 import 'package:project_demo/presentation/common/no_internet.dart';
+import 'package:project_demo/presentation/common/skeleton/skeleton_home_screen.dart';
 import 'package:project_demo/presentation/common/ultis/rest_client_dio.dart';
 import 'package:project_demo/presentation/view/auth/sign_out/sign_out_cubit/sign_out_cubit.dart';
 import 'package:project_demo/presentation/view/home_screen/home_cubit/home_cubit.dart';
@@ -54,6 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocProvider<SignOutCubit>(
           create: (context) => SignOutCubit(),
         ),
+        // BlocProvider<SignOutCubit>(
+        //   create: (context) => SignOutCubit(),
+        // ),
         BlocProvider<ProfileCubit>(
           create: (context) => ProfileCubit(),
         )
@@ -68,30 +72,36 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: Center(
         child: widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Favorite',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          onTap: (index) {
-            _onItemTapped(index);
-          },
-          selectedItemColor: Colors.white,
-          backgroundColor: Colors.black54),
+      bottomNavigationBar: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 60.0, vertical: 5.0),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+            child: BottomNavigationBar(
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: 'Home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.favorite),
+                    label: 'Favorite',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                    label: 'Profile',
+                  ),
+                ],
+                currentIndex: _selectedIndex,
+                onTap: (index) {
+                  _onItemTapped(index);
+                },
+                selectedItemColor: Colors.white,
+                backgroundColor: Colors.grey.withOpacity(0.5)),
+          )),
     );
   }
 }
@@ -105,6 +115,7 @@ class MovieScreen extends StatefulWidget {
 
 class _MovieScreenState extends State<MovieScreen> {
   TextEditingController controller = TextEditingController();
+  ScrollController scrollController = ScrollController();
   late FocusNode focusNode;
   List<MovieListItem> getPopularList = [];
   List<MovieListItem> getTopRatedList = [];
@@ -116,10 +127,20 @@ class _MovieScreenState extends State<MovieScreen> {
 
   @override
   void initState() {
+    // scrollController.addListener(() {
+    //   if (scrollController.position.pixels ==
+    //       scrollController.position.maxScrollExtent) {
+    //     context.read<HomeCubit>().getPopularList();
+    //     context.read<HomeCubit>().getTopRatedList();
+    //     context.read<HomeCubit>().getNowPlayingList();
+    //     context.read<HomeCubit>().getUpComingList();
+    //   }
+    // });
     context.read<HomeCubit>().getPopularList();
     context.read<HomeCubit>().getTopRatedList();
     context.read<HomeCubit>().getNowPlayingList();
     context.read<HomeCubit>().getUpComingList();
+
     homeCubit = context.read<HomeCubit>();
 
     // TODO: implement initState
@@ -234,11 +255,7 @@ class _MovieScreenState extends State<MovieScreen> {
             ),
             backgroundColor: Colors.black,
             body: state.homeStatus == HomeStatus.loading
-                ? const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
-                  )
+                ? const SkeletonScreen()
                 : state.homeStatus == HomeStatus.getSearchMovie &&
                         controller.text != ""
                     ? BlocProvider(

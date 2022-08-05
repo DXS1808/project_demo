@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_demo/core/router/moive_router_data.dart';
 import 'package:project_demo/core/router/movie_favorite_router.dart';
-import 'package:project_demo/presentation/view/auth/login/login_with_google/login_google_cubit.dart';
 import 'package:project_demo/presentation/view/movie/movie_favorite/check_favorite_cubit/check_favorite_cubit.dart';
 import 'package:project_demo/presentation/view/movie_detail/movie_detail_cubit/movie_detail_cubit.dart';
 import 'package:project_demo/presentation/common/movie_see_all.dart';
@@ -19,7 +18,6 @@ import '../../domain/usecase/favorite_usecase.dart';
 import '../../domain/usecase/movie_usecase.dart';
 import '../../presentation/common/ultis/rest_client_dio.dart';
 import '../../presentation/view/auth/login/login_cubit/login_cubit.dart';
-import '../../presentation/view/auth/login/login_with_facebook/login_facebook_cubit.dart';
 import '../../presentation/view/auth/login/ui/login_screen.dart';
 import '../../presentation/view/auth/sign_up/sign_up_cubit/sign_up_cubit.dart';
 import '../../presentation/view/auth/sign_up/ui/sign_up_screen.dart';
@@ -57,12 +55,6 @@ class AppRouter {
         BlocProvider<LoginCubit>.value(
           value: LoginCubit(),
         ),
-        BlocProvider<LoginGoogleCubit>.value(
-          value: LoginGoogleCubit(),
-        ),
-        BlocProvider<LoginFacebookCubit>.value(
-          value: LoginFacebookCubit(),
-        )
       ], child: LoginScreen());
     },
     SIGN_UP: (context) {
@@ -120,9 +112,12 @@ class AppRouter {
     MOVIE_SEE_ALL: (context) {
       final movieRouter =
           ModalRoute.of(context)!.settings.arguments as MovieRouterData;
-      return MovieSeeAll(
-          movieListItem: movieRouter.movieListItem,
-          category: movieRouter.category);
+      return BlocProvider<MovieFavoriteCubit>.value(
+        value: MovieFavoriteCubit(FavoriteUseCase(FavoriteImpl())),
+        child:  MovieSeeAll(
+            movieListItem: movieRouter.movieListItem,
+            category: movieRouter.category),
+      );
     }
   };
 

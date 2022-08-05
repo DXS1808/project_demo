@@ -78,8 +78,8 @@ class _ReviewsItemState extends State<ReviewsItem> {
                 fontSize: 12,
                 fontFamily: Constants.FONT_FAMILY,
               ),
-                moreStyle: const TextStyle(color: Colors.tealAccent),
-                lessStyle: const TextStyle(color: Colors.tealAccent),
+                moreStyle: const TextStyle(color: Colors.blue),
+                lessStyle: const TextStyle(color: Colors.blue),
             ),
               Text(timer,
               style: const TextStyle(

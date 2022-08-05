@@ -144,7 +144,9 @@ class _MovieItemState extends State<MovieItem> {
   }
 
   Widget voteAverage(num voteAverage) {
-    if (voteAverage <= 5) {
+    if (voteAverage == 0) {
+      return const StarVoteAverage(length: 0);
+    } else if (0 < voteAverage && voteAverage <= 5) {
       return const StarVoteAverage(length: 1);
     } else if (5 < voteAverage && voteAverage <= 6) {
       return const StarVoteAverage(length: 2);
@@ -157,7 +159,4 @@ class _MovieItemState extends State<MovieItem> {
     }
   }
 
-  String takeDecimalNumber(num average) {
-    return average.toStringAsFixed(1);
-  }
 }

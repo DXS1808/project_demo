@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project_demo/core/router/router.dart';
 import 'package:project_demo/presentation/allert_dropdown/allert_dropdown.dart';
@@ -10,6 +11,7 @@ import '../../../../../config/constants.dart';
 import '../../../../common/image_picker.dart';
 import '../../../../common/input_text_wrap.dart';
 import '../../../../common/rouned_button.dart';
+import '../../../../common/social_media.dart';
 import '../sign_up_cubit/sign_up_cubit.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -47,144 +49,188 @@ class _SignUpScreenState extends State<SignUpScreen> {
       color: Constants.BACKGROUND,
       child: Form(
         key: _key,
-        child:  body(),
+        child: body(),
       ),
     );
   }
 
   Widget body() {
     Size size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-      child: Stack(
-        children: [
-          Container(
-            alignment: Alignment.center,
-            height: size.height,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
-                SizedBox(
-                  height: 40,
-                ),
-                Text(
-                  "SignUp",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.white),
-                ),
-              ],
-            ),
+    return Stack(
+      children: [
+        Container(
+          alignment: Alignment.center,
+          height: size.height,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: const [
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                "SignUp",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.white),
+              ),
+            ],
           ),
-          Positioned(
+        ),
+        Positioned(
             bottom: 0,
-              child: Container(
-                height: size.height*0.85,
+            child: Container(
+                height: size.height * 0.9,
                 width: size.width,
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.95),
-                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(50.0))
-                ),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                imagePath != null
-                    ? Stack(
-                        children: [
-                          CircleAvatar(
-                            maxRadius: 50,
-                            child: ClipOval(
-                              child: Image.file(
-                                File(imagePath!),
-                                height: 100,
-                                width: 100,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                              bottom: 10,
-                              right: 20,
-                              child: GestureDetector(
-                                onTap: () {
-                                  PickImage.imagePicker(context).then((value) {
-                                    setState(() {
-                                      imagePath = value!.path;
-                                      // print(value);
-                                    });
-                                  });
-                                },
-                                child: Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.black,
-                                  size: 20,
+                    color: Colors.white.withOpacity(0.95),
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(50.0))),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      imagePath != null
+                          ? Stack(
+                              children: [
+                                CircleAvatar(
+                                  maxRadius: 50,
+                                  backgroundColor: Colors.white,
+                                  child: ClipOval(
+                                    child: Image.file(
+                                      File(imagePath!),
+                                      height: 100,
+                                      width: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
+                                Positioned(
+                                    bottom: 10,
+                                    right: 20,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        PickImage.imagePicker(context)
+                                            .then((value) {
+                                          setState(() {
+                                            imagePath = value!.path;
+                                            // print(value);
+                                          });
+                                        });
+                                      },
+                                      child: const Icon(
+                                        Icons.camera_alt,
+                                        color: Colors.black,
+                                        size: 20,
+                                      ),
+                                    ))
+                              ],
+                            )
+                          : uploadImage((str) {
+                              if (str == null) {
+                                return "Image is required";
+                              }
+                              return null;
+                            }),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      inputUserName(),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      inputPassword(),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      conFirmPassword(),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      fullName(),
+                      const SizedBox(
+                        height: 30.0,
+                      ),
+                      BlocConsumer<SignUpCubit, SignUpState>(
+                        builder: (context, state) {
+                          if (state.status == SignUpStatus.loading ||
+                              state.status == SignUpStatus.successFb ||
+                              state.status == SignUpStatus.success ||
+                              state.status == SignUpStatus.successGoogle) {
+                            return const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.black,
+                              ),
+                            );
+                          }
+                          return signUpButton();
+                        },
+                        listener: (context, state) {
+                          if (state.status == SignUpStatus.success) {
+                            print(state.status);
+                            Navigator.pushNamed(context, AppRouter.HOME_SCREEN);
+                            AlertDropdown.success("Sign up success");
+                          } else if (state.status == SignUpStatus.failed) {
+                            AlertDropdown.error(state.errorMessage);
+                          }
+                        },
+                      ),
+                      const SizedBox(
+                        height: 15.0,
+                      ),
+                      const Text(
+                        'OR',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: Constants.FONT_FAMILY),
+                      ),
+                      const SizedBox(height: 15.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          signInGoogle(),
+                          const SizedBox(
+                            width: 15.0,
+                          ),
+                          signInFaceBook()
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'You have account ? ',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: Constants.FONTFAMILY),
+                          ),
+                          GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, AppRouter.LOGIN_SCREEN);
+                              },
+                              child: const Text(
+                                "Sign in",
+                                style: TextStyle(
+                                    color: Constants.BACKGROUND,
+                                    fontWeight: FontWeight.w600,
+                                    decoration: TextDecoration.underline,
+                                    fontFamily: Constants.FONTFAMILY),
                               ))
                         ],
                       )
-                    : uploadImage((str) {
-                        if (str == null) {
-                          return "Image is required";
-                        }
-                        return null;
-                      }),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                inputUserName(),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                inputPassword(),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                conFirmPassword(),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                fullName(),
-                const SizedBox(
-                  height: 30.0,
-                ),
-                signUpButton(),
-                const SizedBox(
-                  height: 15.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'You have account ? ',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, AppRouter.LOGIN_SCREEN);
-                          // Navigator.push(context,
-                          //     MaterialPageRoute(builder: (context) {
-                          //   return BlocProvider<LoginCubit>.value(
-                          //     value: LoginCubit(),
-                          //     child: LoginScreen(),
-                          //   );
-                          // }));
-                        },
-                        child: const Text(
-                          "Sign in",
-                          style: TextStyle(
-                              color: Constants.BACKGROUND,
-                              decoration: TextDecoration.underline),
-                        ))
-                  ],
-                )
-              ],
-            ),
-          ))
-        ],
-      ),
+                    ],
+                  ),
+                )))
+      ],
     );
   }
 
@@ -330,26 +376,56 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   signUpButton() {
+    return RounedButton(
+      onPress: () {
+        if (_key.currentState!.validate()) {
+          context
+              .read<SignUpCubit>()
+              .signUpEmail(email.text, password.text, name.text, imagePath!);
+        }
+      },
+      text: 'Sign up',
+    );
+  }
+
+  signInGoogle() {
     return BlocListener<SignUpCubit, SignUpState>(
-        listener: (context, state) {
-          if (state.status == SignUpStatus.loading) {
-            // return const CircularProgressIndicator();
-          } else if (state.status == SignUpStatus.success) {
-            AlertDropdown.success("Sign up success");
-            Navigator.pushNamed(context, AppRouter.HOME_SCREEN);
-          } else if (state.status == SignUpStatus.failed) {
-            AlertDropdown.error(state.errorMessage);
-          }
-        },
-        child: RounedButton(
-          onPress: () {
-            if (_key.currentState!.validate()) {
-              context
-                  .read<SignUpCubit>()
-                  .success(email.text, password.text, name.text, imagePath!);
-            }
+      listener: (context, state) {
+        if (state.status == SignUpStatus.failedGoogle) {
+          AlertDropdown.error(state.errorMessage);
+        } else if (state.status == SignUpStatus.successGoogle) {
+          AlertDropdown.success(state.successMessage);
+          Navigator.pushNamed(context, "/home_screen");
+        }
+      },
+      child: SocialMedia(
+          press: () {
+            context.read<SignUpCubit>().signInGoogle();
           },
-          text: 'Sign up',
-        ));
+          icon: const FaIcon(FontAwesomeIcons.google,
+              size: 20, color: Colors.white),
+          color: Colors.redAccent),
+    );
+  }
+
+  signInFaceBook() {
+    return BlocListener<SignUpCubit, SignUpState>(
+      listener: (context, state) {
+        if (state.status == SignUpStatus.failedFb) {
+          AlertDropdown.error(state.errorMessage);
+        } else if (state.status == SignUpStatus.successFb) {
+          AlertDropdown.success(state.successMessage);
+          Navigator.pushNamed(context, "/home_screen");
+        }
+      },
+      child: SocialMedia(
+        press: () {
+          context.read<SignUpCubit>().signInFacebook();
+        },
+        color: Colors.blue,
+        icon: const FaIcon(FontAwesomeIcons.facebookF,
+            size: 20, color: Colors.white),
+      ),
+    );
   }
 }

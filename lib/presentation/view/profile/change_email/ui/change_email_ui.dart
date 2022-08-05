@@ -26,6 +26,7 @@ class _ChangeEmailState extends State<ChangeEmail> {
   @override
   void initState() {
     user = FirebaseAuth.instance.currentUser!;
+    email.text = user.email!;
     // TODO: implement initState
     super.initState();
   }

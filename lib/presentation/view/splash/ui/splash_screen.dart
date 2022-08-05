@@ -41,14 +41,14 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
               height: 200,
             ),
             Image.asset(
-              'assets/logo.png',
-              height: 120,
-              width: 120,
+              'assets/logo-image.png',
+              height: 150,
+              width: 150,
             ),
             AnimatedTextKit(
               animatedTexts: [
                 ColorizeAnimatedText(
-                  'Welcome In MovieFilm',
+                  'Welcome to the Movie',
                   textStyle: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20.0,

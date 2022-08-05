@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -14,58 +16,69 @@ class HomeCubit extends Cubit<HomeState> {
 
   void getPopularList() async {
     emit(state.copyWith(homeStatus: HomeStatus.loading));
-    try {
-      final data = await movieUseCase.getListPopular(Constants.API_KEY);
-      emit(state.copyWith(
-          homeStatus: HomeStatus.getPopularList, popularList: data.results));
-    } catch (e) {
-      emit(state.copyWith(homeStatus: HomeStatus.failed));
-    }
+    Timer(const Duration(seconds: 1),()async{
+      try {
+        final data = await movieUseCase.getListPopular(Constants.API_KEY);
+        emit(state.copyWith(
+            homeStatus: HomeStatus.getPopularList, popularList: data.results));
+      } catch (e) {
+        print(e);
+        // emit(state.copyWith(homeStatus: HomeStatus.failed));
+      }
+    });
   }
 
   void getTopRatedList() async {
     emit(state.copyWith(homeStatus: HomeStatus.loading));
-    try {
-      final data = await movieUseCase.getListTopRated(Constants.API_KEY);
-      emit(state.copyWith(
-          homeStatus: HomeStatus.getTopRatedList, topRatedList: data.results));
-    } catch (e) {
-      emit(state.copyWith(homeStatus: HomeStatus.failed));
-    }
+   Timer(const Duration(seconds: 1),()async{
+     try {
+       final data = await movieUseCase.getListTopRated(Constants.API_KEY);
+       emit(state.copyWith(
+           homeStatus: HomeStatus.getTopRatedList, topRatedList: data.results));
+     } catch (e) {
+       emit(state.copyWith(homeStatus: HomeStatus.failed));
+     }
+   });
   }
 
   void getNowPlayingList() async {
     emit(state.copyWith(homeStatus: HomeStatus.loading));
-    try {
-      final data = await movieUseCase.getListNowPlaying(Constants.API_KEY);
-      emit(state.copyWith(
-          homeStatus: HomeStatus.getNowPlayingList,
-          nowPlayingList: data.results));
-    } catch (e) {
-      emit(state.copyWith(homeStatus: HomeStatus.failed));
-    }
+   Timer(const Duration(seconds: 1),() async {
+     try {
+       final data = await movieUseCase.getListNowPlaying(Constants.API_KEY);
+       emit(state.copyWith(
+           homeStatus: HomeStatus.getNowPlayingList,
+           nowPlayingList: data.results));
+     } catch (e) {
+       emit(state.copyWith(homeStatus: HomeStatus.failed));
+     }
+   });
   }
 
   void getUpComingList() async {
     emit(state.copyWith(homeStatus: HomeStatus.loading));
-    try {
-      final data = await movieUseCase.getListUpComing(Constants.API_KEY);
-      emit(state.copyWith(
-          homeStatus: HomeStatus.getUpComing, upComingList: data.results));
-    } catch (e) {
-      emit(state.copyWith(homeStatus: HomeStatus.failed));
-    }
+    Timer(const Duration(seconds: 1),()async{
+      try {
+        final data = await movieUseCase.getListUpComing(Constants.API_KEY);
+        emit(state.copyWith(
+            homeStatus: HomeStatus.getUpComing, upComingList: data.results));
+      } catch (e) {
+        emit(state.copyWith(homeStatus: HomeStatus.failed));
+      }
+    });
   }
 
   void getSearchMovieList(String query) async{
-    emit(state.copyWith(homeStatus: HomeStatus.loading));
-    try {
-      final data = await movieUseCase.getSearchMovie(Constants.API_KEY,query);
-      emit(state.copyWith(
-          homeStatus: HomeStatus.getSearchMovie, searchMovieList: data.results));
-    } catch (e) {
-      emit(state.copyWith(homeStatus: HomeStatus.failed));
-    }
+    emit(state.copyWith(homeStatus: HomeStatus.loadingSearch));
+    Timer(const Duration(milliseconds: 100),()async{
+      try {
+        final data = await movieUseCase.getSearchMovie(Constants.API_KEY,query);
+        emit(state.copyWith(
+            homeStatus: HomeStatus.getSearchMovie, searchMovieList: data.results));
+      } catch (e) {
+        emit(state.copyWith(homeStatus: HomeStatus.failed));
+      }
+    });
 
   }
 

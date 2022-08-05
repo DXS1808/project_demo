@@ -1,8 +1,8 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:project_demo/core/router/router.dart';
 import 'package:project_demo/data/check_connection/check_connection.dart';
@@ -17,11 +17,11 @@ import 'package:project_demo/presentation/view/splash/splash_cubit/splash_cubit.
 import 'package:project_demo/presentation/view/splash/ui/splash_screen.dart';
 import 'package:flutter_dropdown_alert/dropdown_alert.dart';
 import 'package:project_demo/services/network_services/network_services_cubit.dart';
-
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -42,6 +42,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     Connection.checkUserConnection();
+    FlutterNativeSplash.remove();
     super.initState();
   }
 
@@ -67,7 +68,8 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<SplashCubit>(
             create: (context) => SplashCubit(),
           ),
-        ], child: const MainPage()));
+        ], child: const MainPage())
+    );
   }
 }
 

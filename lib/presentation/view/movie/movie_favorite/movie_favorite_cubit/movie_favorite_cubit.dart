@@ -46,16 +46,5 @@ class MovieFavoriteCubit extends Cubit<MovieFavoriteState> {
       print(e);
     }
   }
-  // void checkFavorite(int id,String userId){
-  //   try{
-  //     List<Favorite> listFavorite = Hive.box<Favorite>("favorite_$userId").values.toList();
-  //     if(listFavorite.indexWhere((e) => e.id == id) != -1){
-  //       emit(state.copyWith(movieFavoriteStatus: MovieFavoriteStatus.marked));
-  //     }else{
-  //       emit(state.copyWith(movieFavoriteStatus: MovieFavoriteStatus.notMarked));
-  //     }
-  //   }catch(e){
-  //     print(e);
-  //   }
-  // }
+
 }
