@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_demo/presentation/common/category_text.dart';
 import 'package:project_demo/presentation/view/movie_detail/image/image_cubit/image_cubit.dart';
 import 'package:project_demo/presentation/view/movie_detail/image/ui/image_item.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ImageList extends StatefulWidget {
   int movieId;
@@ -32,10 +33,10 @@ class _ImageListState extends State<ImageList> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CategoryText(
-                    category: "Image Movie",
+                    category: AppLocalizations.of(context)!.image_movie,
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   const SizedBox(
                     height: 8.0,
@@ -57,7 +58,7 @@ class _ImageListState extends State<ImageList> {
                   category: "No Image Movie",
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               );
       }

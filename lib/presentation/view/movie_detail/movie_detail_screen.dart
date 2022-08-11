@@ -31,7 +31,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         return const SkeletonMovieDetail();
       }if(state.movieDetailStatus == MovieDetailStatus.success){
         return Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.white,
           extendBodyBehindAppBar: true,
           appBar: MovieDetailHeader(state.movieDetail!),
           body: SingleChildScrollView(

@@ -8,10 +8,10 @@ import 'package:project_demo/domain/usecase/cast_detail_usecase.dart';
 import 'package:project_demo/presentation/common/cache_image.dart';
 import 'package:project_demo/presentation/common/category_text.dart';
 import 'package:project_demo/presentation/common/custorm_clipper.dart';
-import 'package:project_demo/presentation/common/ultis/rest_client_dio.dart';
 import 'package:project_demo/presentation/view/movie_detail/cast/cast_detail/cast_detail_cubit/cast_detail_cubit.dart';
 import 'package:project_demo/presentation/view/movie_detail/cast/cast_detail/cast_image/cast_image_cubit/cast_image_cubit.dart';
 import 'package:readmore/readmore.dart';
+import '../../../../../common/utils/rest_client_dio.dart';
 import '../cast_image/cast_image_cubit/cast_image_cubit.dart';
 import '../cast_image/ui/cast_image_ui.dart';
 import '../cast_movie/cast_movie_cubit/cast_movie_cubit.dart';
@@ -88,28 +88,13 @@ class _CastDetailScreenState extends State<CastDetailScreen> {
                clipper: Customshape(),
                child:  Container(
                  height: 200,
-                 decoration: BoxDecoration(
-                     color: Colors.black,
-                     boxShadow: [
-                       BoxShadow(
-                         color: Colors.grey.withOpacity(0.5),
-                         spreadRadius: 5,
-                         blurRadius: 7,
-                         offset:
-                         const Offset(0, 3), // changes position of shadow
-                       ),
-                       BoxShadow(
-                         color: Colors.grey.withOpacity(0.5),
-                         spreadRadius: 5,
-                         blurRadius: 7,
-                         offset:
-                         const Offset(0, 3), // changes position of shadow
-                       ),
-                     ]),
+                 decoration: const BoxDecoration(
+                     color: Constants.BACKGROUND_COLOR,
+                 ),
                ),
              ),
               const SizedBox(
-                height: 80,
+                height: 50,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

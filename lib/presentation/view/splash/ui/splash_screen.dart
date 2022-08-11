@@ -34,7 +34,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   Widget splashScreen() {
     return Material(
-        color: Colors.black,
+        color: Constants.BACKGROUND_COLOR.withOpacity(0.7),
         child: Column(
           children: [
             const SizedBox(

@@ -11,8 +11,8 @@ class ImageUrlNull extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-          color: Colors.grey,
+      decoration: BoxDecoration(
+          color: Colors.grey.withOpacity(0.5),
       ),
       height:height,
       width: width,

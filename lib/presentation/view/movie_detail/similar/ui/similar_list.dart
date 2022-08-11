@@ -11,6 +11,7 @@ import '../../../../../domain/usecase/favorite_usecase.dart';
 import '../../../../common/category_text.dart';
 import '../../../../common/movie_detail_item.dart';
 import '../../../movie/movie_favorite/movie_favorite_cubit/movie_favorite_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SimilarList extends StatelessWidget {
   List<MovieListItem> movieListItem;
@@ -27,27 +28,30 @@ class SimilarList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CategoryText(
-                    category: "Similar",
+                    category: AppLocalizations.of(context)!.similar,
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   GestureDetector(
                     onTap: () {
-
-                      showMaterialModalBottomSheet(context: context, builder: (context){
-                        return BlocProvider<MovieFavoriteCubit>.value(
-                          value: MovieFavoriteCubit(FavoriteUseCase(FavoriteImpl())),
-                          child:  MovieSeeAll(
-                              movieListItem: movieListItem,
-                              category: "Similar"),
-                        );
-                      });
+                      showMaterialModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return BlocProvider<MovieFavoriteCubit>.value(
+                              value: MovieFavoriteCubit(
+                                  FavoriteUseCase(FavoriteImpl())),
+                              child: MovieSeeAll(
+                                  movieListItem: movieListItem,
+                                  category:
+                                      AppLocalizations.of(context)!.similar),
+                            );
+                          });
                       // Navigator.pushNamed(context, AppRouter.MOVIE_SEE_ALL,
                       //     arguments: MovieRouterData("Similar", movieListItem));
                     },
                     child: CategoryText(
-                      category: "See all",
+                      category: AppLocalizations.of(context)!.see_all,
                       fontWeight: FontWeight.w400,
                       fontSize: 12,
                       color: Colors.tealAccent,
@@ -65,7 +69,7 @@ class SimilarList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: movieListItem
                       .map((e) => MovieItemDetail(
-                          movieListItem: e, colorText: Colors.white))
+                          movieListItem: e, colorText: Colors.black))
                       .toList(),
                 ),
               )
@@ -77,7 +81,7 @@ class SimilarList extends StatelessWidget {
               category: "No Similar",
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: Colors.white,
+              color: Colors.black,
             ),
           );
   }

@@ -14,23 +14,23 @@ class MovieImpl implements MovieRepository {
   MovieImpl(this.restClient);
 
   @override
-  Future<Movie> getListMovie(String apiKey) {
-    return restClient.getListMovie(apiKey);
+  Future<Movie> getListMovie(String apiKey,int page) {
+    return restClient.getListMovie(apiKey,page);
   }
 
   @override
-  Future<Movie> getListTopRated(String apiKey) {
-    return restClient.getListTopRated(apiKey);
+  Future<Movie> getListTopRated(String apiKey,int page) {
+    return restClient.getListTopRated(apiKey,page);
   }
 
   @override
-  Future<Movie> getListNowPlaying(String apiKey) {
-    return restClient.getListNowPlaying(apiKey);
+  Future<Movie> getListNowPlaying(String apiKey,int page) {
+    return restClient.getListNowPlaying(apiKey,page);
   }
 
   @override
-  Future<Movie> getListUpComing(String apiKey) {
-    return restClient.getListUpComing(apiKey);
+  Future<Movie> getListUpComing(String apiKey,int page) {
+    return restClient.getListUpComing(apiKey,page);
   }
 
   @override
@@ -46,8 +46,8 @@ class MovieImpl implements MovieRepository {
   }
 
   @override
-  Future<Movie> getListRecommendations(String apiKey, int movieId) {
-    return restClient.getListRecommendations(apiKey, movieId);
+  Future<Movie> getListRecommendations(String apiKey, int movieId,int page) {
+    return restClient.getListRecommendations(apiKey, movieId,page);
   }
 
   @override
@@ -61,8 +61,8 @@ class MovieImpl implements MovieRepository {
   }
 
   @override
-  Future<Movie> getListSimilar(String apiKey, int movieId) {
-    return restClient.getSimilar(apiKey, movieId);
+  Future<Movie> getListSimilar(String apiKey, int movieId, int page) {
+    return restClient.getSimilar(apiKey, movieId, page);
   }
 
   @override

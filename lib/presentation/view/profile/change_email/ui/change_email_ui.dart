@@ -7,7 +7,7 @@ import 'package:project_demo/presentation/view/profile/change_email/change_email
 
 import '../../../../../config/constants.dart';
 import '../../../../common/input_text_wrap.dart';
-import '../../../../common/ultis/string_ultis.dart';
+import '../../../../common/utils/string_ultis.dart';
 
 class ChangeEmail extends StatefulWidget {
   const ChangeEmail({Key? key}) : super(key: key);

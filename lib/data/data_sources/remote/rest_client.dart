@@ -6,8 +6,6 @@ import 'package:project_demo/data/model/movie_image/movie_image.dart';
 import 'package:project_demo/data/model/reviews/reviews.dart';
 import 'package:project_demo/data/model/video_movie/video_movie.dart';
 import 'package:retrofit/http.dart';
-
-import '../../model/account/account.dart';
 import '../../model/cast/cast.dart';
 import '../../model/image_person/cast_image.dart';
 import '../../model/movie/movie.dart';
@@ -19,25 +17,24 @@ abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
   @GET("movie/popular")
-  Future<Movie> getListMovie(@Query("api_key") String apiKey);
+  Future<Movie> getListMovie(
+      @Query("api_key") String apiKey, @Query("page") int page);
 
   @GET("movie/top_rated")
-  Future<Movie> getListTopRated(@Query("api_key") String apiKey);
+  Future<Movie> getListTopRated(
+      @Query("api_key") String apiKey, @Query("page") int page);
 
   @GET("movie/now_playing")
-  Future<Movie> getListNowPlaying(@Query("api_key") String apiKey);
+  Future<Movie> getListNowPlaying(
+      @Query("api_key") String apiKey, @Query("page") int page);
 
   @GET("movie/upcoming")
-  Future<Movie> getListUpComing(@Query("api_key") String apiKey);
+  Future<Movie> getListUpComing(
+      @Query("api_key") String apiKey, @Query("page") int page);
 
   @GET("account/{account_id}/favorite/movies")
   Future<Movie> getListFavorite(@Query("api_key") String apiKey,
       @Path("account_id") int accountId, @Query("session_id") String sessionId);
-
-  //get account
-  @GET("account")
-  Future<Account> getAccount(
-      @Query("api_key") String apiKey, @Query("session_id") String sessionId);
 
   //get movie detail
 
@@ -50,10 +47,8 @@ abstract class RestClient {
   // get movie recommendations
 
   @GET('movie/{movie_id}/recommendations')
-  Future<Movie> getListRecommendations(
-    @Query("api_key") String apiKey,
-    @Path("movie_id") int movieId,
-  );
+  Future<Movie> getListRecommendations(@Query("api_key") String apiKey,
+      @Path("movie_id") int movieId, @Query("page") int page);
 
   @GET('movie/{movie_id}/credits')
   Future<CreditCast> getCreditCast(
@@ -68,10 +63,8 @@ abstract class RestClient {
   );
 
   @GET('movie/{movie_id}/similar')
-  Future<Movie> getSimilar(
-    @Query("api_key") String apiKey,
-    @Path("movie_id") int movieId,
-  );
+  Future<Movie> getSimilar(@Query("api_key") String apiKey,
+      @Path("movie_id") int movieId, @Query("page") int page);
 
   @GET('movie/{movie_id}/images')
   Future<MovieImage> getMovieImage(
@@ -112,7 +105,7 @@ abstract class RestClient {
 
   @GET('movie/{movie_id}/videos')
   Future<MovieVideo> getVideo(
-      @Query("api_key") String apiKey,
-      @Path("movie_id") int movieId,
-      );
+    @Query("api_key") String apiKey,
+    @Path("movie_id") int movieId,
+  );
 }

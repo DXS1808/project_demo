@@ -13,20 +13,20 @@ class MovieUseCase {
 
   MovieUseCase(this.movieRepository);
 
-  Future<Movie> getListPopular(String apiKey) {
-    return movieRepository.getListMovie(apiKey);
+  Future<Movie> getListPopular(String apiKey,int page) {
+    return movieRepository.getListMovie(apiKey,page);
   }
 
-  Future<Movie> getListTopRated(String apiKey) {
-    return movieRepository.getListTopRated(apiKey);
+  Future<Movie> getListTopRated(String apiKey,int page) {
+    return movieRepository.getListTopRated(apiKey,page);
   }
 
-  Future<Movie> getListNowPlaying(String apiKey) {
-    return movieRepository.getListNowPlaying(apiKey);
+  Future<Movie> getListNowPlaying(String apiKey,int page) {
+    return movieRepository.getListNowPlaying(apiKey,page);
   }
 
-  Future<Movie> getListUpComing(String apiKey) {
-    return movieRepository.getListUpComing(apiKey);
+  Future<Movie> getListUpComing(String apiKey,int page) {
+    return movieRepository.getListUpComing(apiKey,page);
   }
 
   Future<Movie> getListFavorite(
@@ -46,8 +46,8 @@ class MovieUseCase {
     return movieRepository.getCreditCast(apiKey, movieId);
   }
 
-  Future<Movie> getListRecommendations(String apiKey, int movieId) {
-    return movieRepository.getListRecommendations(apiKey, movieId);
+  Future<Movie> getListRecommendations(String apiKey, int movieId,int page) {
+    return movieRepository.getListRecommendations(apiKey, movieId,page);
   }
 
   //get reviews
@@ -61,13 +61,13 @@ class MovieUseCase {
   }
 
   //get similar movie
-  Future<Movie> getListSimilar(String apiKey, int movieId) {
+  Future<Movie> getListSimilar(String apiKey, int movieId,int page) {
     try {
-      return movieRepository.getListSimilar(apiKey, movieId);
+      return movieRepository.getListSimilar(apiKey, movieId,page);
     } catch (e) {
       print(e);
     }
-    return movieRepository.getListSimilar(apiKey, movieId);
+    return movieRepository.getListSimilar(apiKey, movieId,page);
   }
 
   //get Movie Image

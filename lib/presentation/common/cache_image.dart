@@ -18,10 +18,13 @@ class CacheImage extends StatelessWidget {
       width: widthImage,
       fit: fit ?? BoxFit.fill,
       errorWidget: (context, url, _){
-        return const Icon(Icons.error,
-        color: Colors.red,
-          size: 30,
-        );
+        return  CircleAvatar(
+        maxRadius: 40,
+          backgroundColor: Colors.grey.withOpacity(0.5),
+          child: const Icon(Icons.error,
+            color: Colors.red,
+            size: 30,
+        ));
       },
     );
   }

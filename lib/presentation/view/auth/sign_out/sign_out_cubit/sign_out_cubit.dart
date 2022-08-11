@@ -13,7 +13,7 @@ class SignOutCubit extends Cubit<SignOutState> {
     emit(state.copyWith(signOutStatus: SignOutStatus.loading));
     try {
       await GoogleSignIn().signOut();
-       FirebaseAuth.instance.signOut();
+       await FirebaseAuth.instance.signOut();
       emit(state.copyWith(
           signOutStatus: SignOutStatus.success,
           successMessage: "Sign out successfully"));

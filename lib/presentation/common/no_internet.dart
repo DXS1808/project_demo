@@ -30,7 +30,7 @@ class _NoInternetState extends State<NoInternet> {
             const Text(
               "No Internet Connection ",
               style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 15,
                   fontFamily: Constants.FONTFAMILY),
             ),
@@ -38,7 +38,7 @@ class _NoInternetState extends State<NoInternet> {
               "You are not connected to the internet. Make sure Wi-Fi is on, Airplane Mode is Off ",
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 12,
                   fontFamily: Constants.FONTFAMILY),
             ),
@@ -57,10 +57,10 @@ class _NoInternetState extends State<NoInternet> {
               ),
               onPressed:(){
                 context.read<NetworkServicesCubit>().checkNetWork();
-                context.read<HomeCubit>().getPopularList();
-                context.read<HomeCubit>().getTopRatedList();
-                context.read<HomeCubit>().getNowPlayingList();
-                context.read<HomeCubit>().getUpComingList();
+                context.read<HomeCubit>().getPopularList(false,1);
+                context.read<HomeCubit>().getTopRatedList(false,1);
+                context.read<HomeCubit>().getNowPlayingList(false,1);
+                context.read<HomeCubit>().getUpComingList(false,1);
               },
               child: const Text(
                 " Try Again",

@@ -1,18 +1,18 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project_demo/core/router/router.dart';
 import 'package:project_demo/presentation/allert_dropdown/allert_dropdown.dart';
-import 'package:project_demo/presentation/common/ultis/string_ultis.dart';
 import '../../../../../config/constants.dart';
 import '../../../../common/image_picker.dart';
 import '../../../../common/input_text_wrap.dart';
 import '../../../../common/rouned_button.dart';
 import '../../../../common/social_media.dart';
+import '../../../../common/utils/string_ultis.dart';
 import '../sign_up_cubit/sign_up_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -63,13 +63,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
           height: size.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
-              SizedBox(
+            children: [
+              const SizedBox(
                 height: 30,
               ),
               Text(
-                "SignUp",
-                style: TextStyle(
+                AppLocalizations.of(context)!.sign_up,
+                style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                     color: Colors.white),
@@ -206,9 +206,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            'You have account ? ',
-                            style: TextStyle(
+                          Text(
+                            AppLocalizations.of(context)!.have_account,
+                            style: const TextStyle(
                                 color: Colors.black,
                                 fontFamily: Constants.FONTFAMILY),
                           ),
@@ -217,9 +217,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 Navigator.pushNamed(
                                     context, AppRouter.LOGIN_SCREEN);
                               },
-                              child: const Text(
-                                "Sign in",
-                                style: TextStyle(
+                              child: Text(
+                                AppLocalizations.of(context)!.login,
+                                style: const TextStyle(
                                     color: Constants.BACKGROUND,
                                     fontWeight: FontWeight.w600,
                                     decoration: TextDecoration.underline,
@@ -259,7 +259,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   inputPassword() {
     return BlocBuilder<SignUpCubit, SignUpState>(builder: (context, state) {
       return InputTextWrap(
-          label: "Password...",
+          label: AppLocalizations.of(context)!.password,
           controller: password,
           icon: const Icon(
             Icons.lock_outline,
@@ -282,6 +282,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
             if (str!.isEmpty) {
               return "Password is required";
             }
+            if (StringUltis.isPassword(str)) {
+              return "Password wrong format";
+            }
             return null;
           });
     });
@@ -290,7 +293,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   conFirmPassword() {
     return BlocBuilder<SignUpCubit, SignUpState>(builder: (context, state) {
       return InputTextWrap(
-          label: "ConfirmPassword...",
+          label: AppLocalizations.of(context)!.confirm_password,
           controller: confirmPassword,
           icon: const Icon(
             Icons.lock_outline,
@@ -323,7 +326,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget fullName() {
     return InputTextWrap(
-        label: "FullName...",
+        label: AppLocalizations.of(context)!.full_name,
         controller: name,
         obscureText: false,
         icon: const Icon(
@@ -384,7 +387,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               .signUpEmail(email.text, password.text, name.text, imagePath!);
         }
       },
-      text: 'Sign up',
+      text: AppLocalizations.of(context)!.sign_up,
     );
   }
 

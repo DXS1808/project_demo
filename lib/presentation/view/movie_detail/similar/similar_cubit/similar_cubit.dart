@@ -11,12 +11,28 @@ class SimilarCubit extends Cubit<SimilarState> {
   MovieUseCase movieUseCase;
   SimilarCubit(this.movieUseCase) : super(SimilarState());
 
-  void get (int movieId) async{
-    emit(state.copyWith(similarStatus: SimilarStatus.loading));
-    try{
-      final data = await movieUseCase.getListSimilar(Constants.API_KEY, movieId);
-      emit(state.copyWith(similarStatus: SimilarStatus.success,movieListItem: data.results));
-    }catch(e){
+  void get(int movieId, bool isLoading, int page) async {
+    if (isLoading == false) {
+      emit(state.copyWith(similarStatus: SimilarStatus.loading));
+    }
+    try {
+      List<MovieListItem> listSimilar = [];
+      if (isLoading == false) {
+        final data = await movieUseCase.getListSimilar(
+            Constants.API_KEY, movieId, 1);
+        listSimilar.addAll(data.results);
+        emit(state.copyWith(
+            similarStatus: SimilarStatus.success,
+            movieListItem: listSimilar));
+      } else if (isLoading == true) {
+        final data = await movieUseCase.getListSimilar(
+            Constants.API_KEY, movieId, page);
+        listSimilar.addAll(data.results);
+        emit(state.copyWith(
+            similarStatus: SimilarStatus.isLoading,
+            movieListItem: listSimilar));
+      }
+    } catch (e) {
       emit(state.copyWith(similarStatus: SimilarStatus.failed));
     }
   }

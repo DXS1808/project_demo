@@ -8,13 +8,13 @@ import '../../data/model/cast/cast.dart';
 import '../../data/model/movie/movie.dart';
 
 abstract class MovieRepository {
-  Future<Movie> getListMovie(String apiKey);
+  Future<Movie> getListMovie(String apiKey,int page);
 
-  Future<Movie> getListTopRated(String apiKey);
+  Future<Movie> getListTopRated(String apiKey,int page);
 
-  Future<Movie> getListNowPlaying(String apiKey);
+  Future<Movie> getListNowPlaying(String apiKey,int page);
 
-  Future<Movie> getListUpComing(String apiKey);
+  Future<Movie> getListUpComing(String apiKey,int page);
 
   Future<Movie> getListFavorite(String apiKey, int accountId, String sessionId);
 
@@ -25,7 +25,7 @@ abstract class MovieRepository {
 
   // getList Recommendations movie
 
-  Future<Movie> getListRecommendations(String apiKey, int movieId);
+  Future<Movie> getListRecommendations(String apiKey, int movieId,int page);
 
 //getCreditCast
 
@@ -35,7 +35,7 @@ abstract class MovieRepository {
   Future<Reviews> getReviews(String apiKey, int movieId);
 
   //get list similar
-  Future<Movie> getListSimilar(String apiKey, int movieId);
+  Future<Movie> getListSimilar(String apiKey, int movieId,int page);
 
   //get MovieImage
   Future<MovieImage> getMovieImage(String apiKey,int movieId);

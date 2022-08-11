@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:skeleton_loader/skeleton_loader.dart';
 import 'package:skeletons/skeletons.dart';
@@ -11,7 +11,7 @@ class SkeletonScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: SkeletonLoader(
-        highlightColor: Colors.white24,
+        highlightColor: Colors.grey,
         baseColor: Colors.grey.withOpacity(0.8),
         items: 10,
         builder: SkeletonItem(

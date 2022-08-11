@@ -22,9 +22,9 @@ class _MovieSeeAllState extends State<MovieSeeAll> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Constants.BACKGROUND,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Constants.BACKGROUND,
+        backgroundColor: Constants.BACKGROUND_COLOR,
         centerTitle: true,
         title: Text(
           widget.category,
@@ -34,7 +34,7 @@ class _MovieSeeAllState extends State<MovieSeeAll> {
               fontFamily: Constants.FONT_FAMILY),
         ),
       ),
-      body: CategoryMovieList(movieListItem: widget.movieListItem,)
+      body: CategoryMovieList(movieListItem: widget.movieListItem,isLoading: false,)
     );
   }
 }

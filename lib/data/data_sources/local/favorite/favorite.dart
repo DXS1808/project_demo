@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:hive/hive.dart';
 import 'package:project_demo/data/model/favorite/favorite.dart';
 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:project_demo/data/model/cast/cast_career.dart';
 import 'package:project_demo/data/model/credit_movie/credit_movie.dart';
 import 'package:project_demo/presentation/common/category_text.dart';
 import 'package:project_demo/presentation/common/movie_detail_item.dart';
 
+import '../../../../../../common/utils/string_ultis.dart';
 import '../cast_movie_cubit/cast_movie_cubit.dart';
 
 class CastMovieUI extends StatefulWidget {
@@ -38,7 +38,7 @@ class _CastMovieUIState extends State<CastMovieUI> {
           //     : "1994-12-16";
           try{
             listCastCareer.add(CastCareer(
-                DateFormat("yyyy-MM-dd").parse(state.castMovie[i].releaseDate!),
+                StringUltis.convertDateTime(state.castMovie[i].releaseDate!),
                 state.castMovie[i].character!,
                 state.castMovie[i].originalTitle!));
           }catch(e){

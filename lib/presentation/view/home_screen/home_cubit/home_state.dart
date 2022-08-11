@@ -4,12 +4,17 @@ enum HomeStatus {
   initial,
   loading,
   getPopularList,
+  getPopularListLoading,
   getTopRatedList,
+  getTopRatedListLoading,
   failed,
   noSearch,
   getNowPlayingList,
+  getNowPlayingListLoading,
   getUpComing,
+  getUpComingLoading,
   getSearchMovie,
+  getSearchMovieLoading,
   loadingSearch
 }
 

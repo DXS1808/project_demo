@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_demo/presentation/view/movie_detail/reviews/ui/reviews_item.dart';
 import '../../../../common/category_text.dart';
 import '../reviews_cubit/reviews_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReviewsList extends StatefulWidget {
   final int movieId;
@@ -34,17 +35,17 @@ class _ReviewsListState extends State<ReviewsList> {
             Row(
               children: [
                 CategoryText(
-                  category: "Reviews",
+                  category: AppLocalizations.of(context)!.reviews,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 const SizedBox(width: 10.0,),
                 CategoryText(
                   category: "${state.results.length}",
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  color: Colors.black,
                 )
               ],
             ),

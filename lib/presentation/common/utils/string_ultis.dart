@@ -1,6 +1,8 @@
+import 'package:intl/intl.dart';
+
 class StringUltis {
   static bool isEmail(String email) {
-    final RegExp regExp = RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+    final RegExp regExp = RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}');
     return regExp.hasMatch(email.trim());
   }
 
@@ -11,7 +13,10 @@ class StringUltis {
   }
 
   static bool isImage(String url){
-    final RegExp regExp = RegExp("([/|.|\w|\s|-])*\.(?:jpg|gif|png)");
+    final RegExp regExp = RegExp("([/|.|w|s|-])*.(?:jpg|gif|png)");
     return regExp.hasMatch(url.trim());
+  }
+  static DateTime convertDateTime(String date){
+    return DateFormat("yyyy-MM-dd").parse(date);
   }
 }

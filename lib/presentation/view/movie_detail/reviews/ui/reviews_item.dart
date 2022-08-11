@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:project_demo/config/constants.dart';
 import 'package:project_demo/data/model/reviews/reviews.dart';
 import 'package:project_demo/presentation/common/cache_image.dart';
-import 'package:project_demo/presentation/common/category_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:project_demo/presentation/common/image_url_null.dart';
 import 'package:readmore/readmore.dart';
 
@@ -31,7 +31,7 @@ class _ReviewsItemState extends State<ReviewsItem> {
           margin: const EdgeInsets.only(bottom: 8.0),
           padding:const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
-              border: Border.all(color:Colors.white,width: 1),
+              border: Border.all(color:Colors.black,width: 1),
               borderRadius: const BorderRadius.all(Radius.circular(10.0))
           ),
           child: authorDetails(widget.results.authorDetails!),
@@ -50,7 +50,7 @@ class _ReviewsItemState extends State<ReviewsItem> {
             child: ClipOval(
               child: authorDetails.avatarPath != null
                   ? CacheImage(authorDetails.avatarPath!, 80, 80, BoxFit.cover)
-                  : ImageUrlNull(const Icon(Icons.person), 80, 80),
+                  : const ImageUrlNull( Icon(Icons.person), 80, 80),
             )
         ),
         const SizedBox(
@@ -62,7 +62,7 @@ class _ReviewsItemState extends State<ReviewsItem> {
             children: [
               Text(widget.results.author!,
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w600,
                 fontSize: 12,
                 fontFamily: Constants.FONT_FAMILY,
@@ -71,15 +71,15 @@ class _ReviewsItemState extends State<ReviewsItem> {
               ReadMoreText(
               "${widget.results.content}",
               trimLines: 4,
-              trimExpandedText: "Less",
-              trimCollapsedText: "Read more",
+              trimExpandedText: AppLocalizations.of(context)!.less,
+              trimCollapsedText: AppLocalizations.of(context)!.read_more,
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 12,
                 fontFamily: Constants.FONT_FAMILY,
               ),
-                moreStyle: const TextStyle(color: Colors.blue),
-                lessStyle: const TextStyle(color: Colors.blue),
+                moreStyle: const TextStyle(color: Constants.BACKGROUND_COLOR),
+                lessStyle: const TextStyle(color: Constants.BACKGROUND_COLOR),
             ),
               Text(timer,
               style: const TextStyle(

@@ -4,6 +4,7 @@ import 'package:project_demo/core/router/router.dart';
 import 'package:project_demo/presentation/common/cache_image.dart';
 import 'package:project_demo/presentation/common/category_text.dart';
 import '../../../../../data/model/cast/cast.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreditCastItem extends StatelessWidget {
   CreditCast creditCast;
@@ -17,10 +18,10 @@ class CreditCastItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CategoryText(
-                category: 'Cast',
+                category: AppLocalizations.of(context)!.cast,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: Colors.white,
+                color: Colors.black,
               ),
               castList(creditCast.cast!, context),
             ],
@@ -69,7 +70,7 @@ class CreditCastItem extends StatelessWidget {
                   ),
             Text(item.originalName!,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontFamily: Constants.FONT_FAMILY,
                   fontSize: 10,
                 ))

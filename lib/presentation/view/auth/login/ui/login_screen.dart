@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_demo/core/router/router.dart';
 import 'package:project_demo/presentation/common/social_media.dart';
-import 'package:project_demo/presentation/common/ultis/string_ultis.dart';
 import '../../../../../config/constants.dart';
 import '../../../../allert_dropdown/allert_dropdown.dart';
 import '../../../../common/input_text_wrap.dart';
 import '../../../../common/rouned_button.dart';
+import '../../../../common/utils/string_ultis.dart';
 import '../login_cubit/login_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -82,9 +83,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    const Text(
-                      "Login",
-                      style: TextStyle(
+                     Text(
+                       AppLocalizations.of(context)!.login,
+                      style:const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                           color: Colors.black),
@@ -147,9 +148,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          "Don't have account?",
-                          style: TextStyle(
+                         Text(
+                          AppLocalizations.of(context)!.dont_account,
+                          style: const TextStyle(
                               fontSize: Constants.FONT_SIZE,
                               color: Colors.black,
                               fontFamily: Constants.FONTFAMILY),
@@ -158,9 +159,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: () {
                             Navigator.pushNamed(context, AppRouter.SIGN_UP);
                           },
-                          child: const Text(
-                            "Sign up",
-                            style: TextStyle(
+                          child: Text(
+                            AppLocalizations.of(context)!.sign_up,
+                            style: const TextStyle(
                                 decoration: TextDecoration.underline,
                                 color: Constants.BACKGROUND,
                                 fontWeight: FontWeight.w600,
@@ -201,7 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
   inputPassword() {
     return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
       return InputTextWrap(
-          label: "Password...",
+          label: AppLocalizations.of(context)!.password,
           controller: password,
           icon: const Icon(
             Icons.lock_outline,
@@ -235,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
             context.read<LoginCubit>().signIn(email.text, password.text);
           }
         },
-        text: "Login");
+        text: AppLocalizations.of(context)!.login);
   }
 
   signInGoogle() {

@@ -1,26 +1,26 @@
 part of 'recommendation_cubit.dart';
 
-enum RecommendationStatus { initial, loading, success, failed }
+enum RecommendationStatus { initial, loading, success, failed,isLoading}
 
 @immutable
 class RecommendationState extends Equatable {
   final RecommendationStatus recommendationStatus;
-  final Movie? movie;
+  final List<MovieListItem> movieListItem;
 
   RecommendationState(
-      {this.recommendationStatus = RecommendationStatus.initial, this.movie});
+      {this.recommendationStatus = RecommendationStatus.initial, this.movieListItem = const[]});
 
   @override
   // TODO: implement props
-  List<Object?> get props => [recommendationStatus,movie];
+  List<Object?> get props => [recommendationStatus, movieListItem];
 
   RecommendationState copyWith({
     RecommendationStatus? recommendationStatus,
-    Movie? movie,
+    List<MovieListItem>? movieListItem,
   }) {
     return RecommendationState(
       recommendationStatus: recommendationStatus ?? this.recommendationStatus,
-      movie: movie ?? this.movie,
+      movieListItem: movieListItem ?? this.movieListItem,
     );
   }
 }

@@ -1,6 +1,6 @@
 part of 'similar_cubit.dart';
 
-enum SimilarStatus{initial,loading,success,failed}
+enum SimilarStatus{initial,loading,success,failed,isLoading}
 
 @immutable
 class SimilarState extends Equatable {
