@@ -19,9 +19,9 @@ class MovieDetailHeader extends AppBar {
 class _MovieDetailHeaderState extends State<MovieDetailHeader> {
   @override
   void initState() {
+    // TODO: implement initState
     context.read<CheckFavoriteCubit>().checkFavorite(
         widget.movieDetail.id!, FirebaseAuth.instance.currentUser!.uid);
-    // TODO: implement initState
     super.initState();
   }
 
@@ -49,62 +49,62 @@ class _MovieDetailHeaderState extends State<MovieDetailHeader> {
       actions: [
         Container(
             padding: const EdgeInsets.all(5.0),
-            child: BlocBuilder<CheckFavoriteCubit, CheckFavoriteState>(
-              builder: (context, state) {
-                Favorite favorite = Favorite(
-                    widget.movieDetail.posterPath,
-                    widget.movieDetail.overview!,
-                    widget.movieDetail.id!,
-                    widget.movieDetail.releaseDate!,
-                    widget.movieDetail.originalTitle!,
-                    widget.movieDetail.title!,
-                    widget.movieDetail.voteCount!,
-                    widget.movieDetail.voteAverage!);
-                return state.checkFavoriteStatus == CheckFavoriteStatus.marked
-                    ? BlocListener<MovieFavoriteCubit, MovieFavoriteState>(
-                        listener: (context, state) {
-                          if (state.movieFavoriteStatus ==
-                              MovieFavoriteStatus.success) {
-                            AlertShowMessage.success(context, "Remove Favorite Success");
-                            context
-                                .read<CheckFavoriteCubit>()
-                                .checkFavorite(widget.movieDetail.id!,FirebaseAuth.instance.currentUser!.uid);
-                          }
-                        },
-                        child: IconButton(
-                            onPressed: () {
-                              context.read<MovieFavoriteCubit>().removeFavorite(
-                                  FirebaseAuth.instance.currentUser!.uid,
-                                  widget.movieDetail.id!);
-                            },
-                            splashRadius: 15.0,
-                            icon: const Icon(
-                              Icons.favorite,
-                              color: Colors.pinkAccent,
-                            )),
-                      )
-                    : BlocListener<MovieFavoriteCubit, MovieFavoriteState>(
-                        listener: (context, state) {
-                          if (state.movieFavoriteStatus ==
-                              MovieFavoriteStatus.markedSuccess) {
-                            AlertShowMessage.success(context,"Add Favorite Success");
-                            context
-                                .read<CheckFavoriteCubit>()
-                                .checkFavorite(widget.movieDetail.id!,FirebaseAuth.instance.currentUser!.uid);
-                          }
-                        },
-                        child: IconButton(
-                            onPressed: () {
-                              context.read<MovieFavoriteCubit>().markFavorite(
-                                  FirebaseAuth.instance.currentUser!.uid, widget.movieDetail.id!, favorite);
-                            },
-                            splashRadius: 15.0,
-                            icon: const Icon(
-                              Icons.favorite,
-                              color: Colors.grey,
-                            )),
-                      );
+            child: BlocListener<MovieFavoriteCubit, MovieFavoriteState>(
+              listener: (context, state) {
+                if (state.movieFavoriteStatus ==
+                    MovieFavoriteStatus.markedSuccess) {
+                  AlertShowMessage.success(context, "Add Favorite Success");
+                  context.read<CheckFavoriteCubit>().checkFavorite(
+                      widget.movieDetail.id!,
+                      FirebaseAuth.instance.currentUser!.uid);
+                }
+                if (state.movieFavoriteStatus == MovieFavoriteStatus.success) {
+                  AlertShowMessage.success(context, "Remove Favorite Success");
+                  context.read<CheckFavoriteCubit>().checkFavorite(
+                      widget.movieDetail.id!,
+                      FirebaseAuth.instance.currentUser!.uid);
+                }
+                // TODO: implement listener
               },
+              child: BlocBuilder<CheckFavoriteCubit, CheckFavoriteState>(
+                builder: (context, state) {
+                  Favorite favorite = Favorite(
+                      widget.movieDetail.posterPath,
+                      widget.movieDetail.overview!,
+                      widget.movieDetail.id!,
+                      widget.movieDetail.releaseDate!,
+                      widget.movieDetail.originalTitle!,
+                      widget.movieDetail.title!,
+                      widget.movieDetail.voteCount!,
+                      widget.movieDetail.voteAverage!);
+                  return state.checkFavoriteStatus == CheckFavoriteStatus.marked
+                      ? IconButton(
+                          onPressed: () {
+                            context
+                                .read<MovieFavoriteCubit>()
+                                .removeFavorite(
+                                    FirebaseAuth.instance.currentUser!.uid,
+                                    widget.movieDetail.id!);
+                          },
+                          splashRadius: 15.0,
+                          icon: const Icon(
+                            Icons.favorite,
+                            color: Colors.pinkAccent,
+                          ))
+                      : IconButton(
+                          onPressed: () {
+                            context.read<MovieFavoriteCubit>().markFavorite(
+                                FirebaseAuth.instance.currentUser!.uid,
+                                widget.movieDetail.id!,
+                                favorite);
+                          },
+                          splashRadius: 15.0,
+                          icon: const Icon(
+                            Icons.favorite,
+                            color: Colors.grey,
+                          ));
+                },
+              ),
             ))
       ],
     );

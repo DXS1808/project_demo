@@ -47,7 +47,6 @@ class _CastMovieUIState extends State<CastMovieUI> {
         }
         listCastCareer
             .sort((a, b) => a.dateTime.year.compareTo(b.dateTime.year));
-        print("listCastCareer: ${listCastCareer}");
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
