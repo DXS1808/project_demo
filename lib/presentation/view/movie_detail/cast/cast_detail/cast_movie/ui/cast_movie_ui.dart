@@ -4,8 +4,7 @@ import 'package:project_demo/data/model/cast/cast_career.dart';
 import 'package:project_demo/data/model/credit_movie/credit_movie.dart';
 import 'package:project_demo/presentation/common/category_text.dart';
 import 'package:project_demo/presentation/common/movie_detail_item.dart';
-
-import '../../../../../../common/utils/string_ultis.dart';
+import '../../../../../../../utils/string_ultis.dart';
 import '../cast_movie_cubit/cast_movie_cubit.dart';
 
 class CastMovieUI extends StatefulWidget {
@@ -33,9 +32,6 @@ class _CastMovieUIState extends State<CastMovieUI> {
       } else if (state.creditMovieStatus == CreditMovieStatus.success) {
         List<CastCareer> listCastCareer = [];
         for (int i = 0; i <= state.castMovie.length - 1; i++) {
-          // String dateTime = state.castMovie[i].releaseDate!.length != 10
-          //     ? state.castMovie[i].releaseDate!
-          //     : "1994-12-16";
           try{
             listCastCareer.add(CastCareer(
                 StringUltis.convertDateTime(state.castMovie[i].releaseDate!),

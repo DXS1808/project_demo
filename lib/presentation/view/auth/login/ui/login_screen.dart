@@ -4,10 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_demo/core/router/router.dart';
 import 'package:project_demo/presentation/common/social_media.dart';
 import '../../../../../config/constants.dart';
+import '../../../../../utils/string_ultis.dart';
 import '../../../../allert_dropdown/allert_dropdown.dart';
 import '../../../../common/input_text_wrap.dart';
 import '../../../../common/rouned_button.dart';
-import '../../../../common/utils/string_ultis.dart';
 import '../login_cubit/login_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

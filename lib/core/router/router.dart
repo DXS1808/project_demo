@@ -16,7 +16,6 @@ import '../../data/impl/movie_impl.dart';
 import '../../domain/usecase/cast_detail_usecase.dart';
 import '../../domain/usecase/favorite_usecase.dart';
 import '../../domain/usecase/movie_usecase.dart';
-import '../../presentation/common/utils/rest_client_dio.dart';
 import '../../presentation/view/auth/login/login_cubit/login_cubit.dart';
 import '../../presentation/view/auth/login/ui/login_screen.dart';
 import '../../presentation/view/auth/sign_up/sign_up_cubit/sign_up_cubit.dart';
@@ -28,6 +27,7 @@ import '../../presentation/view/movie_detail/cast/cast_detail/cast_detail_cubit/
 import '../../presentation/view/movie_detail/cast/cast_detail/ui/cast_detail_screen.dart';
 import '../../presentation/view/movie_detail/movie_detail_screen.dart';
 import '../../presentation/view/splash/ui/splash_screen.dart';
+import '../../utils/rest_client_dio.dart';
 
 class AppRouter {
   static const String HOME_SCREEN = "/home_screen";

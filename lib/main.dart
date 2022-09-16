@@ -11,7 +11,6 @@ import 'package:project_demo/data/impl/movie_impl.dart';
 import 'package:project_demo/data/model/favorite/favorite.dart';
 import 'package:project_demo/domain/usecase/movie_usecase.dart';
 import 'package:project_demo/l10n/locale_cubit/locale_cubit.dart';
-import 'package:project_demo/presentation/common/utils/rest_client_dio.dart';
 import 'package:project_demo/presentation/view/auth/sign_out/sign_out_cubit/sign_out_cubit.dart';
 import 'package:project_demo/presentation/view/home_screen/home_cubit/home_cubit.dart';
 import 'package:project_demo/presentation/view/home_screen/ui/home_screen.dart';
@@ -20,9 +19,12 @@ import 'package:project_demo/presentation/view/splash/ui/splash_screen.dart';
 import 'package:flutter_dropdown_alert/dropdown_alert.dart';
 import 'package:project_demo/services/network_services/network_services_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:project_demo/utils/di/injection.dart';
+import 'package:project_demo/utils/rest_client_dio.dart';
 import 'firebase_options.dart';
 
 void main() async {
+  await setupInjection();
   WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(
       widgetsBinding: WidgetsFlutterBinding.ensureInitialized());

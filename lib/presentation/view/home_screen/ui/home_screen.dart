@@ -15,7 +15,7 @@ import 'package:project_demo/presentation/view/profile/profile_screen.dart';
 import 'package:project_demo/services/network_services/network_services_cubit.dart';
 import '../../../../data/impl/movie_impl.dart';
 import '../../../../domain/usecase/movie_usecase.dart';
-import '../../../common/utils/rest_client_dio.dart';
+import '../../../../utils/rest_client_dio.dart';
 import '../../movie/category_movie_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../profile/profile_cubit/profile_cubit.dart';

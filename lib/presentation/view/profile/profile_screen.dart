@@ -9,10 +9,9 @@ import 'package:project_demo/presentation/common/profile_item.dart';
 import 'package:project_demo/presentation/view/auth/sign_out/sign_out_cubit/sign_out_cubit.dart';
 import 'package:project_demo/presentation/view/profile/profile_cubit/profile_cubit.dart';
 import '../../../l10n/locale_cubit/locale_cubit.dart';
+import '../../../utils/string_ultis.dart';
 import '../../common/custorm_clipper.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../common/utils/string_ultis.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);

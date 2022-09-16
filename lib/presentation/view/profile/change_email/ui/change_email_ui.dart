@@ -6,8 +6,8 @@ import 'package:project_demo/presentation/common/rouned_button.dart';
 import 'package:project_demo/presentation/view/profile/change_email/change_email_cubit/change_email_cubit.dart';
 
 import '../../../../../config/constants.dart';
+import '../../../../../utils/string_ultis.dart';
 import '../../../../common/input_text_wrap.dart';
-import '../../../../common/utils/string_ultis.dart';
 
 class ChangeEmail extends StatefulWidget {
   const ChangeEmail({Key? key}) : super(key: key);
