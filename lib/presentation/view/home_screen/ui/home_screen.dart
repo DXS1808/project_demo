@@ -206,9 +206,6 @@ class _MovieScreenState extends State<MovieScreen>
         case HomeStatus.getSearchMovieLoading:
           // TODO: Handle this case.
           break;
-        case HomeStatus.loadingSearch:
-          // TODO: Handle this case.
-          break;
       }
     }, builder: (context, state) {
       return DefaultTabController(
