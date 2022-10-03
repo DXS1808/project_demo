@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_demo/config/constants.dart';
@@ -50,16 +49,19 @@ class CastDetailScreenState extends State<CastDetailScreen> {
           extendBodyBehindAppBar: true,
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            leading:Container(
+            leading: Container(
               padding: const EdgeInsets.all(5.0),
               child: CircleAvatar(
                 maxRadius: 20,
                 backgroundColor: Colors.grey.withOpacity(0.5),
                 child: IconButton(
-                  onPressed: (){
-                    Navigator.of(context,rootNavigator: true).pop();
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop();
                   },
-                  icon: const Icon(Icons.arrow_back,color: Constants.backgroundColor,),
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: Constants.backgroundColor,
+                  ),
                 ),
               ),
             ),
@@ -83,15 +85,15 @@ class CastDetailScreenState extends State<CastDetailScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             ClipPath(
-               clipper: Customshape(),
-               child:  Container(
-                 height: 200,
-                 decoration: const BoxDecoration(
-                     color: Constants.backgroundColor,
-                 ),
-               ),
-             ),
+              ClipPath(
+                clipper: Customshape(),
+                child: Container(
+                  height: 200,
+                  decoration: const BoxDecoration(
+                    color: Constants.backgroundColor,
+                  ),
+                ),
+              ),
               const SizedBox(
                 height: 50,
               ),
@@ -132,20 +134,22 @@ class CastDetailScreenState extends State<CastDetailScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                          const CategoryText(
-                            category: "Biography",
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        const CategoryText(
+                          category: "Biography",
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
                         ReadMoreText(
                           castDetail.biography!,
                           style: const TextStyle(
                               color: Colors.black,
                               fontSize: 12,
                               fontWeight: FontWeight.w400),
-                          moreStyle: const TextStyle(color: Constants.backgroundColor),
-                          lessStyle: const TextStyle(color: Constants.backgroundColor),
+                          moreStyle:
+                              const TextStyle(color: Constants.backgroundColor),
+                          lessStyle:
+                              const TextStyle(color: Constants.backgroundColor),
                           trimCollapsedText: 'Read more',
                           trimExpandedText: 'Less',
                         )
@@ -205,6 +209,4 @@ class CastDetailScreenState extends State<CastDetailScreen> {
       ],
     );
   }
-
-
 }

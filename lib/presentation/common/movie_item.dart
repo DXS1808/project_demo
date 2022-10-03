@@ -16,7 +16,8 @@ class MovieItem extends StatefulWidget {
   final dynamic movieListItem;
   final bool favorite;
 
-  const MovieItem({Key? key, required this.movieListItem, this.favorite = false})
+  const MovieItem(
+      {Key? key, required this.movieListItem, this.favorite = false})
       : super(key: key);
 
   @override

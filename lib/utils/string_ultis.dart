@@ -12,11 +12,12 @@ class StringUltis {
     return regExp.hasMatch(password.trim());
   }
 
-  static bool isImage(String url){
+  static bool isImage(String url) {
     final RegExp regExp = RegExp("([/|.|w|s|-])*.(?:jpg|gif|png)");
     return regExp.hasMatch(url.trim());
   }
-  static DateTime convertDateTime(String date){
+
+  static DateTime convertDateTime(String date) {
     return DateFormat("yyyy-MM-dd").parse(date);
   }
 }

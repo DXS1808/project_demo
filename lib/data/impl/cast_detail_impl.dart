@@ -5,15 +5,15 @@ import 'package:project_demo/data/model/credit_movie/credit_movie.dart';
 import 'package:project_demo/data/model/image_person/cast_image.dart';
 import 'package:project_demo/domain/repository/cast_detail_repository.dart';
 
-class CastDetailImpl implements CastRepository{
+class CastDetailImpl implements CastRepository {
   RestClient restClient;
   CastDetailImpl(this.restClient);
 
   @override
   Future<CastDetail> getCastDetail(String apiKey, int personId) {
-    try{
+    try {
       restClient.getCastDetail(apiKey, personId);
-    }catch(e){
+    } catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -23,9 +23,9 @@ class CastDetailImpl implements CastRepository{
 
   @override
   Future<CastImage> getCastImage(String apiKey, int castId) {
-    try{
+    try {
       restClient.getCastImage(apiKey, castId);
-    }catch(e){
+    } catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -35,14 +35,13 @@ class CastDetailImpl implements CastRepository{
 
   @override
   Future<CreditMovie> getCreditMovie(String apiKey, int castId) {
-    try{
+    try {
       restClient.getCreditMovie(apiKey, castId);
-    }catch(e){
+    } catch (e) {
       if (kDebugMode) {
         print(e);
       }
     }
     return restClient.getCreditMovie(apiKey, castId);
   }
-
 }

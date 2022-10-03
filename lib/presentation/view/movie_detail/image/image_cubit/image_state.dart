@@ -1,17 +1,17 @@
 part of 'image_cubit.dart';
 
-enum ImageStatus{initial, loading, success, failed}
+enum ImageStatus { initial, loading, success, failed }
 
 @immutable
 class ImageState extends Equatable {
   final ImageStatus imageStatus;
-  final MovieImage ? movieImage;
+  final MovieImage? movieImage;
 
-  const ImageState({this.imageStatus = ImageStatus.initial,this.movieImage});
+  const ImageState({this.imageStatus = ImageStatus.initial, this.movieImage});
 
   @override
   // TODO: implement props
-  List<Object?> get props => [imageStatus,movieImage];
+  List<Object?> get props => [imageStatus, movieImage];
 
   ImageState copyWith({
     ImageStatus? imageStatus,
@@ -23,5 +23,3 @@ class ImageState extends Equatable {
     );
   }
 }
-
-

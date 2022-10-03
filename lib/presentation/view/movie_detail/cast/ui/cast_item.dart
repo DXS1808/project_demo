@@ -42,8 +42,7 @@ class CreditCastItem extends StatelessWidget {
   Widget creditCastItem(Cast item, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, AppRouter.castDetail,
-            arguments: item.id!);
+        Navigator.pushNamed(context, AppRouter.castDetail, arguments: item.id!);
       },
       child: Container(
         height: 220,

@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
-
 part 'change_password_state.dart';
 
 class ChangePasswordCubit extends Cubit<ChangePasswordState> {
@@ -11,8 +10,7 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
 
   void changePassword(String newPassword) async {
     try {
-      User user =
-          FirebaseAuth.instance.currentUser!;
+      User user = FirebaseAuth.instance.currentUser!;
       user.updatePassword(newPassword);
       emit(state.copyWith(
           changePasswordStatus: ChangePasswordStatus.success,

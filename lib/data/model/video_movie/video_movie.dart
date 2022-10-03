@@ -1,6 +1,6 @@
-
 import 'package:json_annotation/json_annotation.dart';
 part 'video_movie.g.dart';
+
 @JsonSerializable()
 class MovieVideo {
   int? id;
@@ -8,9 +8,10 @@ class MovieVideo {
 
   MovieVideo(this.id, this.results);
 
-  factory MovieVideo.fromJson(Map<String,dynamic>json) => _$MovieVideoFromJson(json);
+  factory MovieVideo.fromJson(Map<String, dynamic> json) =>
+      _$MovieVideoFromJson(json);
 
-  Map<String ,dynamic> toJson() => _$MovieVideoToJson(this);
+  Map<String, dynamic> toJson() => _$MovieVideoToJson(this);
 }
 
 @JsonSerializable()
@@ -28,18 +29,11 @@ class Results {
   String? publishedAt;
   String? id;
 
-  Results(this.iso6391,
-    this.iso31661,
-    this.name,
-    this.key,
-    this.site,
-    this.size,
-    this.type,
-    this.official,
-    this.publishedAt,
-    this.id);
+  Results(this.iso6391, this.iso31661, this.name, this.key, this.site,
+      this.size, this.type, this.official, this.publishedAt, this.id);
 
-  factory Results.fromJson(Map<String,dynamic>json) => _$ResultsFromJson(json);
+  factory Results.fromJson(Map<String, dynamic> json) =>
+      _$ResultsFromJson(json);
 
-  Map<String ,dynamic> toJson() => _$ResultsToJson(this);
+  Map<String, dynamic> toJson() => _$ResultsToJson(this);
 }

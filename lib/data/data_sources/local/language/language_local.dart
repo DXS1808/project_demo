@@ -5,6 +5,7 @@ class LanguageLocal {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setString("languages", languagesCode);
   }
+
   static Future<String?> getLanguagesCode() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString("languages");

@@ -1,17 +1,18 @@
 part of 'reviews_cubit.dart';
 
-enum ReviewsStatus{initial,loading,success,failed}
+enum ReviewsStatus { initial, loading, success, failed }
 
 @immutable
 class ReviewsState extends Equatable {
   final List<Results> results;
   final ReviewsStatus reviewsStatus;
 
-  const ReviewsState({this.reviewsStatus = ReviewsStatus.initial,this.results = const []});
+  const ReviewsState(
+      {this.reviewsStatus = ReviewsStatus.initial, this.results = const []});
 
   @override
   // TODO: implement props
-  List<Object?> get props => [results,reviewsStatus];
+  List<Object?> get props => [results, reviewsStatus];
 
   ReviewsState copyWith({
     List<Results>? results,
@@ -23,4 +24,3 @@ class ReviewsState extends Equatable {
     );
   }
 }
-

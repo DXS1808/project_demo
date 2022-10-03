@@ -8,15 +8,13 @@ import 'package:project_demo/presentation/view/movie_detail/movie_detail_header.
 class MovieDetailScreen extends StatefulWidget {
   final int movieId;
   // int userId;
-  const MovieDetailScreen({Key? key,required this.movieId}) : super(key: key);
+  const MovieDetailScreen({Key? key, required this.movieId}) : super(key: key);
 
   @override
   MovieDetailScreenState createState() => MovieDetailScreenState();
 }
 
 class MovieDetailScreenState extends State<MovieDetailScreen> {
-
-
   @override
   void initState() {
     // TODO: implement initState
@@ -26,22 +24,23 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MovieDetailCubit,MovieDetailState>(builder: (context, state) {
-      if(state.movieDetailStatus == MovieDetailStatus.loading){
+    return BlocBuilder<MovieDetailCubit, MovieDetailState>(
+        builder: (context, state) {
+      if (state.movieDetailStatus == MovieDetailStatus.loading) {
         return const SkeletonMovieDetail();
-      }if(state.movieDetailStatus == MovieDetailStatus.success){
+      }
+      if (state.movieDetailStatus == MovieDetailStatus.success) {
         return Scaffold(
-          backgroundColor: Colors.white,
-          extendBodyBehindAppBar: true,
-          appBar: MovieDetailHeader(state.movieDetail!),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                MovieDetailBody(movieDetail: state.movieDetail!),
-              ],
-            ),
-          )
-        );
+            backgroundColor: Colors.white,
+            extendBodyBehindAppBar: true,
+            appBar: MovieDetailHeader(state.movieDetail!),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  MovieDetailBody(movieDetail: state.movieDetail!),
+                ],
+              ),
+            ));
       }
       return const SkeletonMovieDetail();
     });

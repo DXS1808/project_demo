@@ -1,17 +1,18 @@
 part of 'video_movie_cubit.dart';
 
-enum VideoMovieStatus {initial,loading,success,failed}
+enum VideoMovieStatus { initial, loading, success, failed }
 
 @immutable
 class VideoMovieState extends Equatable {
   final VideoMovieStatus videoMovieStatus;
-  final MovieVideo ? movieVideo;
+  final MovieVideo? movieVideo;
 
-  const VideoMovieState({this.videoMovieStatus = VideoMovieStatus.initial,this.movieVideo});
+  const VideoMovieState(
+      {this.videoMovieStatus = VideoMovieStatus.initial, this.movieVideo});
 
   @override
   // TODO: implement props
-  List<Object?> get props => [videoMovieStatus,movieVideo];
+  List<Object?> get props => [videoMovieStatus, movieVideo];
 
   VideoMovieState copyWith({
     VideoMovieStatus? videoMovieStatus,
@@ -23,5 +24,3 @@ class VideoMovieState extends Equatable {
     );
   }
 }
-
-

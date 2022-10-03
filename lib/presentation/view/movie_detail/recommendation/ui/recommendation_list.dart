@@ -13,7 +13,8 @@ import '../../../movie/movie_favorite/movie_favorite_cubit/movie_favorite_cubit.
 class RecommendationList extends StatelessWidget {
   final List<MovieListItem> movieListItem;
 
-  const RecommendationList({Key? key, required this.movieListItem}) : super(key: key);
+  const RecommendationList({Key? key, required this.movieListItem})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

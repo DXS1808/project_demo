@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class ImageUrlNull extends StatelessWidget {
@@ -6,17 +5,17 @@ class ImageUrlNull extends StatelessWidget {
   final double height;
   final double width;
 
-  const ImageUrlNull(this.icon,this.height,this.width,{Key?key}):super(key:key);
+  const ImageUrlNull(this.icon, this.height, this.width, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+        decoration: BoxDecoration(
           color: Colors.grey.withOpacity(0.5),
-      ),
-      height:height,
-      width: width,
-      child: icon
-    );
+        ),
+        height: height,
+        width: width,
+        child: icon);
   }
 }

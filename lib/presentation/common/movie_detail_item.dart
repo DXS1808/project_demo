@@ -11,7 +11,9 @@ class MovieItemDetail extends StatelessWidget {
   final Color colorText;
   final dynamic movieListItem;
 
-  const MovieItemDetail({Key? key, required this.movieListItem, required this.colorText}) : super(key: key);
+  const MovieItemDetail(
+      {Key? key, required this.movieListItem, required this.colorText})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

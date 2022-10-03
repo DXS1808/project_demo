@@ -6,8 +6,9 @@ class CacheImage extends StatelessWidget {
   final String imgUrl;
   final double heightImage;
   final double widthImage;
-  final BoxFit ? fit;
-  const CacheImage(this.imgUrl,this.heightImage,this.widthImage, this.fit, {super.key});
+  final BoxFit? fit;
+  const CacheImage(this.imgUrl, this.heightImage, this.widthImage, this.fit,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +18,15 @@ class CacheImage extends StatelessWidget {
       height: heightImage,
       width: widthImage,
       fit: fit ?? BoxFit.fill,
-      errorWidget: (context, url, _){
-        return  CircleAvatar(
-        maxRadius: 40,
-          backgroundColor: Colors.grey.withOpacity(0.5),
-          child: const Icon(Icons.error,
-            color: Colors.red,
-            size: 30,
-        ));
+      errorWidget: (context, url, _) {
+        return CircleAvatar(
+            maxRadius: 40,
+            backgroundColor: Colors.grey.withOpacity(0.5),
+            child: const Icon(
+              Icons.error,
+              color: Colors.red,
+              size: 30,
+            ));
       },
     );
   }

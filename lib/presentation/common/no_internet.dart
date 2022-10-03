@@ -55,12 +55,12 @@ class _NoInternetState extends State<NoInternet> {
                 elevation: MaterialStateProperty.all<double>(10),
                 padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
               ),
-              onPressed:(){
+              onPressed: () {
                 context.read<NetworkServicesCubit>().checkNetWork();
-                context.read<HomeCubit>().getPopularList(false,1);
-                context.read<HomeCubit>().getTopRatedList(false,1);
-                context.read<HomeCubit>().getNowPlayingList(false,1);
-                context.read<HomeCubit>().getUpComingList(false,1);
+                context.read<HomeCubit>().getPopularList(false, 1);
+                context.read<HomeCubit>().getTopRatedList(false, 1);
+                context.read<HomeCubit>().getNowPlayingList(false, 1);
+                context.read<HomeCubit>().getUpComingList(false, 1);
               },
               child: const Text(
                 " Try Again",

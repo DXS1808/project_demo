@@ -15,7 +15,7 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
 
   void getDetail(int movieId) async {
     emit(state.copyWith(movieDetailStatus: MovieDetailStatus.loading));
-    Timer(const Duration(seconds: 1),() async {
+    Timer(const Duration(seconds: 1), () async {
       try {
         final data =
             await movieUseCase.getMovieDetail(Constants.apiKey, movieId);

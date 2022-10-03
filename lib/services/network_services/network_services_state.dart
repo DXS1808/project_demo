@@ -1,12 +1,13 @@
 part of 'network_services_cubit.dart';
 
-enum NetworkServicesStatus{initial,online, offline}
+enum NetworkServicesStatus { initial, online, offline }
 
 @immutable
 class NetworkServicesState extends Equatable {
   final NetworkServicesStatus networkServicesStatus;
 
-  const NetworkServicesState({this.networkServicesStatus = NetworkServicesStatus.initial});
+  const NetworkServicesState(
+      {this.networkServicesStatus = NetworkServicesStatus.initial});
 
   @override
   // TODO: implement props
@@ -21,5 +22,3 @@ class NetworkServicesState extends Equatable {
     );
   }
 }
-
-

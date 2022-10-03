@@ -30,7 +30,7 @@ class MovieFavoriteState extends Equatable {
   @override
   // TODO: implement props
   List<Object?> get props =>
-      [movieFavoriteStatus, getListFavorite, errorMessage,movieId];
+      [movieFavoriteStatus, getListFavorite, errorMessage, movieId];
 
   MovieFavoriteState copyWith({
     MovieFavoriteStatus? movieFavoriteStatus,

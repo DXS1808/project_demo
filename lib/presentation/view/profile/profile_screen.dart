@@ -46,236 +46,260 @@ class _ProfileScreenState extends State<ProfileScreen> {
         );
       } else if (state.profileStatus == ProfileStatus.success) {
         return Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: Text(
-              AppLocalizations.of(context)!.profile,
-              style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: Constants.fontFamily),
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: Text(
+                AppLocalizations.of(context)!.profile,
+                style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: Constants.fontFamily),
+              ),
+              backgroundColor: Colors.transparent,
             ),
-            backgroundColor: Colors.transparent,
-          ),
-          extendBodyBehindAppBar: true,
-          body: SingleChildScrollView(
-              child: Stack(children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipPath(
-                      clipper: Customshape(),
-                      child: Container(
-                        height: 350,
-                        decoration: BoxDecoration(
-                            color: Constants.backgroundColor.withOpacity(0.8),
-                            borderRadius: const BorderRadius.only(
-                                bottomRight: Radius.circular(20),
-                                bottomLeft: Radius.circular(20))),
-                      ),
+            extendBodyBehindAppBar: true,
+            body: SingleChildScrollView(
+                child: Stack(children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipPath(
+                    clipper: Customshape(),
+                    child: Container(
+                      height: 350,
+                      decoration: BoxDecoration(
+                          color: Constants.backgroundColor.withOpacity(0.8),
+                          borderRadius: const BorderRadius.only(
+                              bottomRight: Radius.circular(20),
+                              bottomLeft: Radius.circular(20))),
                     ),
-                    const SizedBox(
-                      height: 300,
-                    ),
-                  ],
-                ),
-                Positioned(
-                  top: 200,
-                  left: 10,
-                  child: Card(
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15.0))),
-                      elevation: 5.0,
-                      child: Container(
-                        padding: const EdgeInsets.only(top: 80, bottom: 20),
-                        width: size.width - 30,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            if (FirebaseAuth.instance.currentUser?.displayName !=
-                                null)
-                              Text(
-                                FirebaseAuth.instance.currentUser!.displayName!,
-                                style: const TextStyle(
-                                  fontFamily: Constants.textFontFamily,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                ),
+                  ),
+                  const SizedBox(
+                    height: 300,
+                  ),
+                ],
+              ),
+              Positioned(
+                top: 200,
+                left: 10,
+                child: Card(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                    elevation: 5.0,
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 80, bottom: 20),
+                      width: size.width - 30,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (FirebaseAuth.instance.currentUser?.displayName !=
+                              null)
+                            Text(
+                              FirebaseAuth.instance.currentUser!.displayName!,
+                              style: const TextStyle(
+                                fontFamily: Constants.textFontFamily,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
                               ),
-                            if (FirebaseAuth.instance.currentUser?.email != null)
-                              Text(
-                                FirebaseAuth.instance.currentUser!.email!,
-                                style: const TextStyle(
-                                  color: Colors.grey,
-                                  fontFamily: Constants.textFontFamily,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 10,
-                                ),
-                              ),
-                            const Divider(
-                              color: Colors.grey,
                             ),
-                            ProfileItem(
-                                content:
-                                AppLocalizations.of(context)!.change_password,
-                                icon: Icons.lock,
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, AppRouter.changePassword);
-                                }),
-                            ProfileItem(
-                                content: AppLocalizations.of(context)!.change_email,
-                                icon: Icons.edit,
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, AppRouter.changeEmail);
-                                }),
-                            ProfileItem(
-                                content: AppLocalizations.of(context)!.language,
-                                icon: Icons.language,
-                                onTap: () {
-                                  showModalBottomSheet(
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(15.0),
-                                              topRight: Radius.circular(15.0))),
-                                      context: context,
-                                      builder: (context) {
-                                        return BlocConsumer<LocaleCubit,
-                                            LocaleState>(
-                                          builder: (context, state) {
-                                            return state.localeStatus ==
-                                                LocaleStatus.loading
-                                                ? const Center(
-                                              child:
-                                              CircularProgressIndicator(
-                                                color: Constants.backgroundColor,
-                                              ),
-                                            )
-                                                : SizedBox(
-                                              height: 100,
-                                              child: Column(
-                                                children: [
-                                                  languages(onTap: () {
-                                                    localeCubit.setLocale("en");
-                                                  }, url: "assets/english.png", language: "English"),
-                                                  const SizedBox(
-                                                    height: 10.0,
+                          if (FirebaseAuth.instance.currentUser?.email != null)
+                            Text(
+                              FirebaseAuth.instance.currentUser!.email!,
+                              style: const TextStyle(
+                                color: Colors.grey,
+                                fontFamily: Constants.textFontFamily,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 10,
+                              ),
+                            ),
+                          const Divider(
+                            color: Colors.grey,
+                          ),
+                          ProfileItem(
+                              content:
+                                  AppLocalizations.of(context)!.change_password,
+                              icon: Icons.lock,
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, AppRouter.changePassword);
+                              }),
+                          ProfileItem(
+                              content:
+                                  AppLocalizations.of(context)!.change_email,
+                              icon: Icons.edit,
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, AppRouter.changeEmail);
+                              }),
+                          ProfileItem(
+                              content: AppLocalizations.of(context)!.language,
+                              icon: Icons.language,
+                              onTap: () {
+                                showModalBottomSheet(
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(15.0),
+                                            topRight: Radius.circular(15.0))),
+                                    context: context,
+                                    builder: (context) {
+                                      return BlocConsumer<LocaleCubit,
+                                          LocaleState>(
+                                        builder: (context, state) {
+                                          return state.localeStatus ==
+                                                  LocaleStatus.loading
+                                              ? const Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    color: Constants
+                                                        .backgroundColor,
                                                   ),
-                                                  Container(
-                                                    padding:
-                                                    const EdgeInsets.only(
-                                                        left: 3.0),
-                                                    child: languages(onTap: () {
-                                                      localeCubit.setLocale("vi");
-                                                    }, url: "assets/vietnam.png", language: "Vietnamese"),
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                          listener: (context, state) {
-                                            if (state.localeStatus ==
-                                                LocaleStatus.success) {
-                                              Navigator.pop(context);
-                                            }
-                                          },
-                                        );
-                                      });
-                                }),
-                            ProfileItem(
-                                content: AppLocalizations.of(context)!.sign_out,
-                                icon: Icons.logout,
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return BlocProvider<SignOutCubit>(
-                                          create: (context) => SignOutCubit(),
-                                          child: SizedBox(
-                                            height: 200,
-                                            child: AlertDialog(
-                                              shape: const RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(20.0))),
-                                              content: Text(
-                                                AppLocalizations.of(context)!
-                                                    .pop_up,
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontFamily: Constants.fontFamily,
-                                                ),
-                                              ),
-                                              actions: [
-                                                Row(
-                                                  children: [
-                                                    const SizedBox(width: 20),
-                                                    Expanded(
-                                                        child: button(() {
-                                                          Navigator.pop(context);
-                                                        }, "Cancel")
-                                                    ),
-                                                    const Expanded(
-                                                      child: Text(""),
-                                                    ),
-                                                    Expanded(
-                                                        child: BlocListener<
-                                                            SignOutCubit,
-                                                            SignOutState>(
-                                                          listener: (context, state) {
-                                                            if (state.signOutStatus == SignOutStatus.success) {
-                                                              Navigator.pushNamed(context, AppRouter.loginScreen);
-                                                            }
-                                                          },
-                                                          child: button(() {
-                                                            signOutCubit.signOut();
-                                                            Navigator.pop(context);
-                                                          }, "OK"),
-                                                        )),
-                                                    const SizedBox(width: 20),
-                                                  ],
                                                 )
-                                              ],
+                                              : SizedBox(
+                                                  height: 100,
+                                                  child: Column(
+                                                    children: [
+                                                      languages(
+                                                          onTap: () {
+                                                            localeCubit
+                                                                .setLocale(
+                                                                    "en");
+                                                          },
+                                                          url:
+                                                              "assets/english.png",
+                                                          language: "English"),
+                                                      const SizedBox(
+                                                        height: 10.0,
+                                                      ),
+                                                      Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 3.0),
+                                                        child: languages(
+                                                            onTap: () {
+                                                              localeCubit
+                                                                  .setLocale(
+                                                                      "vi");
+                                                            },
+                                                            url:
+                                                                "assets/vietnam.png",
+                                                            language:
+                                                                "Vietnamese"),
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                        },
+                                        listener: (context, state) {
+                                          if (state.localeStatus ==
+                                              LocaleStatus.success) {
+                                            Navigator.pop(context);
+                                          }
+                                        },
+                                      );
+                                    });
+                              }),
+                          ProfileItem(
+                              content: AppLocalizations.of(context)!.sign_out,
+                              icon: Icons.logout,
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return BlocProvider<SignOutCubit>(
+                                        create: (context) => SignOutCubit(),
+                                        child: SizedBox(
+                                          height: 200,
+                                          child: AlertDialog(
+                                            shape: const RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20.0))),
+                                            content: Text(
+                                              AppLocalizations.of(context)!
+                                                  .pop_up,
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                fontFamily:
+                                                    Constants.fontFamily,
+                                              ),
                                             ),
+                                            actions: [
+                                              Row(
+                                                children: [
+                                                  const SizedBox(width: 20),
+                                                  Expanded(
+                                                      child: button(() {
+                                                    Navigator.pop(context);
+                                                  }, "Cancel")),
+                                                  const Expanded(
+                                                    child: Text(""),
+                                                  ),
+                                                  Expanded(
+                                                      child: BlocListener<
+                                                          SignOutCubit,
+                                                          SignOutState>(
+                                                    listener: (context, state) {
+                                                      if (state.signOutStatus ==
+                                                          SignOutStatus
+                                                              .success) {
+                                                        Navigator.pushNamed(
+                                                            context,
+                                                            AppRouter
+                                                                .loginScreen);
+                                                      }
+                                                    },
+                                                    child: button(() {
+                                                      signOutCubit.signOut();
+                                                      Navigator.pop(context);
+                                                    }, "OK"),
+                                                  )),
+                                                  const SizedBox(width: 20),
+                                                ],
+                                              )
+                                            ],
                                           ),
-                                        );
-                                      });
-                                })
-                          ],
-                        ),
-                      )),
-                ),
-                Positioned(
-                    top: 160,
-                    left: size.width * 0.5 - 50,
-                    child: FirebaseAuth.instance.currentUser?.photoURL != null &&
-                        StringUltis.isImage(
-                            FirebaseAuth.instance.currentUser!.photoURL!) ==
-                            true
-                        ? CircleAvatar(
-                      maxRadius: 50,
-                      backgroundColor: Colors.white,
-                      child: ClipOval(
-                        child: Image.file(
-                          File(FirebaseAuth.instance.currentUser!.photoURL!),
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        ),
+                                        ),
+                                      );
+                                    });
+                              })
+                        ],
                       ),
-                    )
-                        : AvatarNull(
-                      name: FirebaseAuth.instance.currentUser!.displayName!,
                     )),
-              ]))
-        );
+              ),
+              Positioned(
+                  top: 160,
+                  left: size.width * 0.5 - 50,
+                  child: FirebaseAuth.instance.currentUser?.photoURL != null &&
+                          StringUltis.isImage(FirebaseAuth
+                                  .instance.currentUser!.photoURL!) ==
+                              true
+                      ? CircleAvatar(
+                          maxRadius: 50,
+                          backgroundColor: Colors.white,
+                          child: ClipOval(
+                            child: Image.file(
+                              File(
+                                  FirebaseAuth.instance.currentUser!.photoURL!),
+                              height: 100,
+                              width: 100,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        )
+                      : AvatarNull(
+                          name: FirebaseAuth.instance.currentUser!.displayName!,
+                        )),
+            ])));
       }
       return Container();
     });
   }
 
-  Widget languages({required VoidCallback onTap, required String url, required String language}) {
+  Widget languages(
+      {required VoidCallback onTap,
+      required String url,
+      required String language}) {
     return InkWell(
       onTap: onTap,
       child: Row(

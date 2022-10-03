@@ -25,7 +25,8 @@ import 'image/image_cubit/image_cubit.dart';
 class MovieDetailBody extends StatefulWidget {
   final MovieDetail movieDetail;
 
-  const MovieDetailBody({Key? key, required this.movieDetail}) : super(key: key);
+  const MovieDetailBody({Key? key, required this.movieDetail})
+      : super(key: key);
 
   @override
   MovieDetailBodyState createState() => MovieDetailBodyState();
@@ -44,22 +45,22 @@ class MovieDetailBodyState extends State<MovieDetailBody> {
           child: Stack(
             children: [
               ShaderMask(
-                shaderCallback: (rect) {
-                  return  const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.black, Colors.transparent],
-                  ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
-                },
-                blendMode: BlendMode.dstIn,
-                child: widget.movieDetail.backdropPath != null
-                    ? ClipRRect(
-                  child: CacheImage(widget.movieDetail.backdropPath!,
-                      250, size.width, BoxFit.cover),
-                )
-                    : ImageUrlNull(const Icon(Icons.image, size: 30), 250,
-                    size.width)
-              ),
+                  shaderCallback: (rect) {
+                    return const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.black, Colors.transparent],
+                    ).createShader(
+                        Rect.fromLTRB(0, 0, rect.width, rect.height));
+                  },
+                  blendMode: BlendMode.dstIn,
+                  child: widget.movieDetail.backdropPath != null
+                      ? ClipRRect(
+                          child: CacheImage(widget.movieDetail.backdropPath!,
+                              250, size.width, BoxFit.cover),
+                        )
+                      : ImageUrlNull(
+                          const Icon(Icons.image, size: 30), 250, size.width)),
               Positioned(left: 0, top: 200, child: headerMovie(context))
             ],
           ),
@@ -105,7 +106,8 @@ class MovieDetailBodyState extends State<MovieDetailBody> {
           create: (context) => SimilarCubit(
             MovieUseCase(MovieImpl(RestClientDio.restClient)),
           ),
-          child: elevationCategory(SimilarScreen(movieId: widget.movieDetail.id!)),
+          child:
+              elevationCategory(SimilarScreen(movieId: widget.movieDetail.id!)),
         ),
         const SizedBox(
           height: 15.0,
@@ -114,8 +116,7 @@ class MovieDetailBodyState extends State<MovieDetailBody> {
           create: (context) => ImageCubit(
             MovieUseCase(MovieImpl(RestClientDio.restClient)),
           ),
-          child:
-              elevationCategory(ImageList(movieId: widget.movieDetail.id!)),
+          child: elevationCategory(ImageList(movieId: widget.movieDetail.id!)),
         ),
         const SizedBox(
           height: 15.0,
@@ -142,97 +143,103 @@ class MovieDetailBodyState extends State<MovieDetailBody> {
             borderRadius: const BorderRadius.all(Radius.circular(20.0)),
             child: widget.movieDetail.posterPath != null
                 ? CacheImage(
-                widget.movieDetail.posterPath!, 220, 150, BoxFit.cover)
+                    widget.movieDetail.posterPath!, 220, 150, BoxFit.cover)
                 : const ImageUrlNull(Icon(Icons.image, size: 30), 220, 150),
           ),
-          const SizedBox(width: 10.0,),
+          const SizedBox(
+            width: 10.0,
+          ),
           Expanded(
-              child:Container(
-                padding: const EdgeInsets.only(top: 40),
-                child:  Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              child: Container(
+            padding: const EdgeInsets.only(top: 40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.movieDetail.originalTitle!,
+                  softWrap: true,
+                  style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                      fontFamily: Constants.fontFamily,
+                      fontWeight: FontWeight.w600),
+                ),
+                genres(widget.movieDetail.genres!),
+                Row(
                   children: [
-                    Text(
-                      widget.movieDetail.originalTitle!,
-                      softWrap: true,
-                      style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontFamily: Constants.fontFamily,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    genres(widget.movieDetail.genres!),
-                    Row(
-                      children: [
-                        voteStar(
-                          const Icon(
-                            Icons.star,
-                            color: Constants.backgroundColor,
-                            size: 16,
-                          ),
-                          "${widget.movieDetail.voteAverage!.toStringAsFixed(1)}/10",
-                        ),
-                        const SizedBox(width: 10.0,),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 1.0,horizontal: 10.0),
-                          decoration: const BoxDecoration(
-                            color: Constants.backgroundColor,
-                            border: Border(
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          child: Text(
-                            "${widget.movieDetail.originalLanguage}",
-                            style: const TextStyle(
-                                fontSize: 11,
-                                color: Colors.white,
-                                fontFamily: Constants.fontFamily,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        )
-                      ],
-                    ),
                     voteStar(
                       const Icon(
-                        Icons.access_time,
+                        Icons.star,
                         color: Constants.backgroundColor,
                         size: 16,
                       ),
-                      "${widget.movieDetail.runtime} mins",
+                      "${widget.movieDetail.voteAverage!.toStringAsFixed(1)}/10",
                     ),
                     const SizedBox(
                       width: 10.0,
                     ),
-                    if (widget.movieDetail.productionCountries!.isNotEmpty)
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.only(top: 1.0),
-                            child: const Icon(
-                              Icons.location_on_outlined,
-                              color: Constants.backgroundColor,
-                              size: 16,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 3.0,
-                          ),
-                          productionCountries(widget.movieDetail.productionCountries!),
-                        ],
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 1.0, horizontal: 10.0),
+                      decoration: const BoxDecoration(
+                        color: Constants.backgroundColor,
+                        border: Border(),
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
-                    Text(
-                      "${AppLocalizations.of(context)!.vote_count}: ${widget.movieDetail.voteCount}",
-                      style: const TextStyle(fontSize: 11, color: Colors.black),
-                    ),
+                      child: Text(
+                        "${widget.movieDetail.originalLanguage}",
+                        style: const TextStyle(
+                            fontSize: 11,
+                            color: Colors.white,
+                            fontFamily: Constants.fontFamily,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    )
                   ],
                 ),
-              ))
+                voteStar(
+                  const Icon(
+                    Icons.access_time,
+                    color: Constants.backgroundColor,
+                    size: 16,
+                  ),
+                  "${widget.movieDetail.runtime} mins",
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                if (widget.movieDetail.productionCountries!.isNotEmpty)
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(top: 1.0),
+                        child: const Icon(
+                          Icons.location_on_outlined,
+                          color: Constants.backgroundColor,
+                          size: 16,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 3.0,
+                      ),
+                      productionCountries(
+                          widget.movieDetail.productionCountries!),
+                    ],
+                  ),
+                Text(
+                  "${AppLocalizations.of(context)!.vote_count}: ${widget.movieDetail.voteCount}",
+                  style: const TextStyle(fontSize: 11, color: Colors.black),
+                ),
+              ],
+            ),
+          ))
         ],
       ),
     );
   }
+
   Widget voteStar(Widget widget, String text) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -259,7 +266,7 @@ class MovieDetailBodyState extends State<MovieDetailBody> {
   }
 
   Widget genre(Genres genres) {
-    return  Text(
+    return Text(
       "${genres.name!} | ",
       softWrap: true,
       style: const TextStyle(
@@ -297,7 +304,7 @@ class MovieDetailBodyState extends State<MovieDetailBody> {
 
   Widget productionCountries(List<ProductionCountries> productionCountries) {
     List<Widget> listProductionCountries =
-    productionCountries.map((e) => productionCountry(e)).toList();
+        productionCountries.map((e) => productionCountry(e)).toList();
     return Flexible(
       child: Wrap(
         children: listProductionCountries,

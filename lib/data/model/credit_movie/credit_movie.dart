@@ -8,36 +8,38 @@ class CreditMovie {
   int? id;
 
   CreditMovie(this.cast, this.crew, this.id);
-  factory CreditMovie.fromJson(Map<String,dynamic>json) => _$CreditMovieFromJson(json);
+  factory CreditMovie.fromJson(Map<String, dynamic> json) =>
+      _$CreditMovieFromJson(json);
 
-  Map<String ,dynamic> toJson() => _$CreditMovieToJson(this);
+  Map<String, dynamic> toJson() => _$CreditMovieToJson(this);
 }
+
 @JsonSerializable()
 class CastMovie {
   String? character;
-  @JsonKey(name:"credit_id")
+  @JsonKey(name: "credit_id")
   String? creditId;
-  @JsonKey(name:"release_date")
+  @JsonKey(name: "release_date")
   String? releaseDate;
-  @JsonKey(name:"vote_count")
+  @JsonKey(name: "vote_count")
   int? voteCount;
   bool? video;
   bool? adult;
-  @JsonKey(name:"vote_average")
+  @JsonKey(name: "vote_average")
   num? voteAverage;
   String? title;
-  @JsonKey(name:"genre_ids")
+  @JsonKey(name: "genre_ids")
   List<int>? genreIds;
-  @JsonKey(name:"original_language")
+  @JsonKey(name: "original_language")
   String? originalLanguage;
-  @JsonKey(name:"original_title")
+  @JsonKey(name: "original_title")
   String? originalTitle;
   double? popularity;
   int? id;
-  @JsonKey(name:"backdrop_path")
+  @JsonKey(name: "backdrop_path")
   String? backdropPath;
   String? overview;
-  @JsonKey(name:"poster_path")
+  @JsonKey(name: "poster_path")
   String? posterPath;
 
   CastMovie(
@@ -57,10 +59,12 @@ class CastMovie {
       this.backdropPath,
       this.overview,
       this.posterPath);
-  factory CastMovie.fromJson(Map<String,dynamic>json) => _$CastMovieFromJson(json);
+  factory CastMovie.fromJson(Map<String, dynamic> json) =>
+      _$CastMovieFromJson(json);
 
-  Map<String ,dynamic> toJson() => _$CastMovieToJson(this);
+  Map<String, dynamic> toJson() => _$CastMovieToJson(this);
 }
+
 @JsonSerializable()
 class Crew {
   int? id;
@@ -99,7 +103,7 @@ class Crew {
       this.adult,
       this.releaseDate,
       this.creditId);
-  factory Crew.fromJson(Map<String,dynamic>json) => _$CrewFromJson(json);
+  factory Crew.fromJson(Map<String, dynamic> json) => _$CrewFromJson(json);
 
-  Map<String ,dynamic> toJson() => _$CrewToJson(this);
+  Map<String, dynamic> toJson() => _$CrewToJson(this);
 }

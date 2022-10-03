@@ -62,10 +62,10 @@ class VideoItemState extends State<VideoItem> {
     controller.dispose();
     super.dispose();
   }
+
   @override
   void deactivate() {
     controller.pause();
     super.deactivate();
   }
-
 }

@@ -18,15 +18,14 @@ class SimilarCubit extends Cubit<SimilarState> {
     try {
       List<MovieListItem> listSimilar = [];
       if (isLoading == false) {
-        final data = await movieUseCase.getListSimilar(
-            Constants.apiKey, movieId, 1);
+        final data =
+            await movieUseCase.getListSimilar(Constants.apiKey, movieId, 1);
         listSimilar.addAll(data.results);
         emit(state.copyWith(
-            similarStatus: SimilarStatus.success,
-            movieListItem: listSimilar));
+            similarStatus: SimilarStatus.success, movieListItem: listSimilar));
       } else if (isLoading == true) {
-        final data = await movieUseCase.getListSimilar(
-            Constants.apiKey, movieId, page);
+        final data =
+            await movieUseCase.getListSimilar(Constants.apiKey, movieId, page);
         listSimilar.addAll(data.results);
         emit(state.copyWith(
             similarStatus: SimilarStatus.isLoading,

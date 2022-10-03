@@ -49,8 +49,7 @@ class HomeScreenState extends State<HomeScreen> {
           create: (context) =>
               HomeCubit(MovieUseCase(MovieImpl(RestClientDio.restClient)))),
       BlocProvider(create: (context) => CheckFavoriteCubit()),
-    ], child: const MovieScreen())
-        );
+    ], child: const MovieScreen()));
     widgetOptions.add(MultiBlocProvider(providers: [
       BlocProvider<MovieFavoriteCubit>(
           create: (context) =>
@@ -307,34 +306,29 @@ class MovieScreenState extends State<MovieScreen>
                           Text(
                             AppLocalizations.of(context)!.top_rated,
                             style: const TextStyle(
-                                fontFamily: Constants.fontFamily,
-                                fontSize: 13),
+                                fontFamily: Constants.fontFamily, fontSize: 13),
                           ),
                           Text(
                             AppLocalizations.of(context)!.popular,
                             style: const TextStyle(
-                                fontFamily: Constants.fontFamily,
-                                fontSize: 13),
+                                fontFamily: Constants.fontFamily, fontSize: 13),
                           ),
                           Text(
                             AppLocalizations.of(context)!.now_playing,
                             style: const TextStyle(
-                                fontFamily: Constants.fontFamily,
-                                fontSize: 13),
+                                fontFamily: Constants.fontFamily, fontSize: 13),
                           ),
                           Text(
                             AppLocalizations.of(context)!.up_coming,
                             style: const TextStyle(
-                                fontFamily: Constants.fontFamily,
-                                fontSize: 13),
+                                fontFamily: Constants.fontFamily, fontSize: 13),
                           ),
                         ]
                       : [
                           Text(
                             AppLocalizations.of(context)!.result_movie_search,
                             style: const TextStyle(
-                                fontFamily: Constants.fontFamily,
-                                fontSize: 13),
+                                fontFamily: Constants.fontFamily, fontSize: 13),
                           ),
                         ],
                 ),

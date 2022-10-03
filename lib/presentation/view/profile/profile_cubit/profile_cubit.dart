@@ -11,8 +11,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   void status() {
     emit(state.copyWith(profileStatus: ProfileStatus.loading));
     Timer(const Duration(seconds: 1), () {
-      emit(state.copyWith(profileStatus: ProfileStatus.success)
-      );}
-    );
+      emit(state.copyWith(profileStatus: ProfileStatus.success));
+    });
   }
 }

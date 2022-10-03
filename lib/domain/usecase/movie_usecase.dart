@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:project_demo/data/model/video_movie/video_movie.dart';
 import 'package:project_demo/domain/repository/movie_repository.dart';
@@ -14,27 +13,26 @@ class MovieUseCase {
 
   MovieUseCase(this.movieRepository);
 
-  Future<Movie> getListPopular(String apiKey,int page) {
-    return movieRepository.getListMovie(apiKey,page);
+  Future<Movie> getListPopular(String apiKey, int page) {
+    return movieRepository.getListMovie(apiKey, page);
   }
 
-  Future<Movie> getListTopRated(String apiKey,int page) {
-    return movieRepository.getListTopRated(apiKey,page);
+  Future<Movie> getListTopRated(String apiKey, int page) {
+    return movieRepository.getListTopRated(apiKey, page);
   }
 
-  Future<Movie> getListNowPlaying(String apiKey,int page) {
-    return movieRepository.getListNowPlaying(apiKey,page);
+  Future<Movie> getListNowPlaying(String apiKey, int page) {
+    return movieRepository.getListNowPlaying(apiKey, page);
   }
 
-  Future<Movie> getListUpComing(String apiKey,int page) {
-    return movieRepository.getListUpComing(apiKey,page);
+  Future<Movie> getListUpComing(String apiKey, int page) {
+    return movieRepository.getListUpComing(apiKey, page);
   }
 
   Future<Movie> getListFavorite(
       String apiKey, int accountId, String sessionId) {
     return movieRepository.getListFavorite(apiKey, accountId, sessionId);
   }
-
 
   //get Movie Detail
   Future<MovieDetail> getMovieDetail(String apiKey, int movieId) {
@@ -47,8 +45,8 @@ class MovieUseCase {
     return movieRepository.getCreditCast(apiKey, movieId);
   }
 
-  Future<Movie> getListRecommendations(String apiKey, int movieId,int page) {
-    return movieRepository.getListRecommendations(apiKey, movieId,page);
+  Future<Movie> getListRecommendations(String apiKey, int movieId, int page) {
+    return movieRepository.getListRecommendations(apiKey, movieId, page);
   }
 
   //get reviews
@@ -64,15 +62,15 @@ class MovieUseCase {
   }
 
   //get similar movie
-  Future<Movie> getListSimilar(String apiKey, int movieId,int page) {
+  Future<Movie> getListSimilar(String apiKey, int movieId, int page) {
     try {
-      return movieRepository.getListSimilar(apiKey, movieId,page);
+      return movieRepository.getListSimilar(apiKey, movieId, page);
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
     }
-    return movieRepository.getListSimilar(apiKey, movieId,page);
+    return movieRepository.getListSimilar(apiKey, movieId, page);
   }
 
   //get Movie Image
@@ -89,7 +87,7 @@ class MovieUseCase {
   }
 
   //get Search Movie
-  Future<Movie> getSearchMovie(String apiKey, String query){
+  Future<Movie> getSearchMovie(String apiKey, String query) {
     try {
       return movieRepository.getSearchMovie(apiKey, query);
     } catch (e) {
@@ -102,10 +100,10 @@ class MovieUseCase {
 
   //get Movie Video
 
-  Future<MovieVideo> getVideo(String apiKey, int movieId){
-    try{
+  Future<MovieVideo> getVideo(String apiKey, int movieId) {
+    try {
       return movieRepository.getVideo(apiKey, movieId);
-    }catch (e){
+    } catch (e) {
       if (kDebugMode) {
         print(e);
       }

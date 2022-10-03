@@ -11,13 +11,12 @@ class ImageCubit extends Cubit<ImageState> {
   MovieUseCase movieUseCase;
   ImageCubit(this.movieUseCase) : super(const ImageState());
 
-
-  void getMovieImage (int movieId) async{
+  void getMovieImage(int movieId) async {
     emit(state.copyWith(imageStatus: ImageStatus.loading));
-    try{
+    try {
       final data = await movieUseCase.getMovieImage(Constants.apiKey, movieId);
       emit(state.copyWith(imageStatus: ImageStatus.success, movieImage: data));
-    }catch (e){
+    } catch (e) {
       emit(state.copyWith(imageStatus: ImageStatus.failed));
     }
   }

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class Constants {
@@ -7,9 +5,7 @@ class Constants {
   static const String sessionId = "a61ebda17d9d0cb71e4501883b9d5d86b519dfcf";
   static const String requestToken = "614e9b6c4056135dd1d1e43cb2b043e6ecd343ce";
 
-
   static const FontWeight fontWeight = FontWeight.w400;
-
 
   static const int accountId = 13168499;
   static const mediaType = "movie";
@@ -28,7 +24,7 @@ class Constants {
   static const FontWeight textFontWeight = FontWeight.w500;
 
   static const double fontSize = 13;
-  static const String textFontFamily ="Roboto";
+  static const String textFontFamily = "Roboto";
   static const String success = "success";
   static const String error = "error";
 

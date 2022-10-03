@@ -5,7 +5,6 @@ import 'package:project_demo/config/constants.dart';
 import 'package:project_demo/core/router/router.dart';
 import 'package:project_demo/presentation/view/splash/splash_cubit/splash_cubit.dart';
 
-
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
 
@@ -62,8 +61,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                 ),
               ],
               isRepeatingAnimation: true,
-              onTap: () {
-              },
+              onTap: () {},
             ),
           ],
         ));

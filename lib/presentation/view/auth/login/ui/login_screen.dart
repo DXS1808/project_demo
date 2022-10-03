@@ -85,9 +85,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                     Text(
-                       AppLocalizations.of(context)!.login,
-                      style:const TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.login,
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                           color: Colors.black),
@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                         Text(
+                        Text(
                           AppLocalizations.of(context)!.dont_account,
                           style: const TextStyle(
                               fontSize: Constants.fontSize,

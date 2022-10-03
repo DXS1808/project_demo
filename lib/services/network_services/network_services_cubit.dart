@@ -11,19 +11,18 @@ class NetworkServicesCubit extends Cubit<NetworkServicesState> {
   void checkNetWork() async {
     final result = await Connectivity().checkConnectivity();
     try {
-        if (result == ConnectivityResult.wifi ||
-            result == ConnectivityResult.mobile) {
-          emit(state.copyWith(
-              networkServicesStatus: NetworkServicesStatus.online));
-        }else{
-          emit(
-              state.copyWith(networkServicesStatus: NetworkServicesStatus.offline));
-        }
+      if (result == ConnectivityResult.wifi ||
+          result == ConnectivityResult.mobile) {
+        emit(state.copyWith(
+            networkServicesStatus: NetworkServicesStatus.online));
+      } else {
+        emit(state.copyWith(
+            networkServicesStatus: NetworkServicesStatus.offline));
+      }
     } on SocketException catch (e) {
       if (kDebugMode) {
         print(e);
       }
     }
   }
-
 }

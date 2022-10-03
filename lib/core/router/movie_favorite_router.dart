@@ -3,5 +3,5 @@ import 'package:project_demo/presentation/view/movie/movie_favorite/movie_favori
 class MovieFavoriteRouter {
   MovieFavoriteCubit movieFavoriteCubit;
   int movieId;
-  MovieFavoriteRouter(this.movieFavoriteCubit,this.movieId);
+  MovieFavoriteRouter(this.movieFavoriteCubit, this.movieId);
 }

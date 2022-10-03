@@ -9,13 +9,13 @@ part 'splash_state.dart';
 class SplashCubit extends Cubit<SplashState> {
   SplashCubit() : super(const SplashState());
 
-  void get(){
+  void get() {
     emit(state.copyWith(splashStatus: SplashStatus.loading));
-    try{
-      Timer( const Duration(seconds: 4), (){
+    try {
+      Timer(const Duration(seconds: 4), () {
         emit(state.copyWith(splashStatus: SplashStatus.success));
       });
-    }catch(e){
+    } catch (e) {
       emit(state.copyWith(splashStatus: SplashStatus.failed));
     }
   }

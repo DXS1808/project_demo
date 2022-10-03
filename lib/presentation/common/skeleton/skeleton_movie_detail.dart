@@ -52,7 +52,7 @@ class SkeletonMovieDetail extends StatelessWidget {
                   style: SkeletonLineStyle(
                       height: size.height * 0.2,
                       borderRadius:
-                      const BorderRadius.all(Radius.circular(10.0))),
+                          const BorderRadius.all(Radius.circular(10.0))),
                 ),
               ],
             )),
@@ -68,9 +68,9 @@ class SkeletonMovieDetail extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            decoration:  BoxDecoration(
-              border: Border.all(color:Colors.black,width: 1),
-              borderRadius:const BorderRadius.all(Radius.circular(20.0)),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black, width: 1),
+              borderRadius: const BorderRadius.all(Radius.circular(20.0)),
               color: Colors.grey,
             ),
             height: 220,
@@ -79,14 +79,16 @@ class SkeletonMovieDetail extends StatelessWidget {
           const SizedBox(
             width: 10.0,
           ),
-          Expanded(child:  Column(
+          Expanded(
+              child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SkeletonLine(
                 style: SkeletonLineStyle(
                     height: 25,
                     maxLength: size.width,
-                    borderRadius:const  BorderRadius.all(Radius.circular(10.0))),
+                    borderRadius:
+                        const BorderRadius.all(Radius.circular(10.0))),
               ),
               const SizedBox(
                 height: 5.0,
@@ -97,10 +99,10 @@ class SkeletonMovieDetail extends StatelessWidget {
                     height: 14,
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
               ),
-              const  SizedBox(
+              const SizedBox(
                 height: 5.0,
               ),
-              const  SkeletonLine(
+              const SkeletonLine(
                 style: SkeletonLineStyle(
                     randomLength: true,
                     height: 12,
@@ -109,25 +111,25 @@ class SkeletonMovieDetail extends StatelessWidget {
               const SizedBox(
                 height: 5.0,
               ),
-              const  SkeletonLine(
+              const SkeletonLine(
                 style: SkeletonLineStyle(
                     randomLength: true,
                     height: 12,
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
               ),
-              const  SizedBox(
+              const SizedBox(
                 height: 5.0,
               ),
-              const  SkeletonLine(
+              const SkeletonLine(
                 style: SkeletonLineStyle(
                     height: 12,
                     randomLength: true,
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
               ),
-              const  SizedBox(
+              const SizedBox(
                 height: 5.0,
               ),
-              const  SkeletonLine(
+              const SkeletonLine(
                 style: SkeletonLineStyle(
                     height: 12,
                     randomLength: true,

@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 part 'movie_image.g.dart';
+
 @JsonSerializable()
 class MovieImage {
   int? id;
@@ -8,9 +9,10 @@ class MovieImage {
   List<Posters>? posters;
 
   MovieImage(this.id, this.backdrops, this.posters);
-  factory MovieImage.fromJson(Map<String,dynamic>json) => _$MovieImageFromJson(json);
+  factory MovieImage.fromJson(Map<String, dynamic> json) =>
+      _$MovieImageFromJson(json);
 
-  Map<String ,dynamic> toJson() => _$MovieImageToJson(this);
+  Map<String, dynamic> toJson() => _$MovieImageToJson(this);
 }
 
 @JsonSerializable()
@@ -30,9 +32,10 @@ class Backdrops {
 
   Backdrops(this.aspectRatio, this.filePath, this.height, this.iso6391,
       this.voteAverage, this.voteCount, this.width);
-  factory Backdrops.fromJson(Map<String,dynamic>json) => _$BackdropsFromJson(json);
+  factory Backdrops.fromJson(Map<String, dynamic> json) =>
+      _$BackdropsFromJson(json);
 
-  Map<String ,dynamic> toJson() => _$BackdropsToJson(this);
+  Map<String, dynamic> toJson() => _$BackdropsToJson(this);
 }
 
 @JsonSerializable()
@@ -52,7 +55,8 @@ class Posters {
 
   Posters(this.aspectRatio, this.filePath, this.height, this.iso6391,
       this.voteAverage, this.voteCount, this.width);
-  factory Posters.fromJson(Map<String,dynamic>json) => _$PostersFromJson(json);
+  factory Posters.fromJson(Map<String, dynamic> json) =>
+      _$PostersFromJson(json);
 
-  Map<String ,dynamic> toJson() => _$PostersToJson(this);
+  Map<String, dynamic> toJson() => _$PostersToJson(this);
 }

@@ -84,17 +84,20 @@ class AppRouter {
     },
     castDetail: (context) {
       final castId = ModalRoute.of(context)!.settings.arguments as int;
-      return MultiBlocProvider(providers: [
-        BlocProvider<CastDetailCubit>.value(
-          value: CastDetailCubit(
-              CastDetailUseCase(CastDetailImpl(RestClientDio.restClient))),
+      return MultiBlocProvider(
+        providers: [
+          BlocProvider<CastDetailCubit>.value(
+            value: CastDetailCubit(
+                CastDetailUseCase(CastDetailImpl(RestClientDio.restClient))),
+          ),
+          BlocProvider<MovieFavoriteCubit>.value(
+            value: MovieFavoriteCubit(FavoriteUseCase(FavoriteImpl())),
+          ),
+        ],
+        child: CastDetailScreen(
+          personId: castId,
         ),
-        BlocProvider<MovieFavoriteCubit>.value(
-          value: MovieFavoriteCubit(FavoriteUseCase(FavoriteImpl())),
-        ),
-      ], child: CastDetailScreen(
-        personId: castId,
-      ),);
+      );
     },
     changePassword: (context) {
       return BlocProvider<ChangePasswordCubit>.value(
@@ -114,7 +117,7 @@ class AppRouter {
           ModalRoute.of(context)!.settings.arguments as MovieRouterData;
       return BlocProvider<MovieFavoriteCubit>.value(
         value: MovieFavoriteCubit(FavoriteUseCase(FavoriteImpl())),
-        child:  MovieSeeAll(
+        child: MovieSeeAll(
             movieListItem: movieRouter.movieListItem,
             category: movieRouter.category),
       );

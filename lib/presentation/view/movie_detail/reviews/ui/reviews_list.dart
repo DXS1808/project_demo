@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_demo/presentation/view/movie_detail/reviews/ui/reviews_item.dart';
@@ -40,7 +39,9 @@ class _ReviewsListState extends State<ReviewsList> {
                   fontWeight: FontWeight.w600,
                   color: Colors.black,
                 ),
-                const SizedBox(width: 10.0,),
+                const SizedBox(
+                  width: 10.0,
+                ),
                 CategoryText(
                   category: "${state.results.length}",
                   fontSize: 16,

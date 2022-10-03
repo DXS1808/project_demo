@@ -1,4 +1,3 @@
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'cast_image.g.dart';
@@ -9,9 +8,10 @@ class CastImage {
   List<Profiles>? profiles;
 
   CastImage(this.id, this.profiles);
-  factory CastImage.fromJson(Map<String,dynamic>json) => _$CastImageFromJson(json);
+  factory CastImage.fromJson(Map<String, dynamic> json) =>
+      _$CastImageFromJson(json);
 
-  Map<String ,dynamic> toJson() => _$CastImageToJson(this);
+  Map<String, dynamic> toJson() => _$CastImageToJson(this);
 }
 
 @JsonSerializable()
@@ -29,14 +29,10 @@ class Profiles {
   int? voteCount;
   int? width;
 
-  Profiles(this.aspectRatio,
-    this.filePath,
-    this.height,
-    this.iso6391,
-    this.voteAverage,
-    this.voteCount,
-    this.width);
-  factory Profiles.fromJson(Map<String,dynamic>json) => _$ProfilesFromJson(json);
+  Profiles(this.aspectRatio, this.filePath, this.height, this.iso6391,
+      this.voteAverage, this.voteCount, this.width);
+  factory Profiles.fromJson(Map<String, dynamic> json) =>
+      _$ProfilesFromJson(json);
 
-  Map<String ,dynamic> toJson() => _$ProfilesToJson(this);
+  Map<String, dynamic> toJson() => _$ProfilesToJson(this);
 }

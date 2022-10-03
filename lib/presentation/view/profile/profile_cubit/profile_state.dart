@@ -1,5 +1,6 @@
 part of 'profile_cubit.dart';
-enum ProfileStatus {initial,loading,success}
+
+enum ProfileStatus { initial, loading, success }
 
 @immutable
 class ProfileState extends Equatable {
@@ -18,4 +19,3 @@ class ProfileState extends Equatable {
     );
   }
 }
-

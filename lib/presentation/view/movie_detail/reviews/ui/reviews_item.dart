@@ -17,25 +17,22 @@ class ReviewsItem extends StatefulWidget {
 }
 
 class ReviewsItemState extends State<ReviewsItem> {
-  
   @override
   void initState() {
-
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return
-        Container(
-          margin: const EdgeInsets.only(bottom: 8.0),
-          padding:const EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-              border: Border.all(color:Colors.black,width: 1),
-              borderRadius: const BorderRadius.all(Radius.circular(10.0))
-          ),
-          child: authorDetails(widget.results.authorDetails!),
-        );
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.black, width: 1),
+          borderRadius: const BorderRadius.all(Radius.circular(10.0))),
+      child: authorDetails(widget.results.authorDetails!),
+    );
   }
 
   Widget authorDetails(AuthorDetails authorDetails) {
@@ -45,30 +42,30 @@ class ReviewsItemState extends State<ReviewsItem> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CircleAvatar(
-            backgroundColor:Colors.white,
+            backgroundColor: Colors.white,
             maxRadius: 30,
             child: ClipOval(
               child: authorDetails.avatarPath != null
                   ? CacheImage(authorDetails.avatarPath!, 80, 80, BoxFit.cover)
-                  : const ImageUrlNull( Icon(Icons.person), 80, 80),
-            )
-        ),
+                  : const ImageUrlNull(Icon(Icons.person), 80, 80),
+            )),
         const SizedBox(
           width: 5.0,
         ),
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(widget.results.author!,
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.results.author!,
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w600,
                 fontSize: 12,
                 fontFamily: Constants.fontFamily,
               ),
-              ),
-              ReadMoreText(
+            ),
+            ReadMoreText(
               "${widget.results.content}",
               trimLines: 4,
               trimExpandedText: AppLocalizations.of(context)!.less,
@@ -78,20 +75,19 @@ class ReviewsItemState extends State<ReviewsItem> {
                 fontSize: 12,
                 fontFamily: Constants.fontFamily,
               ),
-                moreStyle: const TextStyle(color: Constants.backgroundColor),
-                lessStyle: const TextStyle(color: Constants.backgroundColor),
+              moreStyle: const TextStyle(color: Constants.backgroundColor),
+              lessStyle: const TextStyle(color: Constants.backgroundColor),
             ),
-              Text(timer,
+            Text(
+              timer,
               style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 10,
                 fontFamily: Constants.fontFamily,
               ),
-              )
-
-            ],
-          )
-        )
+            )
+          ],
+        ))
       ],
     );
   }

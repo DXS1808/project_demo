@@ -80,11 +80,9 @@ class _MovieDetailHeaderState extends State<MovieDetailHeader> {
                   return state.checkFavoriteStatus == CheckFavoriteStatus.marked
                       ? IconButton(
                           onPressed: () {
-                            context
-                                .read<MovieFavoriteCubit>()
-                                .removeFavorite(
-                                    FirebaseAuth.instance.currentUser!.uid,
-                                    widget.movieDetail.id!);
+                            context.read<MovieFavoriteCubit>().removeFavorite(
+                                FirebaseAuth.instance.currentUser!.uid,
+                                widget.movieDetail.id!);
                           },
                           splashRadius: 15.0,
                           icon: const Icon(

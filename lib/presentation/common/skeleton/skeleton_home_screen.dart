@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:skeleton_loader/skeleton_loader.dart';
 import 'package:skeletons/skeletons.dart';
@@ -75,33 +74,35 @@ class SkeletonScreen extends StatelessWidget {
                         ),
                         const SizedBox(
                           width: 80,
-                          child:  SkeletonLine(
-                          style: SkeletonLineStyle(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10.0)),
-                              height: 12),
-                        ),),
+                          child: SkeletonLine(
+                            style: SkeletonLineStyle(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                height: 12),
+                          ),
+                        ),
                         const SizedBox(
                           height: 5.0,
                         ),
                         const SizedBox(
                           width: 120,
-                          child:  SkeletonLine(
+                          child: SkeletonLine(
                             style: SkeletonLineStyle(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)),
+                                    BorderRadius.all(Radius.circular(10.0)),
                                 height: 12),
-                          ),),
+                          ),
+                        ),
                         const SizedBox(
                           height: 10.0,
                         ),
                         Row(
-                          children:const  [
-                            SkeletonItem(child: Icon(Icons.star,size: 25)),
-                            SkeletonItem(child: Icon(Icons.star,size: 25)),
-                            SkeletonItem(child: Icon(Icons.star,size: 25)),
-                            SkeletonItem(child: Icon(Icons.star,size: 25)),
-                            SkeletonItem(child: Icon(Icons.star,size: 25))
+                          children: const [
+                            SkeletonItem(child: Icon(Icons.star, size: 25)),
+                            SkeletonItem(child: Icon(Icons.star, size: 25)),
+                            SkeletonItem(child: Icon(Icons.star, size: 25)),
+                            SkeletonItem(child: Icon(Icons.star, size: 25)),
+                            SkeletonItem(child: Icon(Icons.star, size: 25))
                           ],
                         )
                       ],

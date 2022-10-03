@@ -44,11 +44,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   String languagesCode = "";
 
   @override
-  void initState(){
+  void initState() {
     // TODO: implement initState
     Connection.checkUserConnection();
     FlutterNativeSplash.remove();

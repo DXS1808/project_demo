@@ -9,14 +9,16 @@ part 'cast_image_state.dart';
 
 class CastImageCubit extends Cubit<CastImageState> {
   CastDetailUseCase castDetailUseCase;
-  CastImageCubit(this.castDetailUseCase) : super( const CastImageState());
+  CastImageCubit(this.castDetailUseCase) : super(const CastImageState());
 
-  void getProfiles (int castId) async{
+  void getProfiles(int castId) async {
     emit(state.copyWith(castImageStatus: CastImageStatus.loading));
-    try{
-      final data = await castDetailUseCase.getCastImage(Constants.apiKey, castId);
-      emit(state.copyWith(castImageStatus: CastImageStatus.success, profiles: data.profiles));
-    }catch(e){
+    try {
+      final data =
+          await castDetailUseCase.getCastImage(Constants.apiKey, castId);
+      emit(state.copyWith(
+          castImageStatus: CastImageStatus.success, profiles: data.profiles));
+    } catch (e) {
       emit(state.copyWith(castImageStatus: CastImageStatus.failed));
     }
   }

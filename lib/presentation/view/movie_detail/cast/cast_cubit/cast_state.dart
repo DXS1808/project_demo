@@ -1,17 +1,18 @@
 part of 'cast_cubit.dart';
 
-enum CreditCastStatus {initial,loading,success,failed}
+enum CreditCastStatus { initial, loading, success, failed }
 
 @immutable
 class CreditCastState extends Equatable {
   final CreditCastStatus creditCastStatus;
-  final CreditCast ? creditCast;
+  final CreditCast? creditCast;
 
-  const CreditCastState({this.creditCastStatus = CreditCastStatus.initial,this.creditCast});
+  const CreditCastState(
+      {this.creditCastStatus = CreditCastStatus.initial, this.creditCast});
 
   @override
   // TODO: implement props
-  List<Object?> get props => [creditCastStatus,creditCast];
+  List<Object?> get props => [creditCastStatus, creditCast];
 
   CreditCastState copyWith({
     CreditCastStatus? creditCastStatus,

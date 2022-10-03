@@ -7,7 +7,9 @@ import '../../config/constants.dart';
 class MovieSeeAll extends StatefulWidget {
   final List<MovieListItem> movieListItem;
   final String category;
-  const MovieSeeAll({Key? key,required this.movieListItem,required this.category}) : super(key: key);
+  const MovieSeeAll(
+      {Key? key, required this.movieListItem, required this.category})
+      : super(key: key);
 
   @override
   State<MovieSeeAll> createState() => _MovieSeeAllState();
@@ -19,22 +21,25 @@ class _MovieSeeAllState extends State<MovieSeeAll> {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Constants.backgroundColor,
-        centerTitle: true,
-        title: Text(
-          widget.category,
-          style: const TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 18,
-              fontFamily: Constants.fontFamily),
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Constants.backgroundColor,
+          centerTitle: true,
+          title: Text(
+            widget.category,
+            style: const TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 18,
+                fontFamily: Constants.fontFamily),
+          ),
         ),
-      ),
-      body: CategoryMovieList(movieListItem: widget.movieListItem,isLoading: false,)
-    );
+        body: CategoryMovieList(
+          movieListItem: widget.movieListItem,
+          isLoading: false,
+        ));
   }
 }

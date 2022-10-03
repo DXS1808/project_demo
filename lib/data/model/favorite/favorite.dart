@@ -11,7 +11,7 @@ class Favorite {
   @HiveField(2)
   int id;
   @HiveField(3)
-  String ? releaseDate;
+  String? releaseDate;
   @HiveField(4)
   String originalTitle;
   @HiveField(5)
@@ -21,6 +21,6 @@ class Favorite {
   @HiveField(7)
   num voteAverage;
 
-  Favorite(this.posterPath, this.overview, this.id,this.releaseDate, this.originalTitle,
-      this.title, this.voteCount, this.voteAverage);
+  Favorite(this.posterPath, this.overview, this.id, this.releaseDate,
+      this.originalTitle, this.title, this.voteCount, this.voteAverage);
 }

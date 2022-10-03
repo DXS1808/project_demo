@@ -8,7 +8,6 @@ class SplashState extends Equatable {
 
   const SplashState({this.splashStatus = SplashStatus.initial});
 
-
   @override
   // TODO: implement props
   List<Object?> get props => [splashStatus];

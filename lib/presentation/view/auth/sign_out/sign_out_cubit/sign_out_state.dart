@@ -1,15 +1,16 @@
 part of 'sign_out_cubit.dart';
 
-enum SignOutStatus {initial, loading,success,failed}
+enum SignOutStatus { initial, loading, success, failed }
 
 @immutable
 class SignOutState extends Equatable {
   final SignOutStatus signOutStatus;
   final String successMessage;
-  const SignOutState({this.signOutStatus = SignOutStatus.initial,this.successMessage = ""});
+  const SignOutState(
+      {this.signOutStatus = SignOutStatus.initial, this.successMessage = ""});
   @override
   // TODO: implement props
-  List<Object?> get props => [signOutStatus,successMessage];
+  List<Object?> get props => [signOutStatus, successMessage];
 
   SignOutState copyWith({
     SignOutStatus? signOutStatus,
@@ -21,5 +22,3 @@ class SignOutState extends Equatable {
     );
   }
 }
-
-

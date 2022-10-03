@@ -1,6 +1,6 @@
 part of 'recommendation_cubit.dart';
 
-enum RecommendationStatus { initial, loading, success, failed,isLoading}
+enum RecommendationStatus { initial, loading, success, failed, isLoading }
 
 @immutable
 class RecommendationState extends Equatable {
@@ -8,7 +8,8 @@ class RecommendationState extends Equatable {
   final List<MovieListItem> movieListItem;
 
   const RecommendationState(
-      {this.recommendationStatus = RecommendationStatus.initial, this.movieListItem = const[]});
+      {this.recommendationStatus = RecommendationStatus.initial,
+      this.movieListItem = const []});
 
   @override
   // TODO: implement props

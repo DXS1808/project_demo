@@ -1,4 +1,3 @@
-
 import 'package:project_demo/data/data_sources/local/favorite/favorite.dart';
 import 'package:project_demo/data/model/favorite/favorite.dart';
 import 'package:project_demo/domain/repository/favorite_repository.dart';
@@ -15,5 +14,4 @@ class FavoriteImpl implements FavoriteRepository {
     // TODO: implement removeFavorite
     return LocalFavorite.removeFavorite(movieId, userId);
   }
-
 }

@@ -7,15 +7,15 @@ class CategoryMovieList extends StatefulWidget {
   final List<dynamic> movieListItem;
   final String? searchText;
   final ScrollController? scrollController;
-  final bool ? isLoading;
+  final bool? isLoading;
   final bool favorite;
 
   const CategoryMovieList(
       {Key? key,
       required this.movieListItem,
       this.searchText,
-        this.isLoading,
-        this.favorite = false,
+      this.isLoading,
+      this.favorite = false,
       this.scrollController})
       : super(key: key);
 
@@ -47,33 +47,33 @@ class _CategoryMovieListState extends State<CategoryMovieList> {
             padding: const EdgeInsets.only(top: 80),
             child: Column(
               children: [
-                if(widget.searchText != "")
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "${itemList.length} ",
-                      style: const TextStyle(
-                          color: Colors.tealAccent,
-                          fontSize: 12,
-                          decoration: TextDecoration.underline),
-                    ),
-                     Text(
-                      AppLocalizations.of(context)!.search,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
+                if (widget.searchText != "")
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "${itemList.length} ",
+                        style: const TextStyle(
+                            color: Colors.tealAccent,
+                            fontSize: 12,
+                            decoration: TextDecoration.underline),
                       ),
-                    ),
-                    Text(
-                      "${widget.searchText}",
-                      style: const TextStyle(
-                          color: Colors.tealAccent,
+                      Text(
+                        AppLocalizations.of(context)!.search,
+                        style: const TextStyle(
+                          color: Colors.white,
                           fontSize: 12,
-                          decoration: TextDecoration.underline),
-                    )
-                  ],
-                ),
+                        ),
+                      ),
+                      Text(
+                        "${widget.searchText}",
+                        style: const TextStyle(
+                            color: Colors.tealAccent,
+                            fontSize: 12,
+                            decoration: TextDecoration.underline),
+                      )
+                    ],
+                  ),
                 Image.asset(
                   "assets/no-movie.png",
                   height: 200,
@@ -117,13 +117,20 @@ class _CategoryMovieListState extends State<CategoryMovieList> {
                     ),
                   ),
                 SizedBox(
-                  height: widget.isLoading == true ? size.height * 0.8 + 20 : size.height*0.9,
+                  height: widget.isLoading == true
+                      ? size.height * 0.8 + 20
+                      : size.height * 0.9,
                   child: ListView.builder(
                       controller: widget.scrollController,
-                      itemCount: widget.isLoading == true ? itemList.length + 1 : itemList.length,
+                      itemCount: widget.isLoading == true
+                          ? itemList.length + 1
+                          : itemList.length,
                       itemBuilder: (context, index) {
-                        return index == itemList.length && widget.isLoading == true
-                            ? const CupertinoActivityIndicator(color: Colors.black,)
+                        return index == itemList.length &&
+                                widget.isLoading == true
+                            ? const CupertinoActivityIndicator(
+                                color: Colors.black,
+                              )
                             : itemList[index];
                       }),
                 )

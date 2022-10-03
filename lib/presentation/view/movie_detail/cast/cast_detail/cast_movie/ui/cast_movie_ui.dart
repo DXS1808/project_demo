@@ -33,12 +33,12 @@ class CastMovieUIState extends State<CastMovieUI> {
       } else if (state.creditMovieStatus == CreditMovieStatus.success) {
         List<CastCareer> listCastCareer = [];
         for (int i = 0; i <= state.castMovie.length - 1; i++) {
-          try{
+          try {
             listCastCareer.add(CastCareer(
                 StringUltis.convertDateTime(state.castMovie[i].releaseDate!),
                 state.castMovie[i].character!,
                 state.castMovie[i].originalTitle!));
-          }catch(e){
+          } catch (e) {
             state.castMovie.removeAt(i);
           }
         }

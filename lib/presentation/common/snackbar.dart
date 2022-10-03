@@ -30,16 +30,16 @@ class ShowSnackBar extends StatelessWidget {
             ));
     }
   }
+
   Widget snackBar(Color color, Widget icon) {
     return ListTile(
-              leading:icon,
-              title:Text(
-                content,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontFamily: Constants.textFontFamily),
-
-    ));
+        leading: icon,
+        title: Text(
+          content,
+          style: const TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+              fontFamily: Constants.textFontFamily),
+        ));
   }
 }

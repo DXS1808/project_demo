@@ -1,8 +1,6 @@
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'reviews.g.dart';
-
 
 @JsonSerializable()
 class Reviews {
@@ -15,15 +13,16 @@ class Reviews {
   num? totalResults;
 
   Reviews(this.id, this.page, this.results, this.totalPages, this.totalResults);
-  factory Reviews.fromJson(Map<String,dynamic>json) => _$ReviewsFromJson(json);
+  factory Reviews.fromJson(Map<String, dynamic> json) =>
+      _$ReviewsFromJson(json);
 
-  Map<String ,dynamic> toJson() => _$ReviewsToJson(this);
+  Map<String, dynamic> toJson() => _$ReviewsToJson(this);
 }
 
 @JsonSerializable()
 class Results {
   String? author;
-  @JsonKey(name:"author_details")
+  @JsonKey(name: "author_details")
   AuthorDetails? authorDetails;
   String? content;
   @JsonKey(name: "created_at")
@@ -33,16 +32,12 @@ class Results {
   String? updatedAt;
   String? url;
 
-  Results(this.author,
-    this.authorDetails,
-    this.content,
-    this.createdAt,
-    this.id,
-    this.updatedAt,
-    this.url);
-  factory Results.fromJson(Map<String,dynamic>json) => _$ResultsFromJson(json);
+  Results(this.author, this.authorDetails, this.content, this.createdAt,
+      this.id, this.updatedAt, this.url);
+  factory Results.fromJson(Map<String, dynamic> json) =>
+      _$ResultsFromJson(json);
 
-  Map<String ,dynamic> toJson() => _$ResultsToJson(this);
+  Map<String, dynamic> toJson() => _$ResultsToJson(this);
 }
 
 @JsonSerializable()
@@ -55,7 +50,8 @@ class AuthorDetails {
 
   AuthorDetails(this.name, this.username, this.avatarPath, this.rating);
 
-  factory AuthorDetails.fromJson(Map<String,dynamic>json) => _$AuthorDetailsFromJson(json);
+  factory AuthorDetails.fromJson(Map<String, dynamic> json) =>
+      _$AuthorDetailsFromJson(json);
 
-  Map<String ,dynamic> toJson() => _$AuthorDetailsToJson(this);
+  Map<String, dynamic> toJson() => _$AuthorDetailsToJson(this);
 }

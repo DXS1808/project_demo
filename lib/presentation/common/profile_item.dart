@@ -6,26 +6,32 @@ class ProfileItem extends StatelessWidget {
   final String content;
   final IconData icon;
   final VoidCallBack onTap;
-  const ProfileItem({super.key, required this.content,required this.icon,required this.onTap});
+  const ProfileItem(
+      {super.key,
+      required this.content,
+      required this.icon,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: ListTile(
-            leading: Icon(icon,
-            size: 25,
-              color: Colors.black,
-            ),
-        title: Text(content,
-        style: const TextStyle(
+        leading: Icon(
+          icon,
+          size: 25,
           color: Colors.black,
-          fontSize: 14,
-          fontFamily: Constants.textFontFamily
         ),
+        title: Text(
+          content,
+          style: const TextStyle(
+              color: Colors.black,
+              fontSize: 14,
+              fontFamily: Constants.textFontFamily),
         ),
-        trailing: const Icon(Icons.navigate_next_sharp,
-        color: Colors.black,
+        trailing: const Icon(
+          Icons.navigate_next_sharp,
+          color: Colors.black,
           size: 25,
         ),
       ),

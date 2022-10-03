@@ -17,7 +17,6 @@ class MovieVideo extends StatefulWidget {
 }
 
 class MovieVideoState extends State<MovieVideo> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -36,42 +35,42 @@ class MovieVideoState extends State<MovieVideo> {
           ),
         );
       } else if (state.videoMovieStatus == VideoMovieStatus.success) {
-        return state.movieVideo!.results!.isNotEmpty ? videoList(state.movieVideo!.results!,context): const Text("");
+        return state.movieVideo!.results!.isNotEmpty
+            ? videoList(state.movieVideo!.results!, context)
+            : const Text("");
       }
       return Container();
     });
   }
 
-  Widget videoList(List<Results> results,BuildContext context) {
+  Widget videoList(List<Results> results, BuildContext context) {
     return Card(
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15.0))),
-      shadowColor: Colors.black,
-      elevation: 5.0,
-      color: Colors.white,
-      child: Container(
-        padding: const EdgeInsets.all(10.0),
-        child:  Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CategoryText(
-              category: AppLocalizations.of(context)!.movie_trailer,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-              color: Colors.black,
-            ),
-
-            CarouselSlider(
-              items: results.map((e) => VideoItem(e)).toList(),
-              options: CarouselOptions(
-                viewportFraction: 1,
-                autoPlay: false,
-                enlargeCenterPage: true,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15.0))),
+        shadowColor: Colors.black,
+        elevation: 5.0,
+        color: Colors.white,
+        child: Container(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CategoryText(
+                category: AppLocalizations.of(context)!.movie_trailer,
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                color: Colors.black,
               ),
-            )
-          ],
-        ),
-      )
-    );
+              CarouselSlider(
+                items: results.map((e) => VideoItem(e)).toList(),
+                options: CarouselOptions(
+                  viewportFraction: 1,
+                  autoPlay: false,
+                  enlargeCenterPage: true,
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }

@@ -1,12 +1,13 @@
 part of 'locale_cubit.dart';
 
-enum LocaleStatus{initial,success,loading}
+enum LocaleStatus { initial, success, loading }
 
 @immutable
 class LocaleState extends Equatable {
   final String languagesCode;
   final LocaleStatus localeStatus;
-  const LocaleState({this.languagesCode = "en",this.localeStatus =LocaleStatus.initial});
+  const LocaleState(
+      {this.languagesCode = "en", this.localeStatus = LocaleStatus.initial});
 
   @override
   // TODO: implement props
@@ -22,5 +23,3 @@ class LocaleState extends Equatable {
     );
   }
 }
-
-

@@ -13,10 +13,11 @@ class CreditCastCubit extends Cubit<CreditCastState> {
 
   void get(int movieId) async {
     emit(state.copyWith(creditCastStatus: CreditCastStatus.loading));
-    try{
+    try {
       final data = await movieUseCase.getCreditCast(Constants.apiKey, movieId);
-      emit(state.copyWith(creditCastStatus: CreditCastStatus.success,creditCast: data));
-    }catch(e){
+      emit(state.copyWith(
+          creditCastStatus: CreditCastStatus.success, creditCast: data));
+    } catch (e) {
       emit(state.copyWith(creditCastStatus: CreditCastStatus.failed));
     }
   }

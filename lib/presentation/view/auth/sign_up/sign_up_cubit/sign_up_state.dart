@@ -1,6 +1,15 @@
 part of 'sign_up_cubit.dart';
 
-enum SignUpStatus { initial, loading, success, failed,successFb,successGoogle,failedFb,failedGoogle }
+enum SignUpStatus {
+  initial,
+  loading,
+  success,
+  failed,
+  successFb,
+  successGoogle,
+  failedFb,
+  failedGoogle
+}
 
 @immutable
 class SignUpState extends Equatable {
@@ -24,7 +33,15 @@ class SignUpState extends Equatable {
 
   @override
   // TODO: implement props
-  List<Object?> get props => [status, email, password, errorMessage,successMessage,obsText,confirmObsText];
+  List<Object?> get props => [
+        status,
+        email,
+        password,
+        errorMessage,
+        successMessage,
+        obsText,
+        confirmObsText
+      ];
 
   SignUpState copyWith({
     SignUpStatus? status,

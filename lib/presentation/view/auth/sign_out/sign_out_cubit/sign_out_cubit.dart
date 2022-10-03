@@ -9,11 +9,11 @@ part 'sign_out_state.dart';
 class SignOutCubit extends Cubit<SignOutState> {
   SignOutCubit() : super(const SignOutState());
 
-  void signOut()  async {
+  void signOut() async {
     emit(state.copyWith(signOutStatus: SignOutStatus.loading));
     try {
       await GoogleSignIn().signOut();
-       await FirebaseAuth.instance.signOut();
+      await FirebaseAuth.instance.signOut();
       emit(state.copyWith(
           signOutStatus: SignOutStatus.success,
           successMessage: "Sign out successfully"));

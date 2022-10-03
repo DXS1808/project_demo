@@ -15,7 +15,8 @@ class LoginCubit extends Cubit<LoginState> {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       emit(state.copyWith(
-          loginStatus: LoginStatus.success, successMessage: "Login Successfully"));
+          loginStatus: LoginStatus.success,
+          successMessage: "Login Successfully"));
     } on FirebaseAuthException catch (e) {
       emit(state.copyWith(
           loginStatus: LoginStatus.failed, errorMessage: e.message));
@@ -40,8 +41,7 @@ class LoginCubit extends Cubit<LoginState> {
           successMessage: "Login Facebook Successfully"));
     } on Exception catch (e) {
       emit(state.copyWith(
-          loginStatus: LoginStatus.failedFb,
-          errorMessage: e.toString()));
+          loginStatus: LoginStatus.failedFb, errorMessage: e.toString()));
     }
   }
 
@@ -53,9 +53,12 @@ class LoginCubit extends Cubit<LoginState> {
       final credential = GoogleAuthProvider.credential(
           idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
       await FirebaseAuth.instance.signInWithCredential(credential);
-      emit(state.copyWith(loginStatus: LoginStatus.successGoogle,successMessage: "Login Google Successfully"));
+      emit(state.copyWith(
+          loginStatus: LoginStatus.successGoogle,
+          successMessage: "Login Google Successfully"));
     } catch (e) {
-      emit(state.copyWith(loginStatus: LoginStatus.failedGoogle,errorMessage: e.toString()));
+      emit(state.copyWith(
+          loginStatus: LoginStatus.failedGoogle, errorMessage: e.toString()));
     }
   }
 }

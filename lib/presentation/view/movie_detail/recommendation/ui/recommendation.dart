@@ -31,9 +31,10 @@ class RecommendationsState extends State<Recommendations> {
             : RecommendationList(movieListItem: listRecommendation);
       },
       listener: (context, state) {
-        if(state.recommendationStatus == RecommendationStatus.success){
+        if (state.recommendationStatus == RecommendationStatus.success) {
           listRecommendation = state.movieListItem;
-        }else if(state.recommendationStatus == RecommendationStatus.isLoading){
+        } else if (state.recommendationStatus ==
+            RecommendationStatus.isLoading) {
           listRecommendation.addAll(state.movieListItem);
         }
       },

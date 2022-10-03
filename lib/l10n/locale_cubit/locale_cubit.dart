@@ -7,11 +7,9 @@ import 'package:project_demo/data/data_sources/local/language/language_local.dar
 
 import '../l10n.dart';
 
-
 part 'locale_state.dart';
 
 class LocaleCubit extends Cubit<LocaleState> {
-
   LocaleCubit() : super(const LocaleState());
 
   void getLanguagesCode() {
@@ -22,12 +20,13 @@ class LocaleCubit extends Cubit<LocaleState> {
 
   void setLocale(String languageCode) {
     emit(state.copyWith(localeStatus: LocaleStatus.loading));
-    Timer(const Duration(milliseconds: 500), (){
-      try{
+    Timer(const Duration(milliseconds: 500), () {
+      try {
         LanguageLocal.setLanguagesCode(languageCode);
         if (!L10n.all.contains(Locale(languageCode))) return;
-        emit(state.copyWith(languagesCode: languageCode,localeStatus: LocaleStatus.success));
-      }catch(e){
+        emit(state.copyWith(
+            languagesCode: languageCode, localeStatus: LocaleStatus.success));
+      } catch (e) {
         if (kDebugMode) {
           print(e);
         }

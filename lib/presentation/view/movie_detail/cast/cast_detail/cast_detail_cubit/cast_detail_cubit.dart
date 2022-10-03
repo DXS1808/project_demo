@@ -11,7 +11,7 @@ part 'cast_detail_state.dart';
 class CastDetailCubit extends Cubit<CastDetailState> {
   CastDetailUseCase castDetailUseCase;
 
-  CastDetailCubit(this.castDetailUseCase) : super( const CastDetailState());
+  CastDetailCubit(this.castDetailUseCase) : super(const CastDetailState());
 
   void getCastDetail(int personId) async {
     emit(state.copyWith(castDetailStatus: CastDetailStatus.loading));

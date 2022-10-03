@@ -1,10 +1,12 @@
-
 import 'package:flutter/material.dart';
+
 class SocialMedia extends StatelessWidget {
   final VoidCallback press;
   final Color color;
   final Widget icon;
-  const SocialMedia({Key? key,required this.press,required this.color,required this.icon}) : super(key: key);
+  const SocialMedia(
+      {Key? key, required this.press, required this.color, required this.icon})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class SocialMedia extends StatelessWidget {
             color: color,
             boxShadow: [
               BoxShadow(
-                color:const Color(0xff000000).withOpacity(0.25),
+                color: const Color(0xff000000).withOpacity(0.25),
                 spreadRadius: 0,
                 blurRadius: 4,
                 offset: const Offset(0, 4),
@@ -26,10 +28,9 @@ class SocialMedia extends StatelessWidget {
             ],
             shape: BoxShape.circle,
           ),
-          child:  Center(
-            child:icon,
+          child: Center(
+            child: icon,
           ),
-        )
-    );
+        ));
   }
 }

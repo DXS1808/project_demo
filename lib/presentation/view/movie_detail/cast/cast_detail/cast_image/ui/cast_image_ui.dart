@@ -34,28 +34,30 @@ class CastImageScreenState extends State<CastImageScreen> {
           ),
         );
       } else if (state.castImageStatus == CastImageStatus.success) {
-        return state.profiles.isNotEmpty ? Card(
-          elevation: 5.0,
-          child: Container(
-            padding: const EdgeInsets.all(5.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const CategoryText(
-                  category: "Cast Image",
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
+        return state.profiles.isNotEmpty
+            ? Card(
+                elevation: 5.0,
+                child: Container(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const CategoryText(
+                        category: "Cast Image",
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                      ),
+                      Wrap(
+                        children: state.profiles
+                            .map((e) => castImageItem(e, context))
+                            .toList(),
+                      )
+                    ],
+                  ),
                 ),
-                Wrap(
-                  children: state.profiles
-                      .map((e) => castImageItem(e, context))
-                      .toList(),
-                )
-              ],
-            ),
-          ),
-        ):Container();
+              )
+            : Container();
       }
       return Container();
     });
