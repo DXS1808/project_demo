@@ -17,15 +17,15 @@ import '../cast_movie/cast_movie_cubit/cast_movie_cubit.dart';
 import '../cast_movie/ui/cast_movie_ui.dart';
 
 class CastDetailScreen extends StatefulWidget {
-  int personId;
+  final int personId;
 
-  CastDetailScreen({Key? key, required this.personId}) : super(key: key);
+  const CastDetailScreen({Key? key, required this.personId}) : super(key: key);
 
   @override
-  _CastDetailScreenState createState() => _CastDetailScreenState();
+  CastDetailScreenState createState() => CastDetailScreenState();
 }
 
-class _CastDetailScreenState extends State<CastDetailScreen> {
+class CastDetailScreenState extends State<CastDetailScreen> {
   @override
   void initState() {
     // TODO: implement initState
@@ -59,7 +59,7 @@ class _CastDetailScreenState extends State<CastDetailScreen> {
                   onPressed: (){
                     Navigator.of(context,rootNavigator: true).pop();
                   },
-                  icon: const Icon(Icons.arrow_back,color: Constants.BACKGROUND_COLOR,),
+                  icon: const Icon(Icons.arrow_back,color: Constants.backgroundColor,),
                 ),
               ),
             ),
@@ -88,7 +88,7 @@ class _CastDetailScreenState extends State<CastDetailScreen> {
                child:  Container(
                  height: 200,
                  decoration: const BoxDecoration(
-                     color: Constants.BACKGROUND_COLOR,
+                     color: Constants.backgroundColor,
                  ),
                ),
              ),
@@ -102,7 +102,7 @@ class _CastDetailScreenState extends State<CastDetailScreen> {
                     castDetail.name!,
                     style: const TextStyle(
                         color: Colors.black,
-                        fontFamily: Constants.FONT_FAMILY,
+                        fontFamily: Constants.fontFamily,
                         fontWeight: FontWeight.w600),
                   ),
                 ],
@@ -132,7 +132,7 @@ class _CastDetailScreenState extends State<CastDetailScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                          CategoryText(
+                          const CategoryText(
                             category: "Biography",
                             color: Colors.black,
                             fontSize: 14,
@@ -144,8 +144,8 @@ class _CastDetailScreenState extends State<CastDetailScreen> {
                               color: Colors.black,
                               fontSize: 12,
                               fontWeight: FontWeight.w400),
-                          moreStyle: const TextStyle(color: Constants.BACKGROUND_COLOR),
-                          lessStyle: const TextStyle(color: Constants.BACKGROUND_COLOR),
+                          moreStyle: const TextStyle(color: Constants.backgroundColor),
+                          lessStyle: const TextStyle(color: Constants.backgroundColor),
                           trimCollapsedText: 'Read more',
                           trimExpandedText: 'Less',
                         )
@@ -156,7 +156,7 @@ class _CastDetailScreenState extends State<CastDetailScreen> {
               BlocProvider(
                 create: (context) => CastImageCubit(CastDetailUseCase(
                     CastDetailImpl(RestClientDio.restClient))),
-                child: CastImage(castId: castDetail.id!),
+                child: CastImageScreen(castId: castDetail.id!),
               ),
               BlocProvider(
                 create: (context) => CastMovieCubit(CastDetailUseCase(
@@ -190,7 +190,7 @@ class _CastDetailScreenState extends State<CastDetailScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(icon, color: Constants.BACKGROUND_COLOR, size: 20),
+        Icon(icon, color: Constants.backgroundColor, size: 20),
         const SizedBox(
           width: 3.0,
         ),
@@ -199,8 +199,8 @@ class _CastDetailScreenState extends State<CastDetailScreen> {
           style: const TextStyle(
               color: Colors.black,
               fontSize: 12,
-              fontFamily: Constants.FONT_FAMILY,
-              fontWeight: Constants.FONTWEIGHT),
+              fontFamily: Constants.fontFamily,
+              fontWeight: Constants.textFontWeight),
         )
       ],
     );

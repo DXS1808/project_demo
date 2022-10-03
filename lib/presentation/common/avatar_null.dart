@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 class AvatarNull extends StatelessWidget {
-  String name;
-  AvatarNull({Key? key,required this.name}) : super(key: key);
+  final String name;
+  const AvatarNull({Key? key,required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

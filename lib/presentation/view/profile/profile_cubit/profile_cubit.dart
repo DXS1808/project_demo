@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-
+import 'package:flutter/cupertino.dart';
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {

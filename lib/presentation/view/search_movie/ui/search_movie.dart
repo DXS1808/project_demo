@@ -40,10 +40,10 @@ class _SearchMovieState extends State<SearchMovie> {
           ),
           labelStyle: const TextStyle(
               fontSize: 13,
-              fontFamily: Constants.FONTFAMILY,
+              fontFamily: Constants.textFontFamily,
               color: Colors.white),
           hintStyle: const TextStyle(
-              fontFamily: Constants.FONTFAMILY, color: Colors.white),
+              fontFamily: Constants.textFontFamily, color: Colors.white),
           contentPadding: const EdgeInsets.all(5.0),
           labelText: AppLocalizations.of(context)!.label_search,
           border: const OutlineInputBorder(

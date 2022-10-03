@@ -8,17 +8,18 @@ import '../../../../../../../utils/string_ultis.dart';
 import '../cast_movie_cubit/cast_movie_cubit.dart';
 
 class CastMovieUI extends StatefulWidget {
-  int castId;
+  final int castId;
 
-  CastMovieUI({Key? key, required this.castId}) : super(key: key);
+  const CastMovieUI({Key? key, required this.castId}) : super(key: key);
 
   @override
-  _CastMovieUIState createState() => _CastMovieUIState();
+  CastMovieUIState createState() => CastMovieUIState();
 }
 
-class _CastMovieUIState extends State<CastMovieUI> {
+class CastMovieUIState extends State<CastMovieUI> {
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
     context.read<CastMovieCubit>().getCreditCubit(widget.castId);
   }
@@ -53,7 +54,7 @@ class _CastMovieUIState extends State<CastMovieUI> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CategoryText(
+                      const CategoryText(
                         category: "Credit Movie",
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
@@ -81,7 +82,7 @@ class _CastMovieUIState extends State<CastMovieUI> {
             ),
             Container(
               padding: const EdgeInsets.only(left: 5.0),
-              child: CategoryText(
+              child: const CategoryText(
                 category: "Cast Career",
                 color: Colors.black,
                 fontWeight: FontWeight.w600,

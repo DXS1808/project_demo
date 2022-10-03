@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:project_demo/data/model/cast/cast_detail.dart';
 import 'package:project_demo/data/model/credit_movie/credit_movie.dart';
 import 'package:project_demo/data/model/image_person/cast_image.dart';
@@ -11,7 +12,9 @@ class CastDetailUseCase{
     try{
       return castRepository.getCastDetail(apiKey, castId);
     }catch (e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return castRepository.getCastDetail(apiKey, castId);
   }
@@ -20,7 +23,9 @@ class CastDetailUseCase{
     try{
       return castRepository.getCastImage(apiKey, castId);
     }catch (e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return castRepository.getCastImage(apiKey, castId);
   }
@@ -28,7 +33,9 @@ class CastDetailUseCase{
     try{
       return castRepository.getCreditMovie(apiKey, castId);
     }catch (e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return castRepository.getCreditMovie(apiKey, castId);
   }

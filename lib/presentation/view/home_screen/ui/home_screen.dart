@@ -25,10 +25,10 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   List<Widget> widgetOptions = [];
@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 unselectedItemColor: Colors.grey.withOpacity(0.6),
                 selectedItemColor: Colors.white,
-                backgroundColor: Constants.BACKGROUND_COLOR.withOpacity(0.5)),
+                backgroundColor: Constants.backgroundColor.withOpacity(0.5)),
           )),
     );
   }
@@ -116,10 +116,10 @@ class MovieScreen extends StatefulWidget {
   const MovieScreen({Key? key}) : super(key: key);
 
   @override
-  _MovieScreenState createState() => _MovieScreenState();
+  MovieScreenState createState() => MovieScreenState();
 }
 
-class _MovieScreenState extends State<MovieScreen>
+class MovieScreenState extends State<MovieScreen>
     with TickerProviderStateMixin {
   TextEditingController controller = TextEditingController();
   ScrollController scrollController = ScrollController();
@@ -203,6 +203,12 @@ class _MovieScreenState extends State<MovieScreen>
         case HomeStatus.noSearch:
           // TODO: Handle this case.
           break;
+        case HomeStatus.getSearchMovieLoading:
+          // TODO: Handle this case.
+          break;
+        case HomeStatus.loadingSearch:
+          // TODO: Handle this case.
+          break;
       }
     }, builder: (context, state) {
       return DefaultTabController(
@@ -220,12 +226,12 @@ class _MovieScreenState extends State<MovieScreen>
                             style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 18,
-                                fontFamily: Constants.FONT_FAMILY),
+                                fontFamily: Constants.fontFamily),
                           )
                         : SearchMovie(controller, FocusNode());
                   },
                 ),
-                backgroundColor: Constants.BACKGROUND_COLOR,
+                backgroundColor: Constants.backgroundColor,
                 actions: [
                   state.checkSearch == false
                       ? IconButton(
@@ -301,25 +307,25 @@ class _MovieScreenState extends State<MovieScreen>
                           Text(
                             AppLocalizations.of(context)!.top_rated,
                             style: const TextStyle(
-                                fontFamily: Constants.FONT_FAMILY,
+                                fontFamily: Constants.fontFamily,
                                 fontSize: 13),
                           ),
                           Text(
                             AppLocalizations.of(context)!.popular,
                             style: const TextStyle(
-                                fontFamily: Constants.FONT_FAMILY,
+                                fontFamily: Constants.fontFamily,
                                 fontSize: 13),
                           ),
                           Text(
                             AppLocalizations.of(context)!.now_playing,
                             style: const TextStyle(
-                                fontFamily: Constants.FONT_FAMILY,
+                                fontFamily: Constants.fontFamily,
                                 fontSize: 13),
                           ),
                           Text(
                             AppLocalizations.of(context)!.up_coming,
                             style: const TextStyle(
-                                fontFamily: Constants.FONT_FAMILY,
+                                fontFamily: Constants.fontFamily,
                                 fontSize: 13),
                           ),
                         ]
@@ -327,7 +333,7 @@ class _MovieScreenState extends State<MovieScreen>
                           Text(
                             AppLocalizations.of(context)!.result_movie_search,
                             style: const TextStyle(
-                                fontFamily: Constants.FONT_FAMILY,
+                                fontFamily: Constants.fontFamily,
                                 fontSize: 13),
                           ),
                         ],
@@ -346,7 +352,7 @@ class _MovieScreenState extends State<MovieScreen>
                         0.2,
                       ],
                       colors: [
-                        Constants.BACKGROUND_COLOR,
+                        Constants.backgroundColor,
                         Colors.white,
                       ],
                     )),
@@ -386,7 +392,7 @@ class _MovieScreenState extends State<MovieScreen>
                                   ]);
                                 } else if (state.networkServicesStatus ==
                                     NetworkServicesStatus.offline) {
-                                  return NoInternet();
+                                  return const NoInternet();
                                 }
                                 return Container();
                               },

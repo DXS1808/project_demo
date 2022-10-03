@@ -8,9 +8,9 @@ import '../movie/movie_favorite/check_favorite_cubit/check_favorite_cubit.dart';
 import '../movie/movie_favorite/movie_favorite_cubit/movie_favorite_cubit.dart';
 
 class MovieDetailHeader extends AppBar {
-  MovieDetail movieDetail;
+  final MovieDetail movieDetail;
 
-  MovieDetailHeader(this.movieDetail);
+  MovieDetailHeader(this.movieDetail, {super.key});
 
   @override
   State<MovieDetailHeader> createState() => _MovieDetailHeaderState();

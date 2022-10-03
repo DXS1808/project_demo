@@ -21,7 +21,7 @@ class LoginState extends Equatable {
   final String successMessage;
   final bool obscureText;
 
-  LoginState(
+  const LoginState(
       {this.loginStatus = LoginStatus.initial,
       this.email = "",
       this.password = "",

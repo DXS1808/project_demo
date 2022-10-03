@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
 import 'package:project_demo/data/data_sources/local/language/language_local.dart';
 
 import '../l10n.dart';
@@ -25,10 +25,12 @@ class LocaleCubit extends Cubit<LocaleState> {
     Timer(const Duration(milliseconds: 500), (){
       try{
         LanguageLocal.setLanguagesCode(languageCode);
-        if (!L10n.all.contains(Locale("$languageCode"))) return;
+        if (!L10n.all.contains(Locale(languageCode))) return;
         emit(state.copyWith(languagesCode: languageCode,localeStatus: LocaleStatus.success));
       }catch(e){
-        print(e);
+        if (kDebugMode) {
+          print(e);
+        }
       }
     });
   }

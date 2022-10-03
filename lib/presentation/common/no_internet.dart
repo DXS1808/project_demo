@@ -5,7 +5,7 @@ import '../../services/network_services/network_services_cubit.dart';
 import '../view/home_screen/home_cubit/home_cubit.dart';
 
 class NoInternet extends StatefulWidget {
-  NoInternet({Key? key}) : super(key: key);
+  const NoInternet({Key? key}) : super(key: key);
 
   @override
   State<NoInternet> createState() => _NoInternetState();
@@ -32,7 +32,7 @@ class _NoInternetState extends State<NoInternet> {
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 15,
-                  fontFamily: Constants.FONTFAMILY),
+                  fontFamily: Constants.textFontFamily),
             ),
             const Text(
               "You are not connected to the internet. Make sure Wi-Fi is on, Airplane Mode is Off ",
@@ -40,7 +40,7 @@ class _NoInternetState extends State<NoInternet> {
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 12,
-                  fontFamily: Constants.FONTFAMILY),
+                  fontFamily: Constants.textFontFamily),
             ),
             const SizedBox(
               height: 20.0,
@@ -68,7 +68,7 @@ class _NoInternetState extends State<NoInternet> {
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 12,
-                    fontFamily: Constants.FONTFAMILY),
+                    fontFamily: Constants.textFontFamily),
               ),
             )
           ],

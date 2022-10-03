@@ -12,6 +12,8 @@ import '../login_cubit/login_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -118,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       listener: (context, state) {
                         if (state.loginStatus == LoginStatus.success) {
                           AlertDropdown.success(state.successMessage);
-                          Navigator.pushNamed(context, AppRouter.HOME_SCREEN);
+                          Navigator.pushNamed(context, AppRouter.homeScreen);
                         } else if (state.loginStatus == LoginStatus.failed) {
                           AlertDropdown.error(state.errorMessage);
                         }
@@ -131,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.black,
                           fontSize: 10,
                           fontWeight: FontWeight.w600,
-                          fontFamily: Constants.FONT_FAMILY),
+                          fontFamily: Constants.fontFamily),
                     ),
                     const SizedBox(height: 20.0),
                     Row(
@@ -151,22 +153,22 @@ class _LoginScreenState extends State<LoginScreen> {
                          Text(
                           AppLocalizations.of(context)!.dont_account,
                           style: const TextStyle(
-                              fontSize: Constants.FONT_SIZE,
+                              fontSize: Constants.fontSize,
                               color: Colors.black,
-                              fontFamily: Constants.FONTFAMILY),
+                              fontFamily: Constants.textFontFamily),
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, AppRouter.SIGN_UP);
+                            Navigator.pushNamed(context, AppRouter.signUp);
                           },
                           child: Text(
                             AppLocalizations.of(context)!.sign_up,
                             style: const TextStyle(
                                 decoration: TextDecoration.underline,
-                                color: Constants.BACKGROUND,
+                                color: Constants.background,
                                 fontWeight: FontWeight.w600,
-                                fontSize: Constants.FONT_SIZE,
-                                fontFamily: Constants.FONTFAMILY),
+                                fontSize: Constants.fontSize,
+                                fontFamily: Constants.textFontFamily),
                           ),
                         )
                       ],
@@ -245,7 +247,6 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state.loginStatus == LoginStatus.failedGoogle) {
           AlertDropdown.error(state.errorMessage);
         } else if (state.loginStatus == LoginStatus.successGoogle) {
-          print(state.loginStatus);
           AlertDropdown.success(state.successMessage);
           Navigator.pushNamed(context, "/home_screen");
         }

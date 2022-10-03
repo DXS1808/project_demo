@@ -5,13 +5,13 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class VideoItem extends StatefulWidget {
   final Results results;
 
-  VideoItem(this.results);
+  const VideoItem(this.results, {super.key});
 
   @override
-  _VideoItemState createState() => _VideoItemState();
+  VideoItemState createState() => VideoItemState();
 }
 
-class _VideoItemState extends State<VideoItem> {
+class VideoItemState extends State<VideoItem> {
   late YoutubePlayerController controller;
   late PlayerState playerState;
   late YoutubeMetaData videoMetaData;
@@ -40,7 +40,6 @@ class _VideoItemState extends State<VideoItem> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return YoutubePlayerBuilder(
       player: YoutubePlayer(
         controller: controller,

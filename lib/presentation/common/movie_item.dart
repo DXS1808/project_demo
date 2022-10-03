@@ -13,17 +13,17 @@ import '../view/movie/movie_favorite/check_favorite_cubit/check_favorite_cubit.d
 import '../view/movie/movie_favorite/movie_favorite_cubit/movie_favorite_cubit.dart';
 
 class MovieItem extends StatefulWidget {
-  dynamic movieListItem;
-  bool favorite = false;
+  final dynamic movieListItem;
+  final bool favorite;
 
-  MovieItem({Key? key, required this.movieListItem, this.favorite = false})
+  const MovieItem({Key? key, required this.movieListItem, this.favorite = false})
       : super(key: key);
 
   @override
-  _MovieItemState createState() => _MovieItemState();
+  MovieItemState createState() => MovieItemState();
 }
 
-class _MovieItemState extends State<MovieItem> {
+class MovieItemState extends State<MovieItem> {
   @override
   void initState() {
     // TODO: implement initState
@@ -37,7 +37,7 @@ class _MovieItemState extends State<MovieItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, AppRouter.MOVIE_DETAIL,
+        Navigator.pushNamed(context, AppRouter.movieDetail,
             arguments: MovieFavoriteRouter(
                 context.read<MovieFavoriteCubit>(), widget.movieListItem.id));
       },
@@ -91,7 +91,7 @@ class _MovieItemState extends State<MovieItem> {
                           CategoryText(
                             category: widget.movieListItem.originalTitle,
                             fontSize: 15,
-                            fontWeight: Constants.FONTWEIGHT,
+                            fontWeight: Constants.textFontWeight,
                             color: Colors.black,
                           ),
                           const SizedBox(
@@ -169,7 +169,6 @@ class _MovieItemState extends State<MovieItem> {
                                 MovieFavoriteStatus.success) {
                               // AlertShowMessage.success(
                               //     context, "Remove Favorite Success");
-                              print("test remove MovieFavorite");
                               context.read<CheckFavoriteCubit>().checkFavorite(
                                   widget.movieListItem.id!,
                                   FirebaseAuth.instance.currentUser!.uid);
@@ -178,7 +177,6 @@ class _MovieItemState extends State<MovieItem> {
                                 MovieFavoriteStatus.markedSuccess) {
                               // AlertShowMessage.success(
                               //     context, "Add Favorite Success");
-                              print("test add MovieFavorite");
                               context.read<CheckFavoriteCubit>().checkFavorite(
                                   widget.movieListItem.id!,
                                   FirebaseAuth.instance.currentUser!.uid);
@@ -203,7 +201,6 @@ class _MovieItemState extends State<MovieItem> {
                                       CheckFavoriteStatus.marked
                                   ? IconButton(
                                       onPressed: () {
-                                        print(state.checkFavoriteStatus);
                                         context
                                             .read<MovieFavoriteCubit>()
                                             .removeFavorite(
@@ -218,7 +215,6 @@ class _MovieItemState extends State<MovieItem> {
                                       ))
                                   : IconButton(
                                       onPressed: () {
-                                        print(state.checkFavoriteStatus);
                                         context
                                             .read<MovieFavoriteCubit>()
                                             .markFavorite(

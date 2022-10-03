@@ -46,7 +46,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Constants.BACKGROUND,
+      color: Constants.background,
       child: Form(
         key: _key,
         child: body(),
@@ -170,8 +170,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                         listener: (context, state) {
                           if (state.status == SignUpStatus.success) {
-                            print(state.status);
-                            Navigator.pushNamed(context, AppRouter.HOME_SCREEN);
+                            Navigator.pushNamed(context, AppRouter.homeScreen);
                             AlertDropdown.success("Sign up success");
                           } else if (state.status == SignUpStatus.failed) {
                             AlertDropdown.error(state.errorMessage);
@@ -187,7 +186,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             color: Colors.black,
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
-                            fontFamily: Constants.FONT_FAMILY),
+                            fontFamily: Constants.fontFamily),
                       ),
                       const SizedBox(height: 15.0),
                       Row(
@@ -210,20 +209,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             AppLocalizations.of(context)!.have_account,
                             style: const TextStyle(
                                 color: Colors.black,
-                                fontFamily: Constants.FONTFAMILY),
+                                fontFamily: Constants.textFontFamily),
                           ),
                           GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(
-                                    context, AppRouter.LOGIN_SCREEN);
+                                    context, AppRouter.loginScreen);
                               },
                               child: Text(
                                 AppLocalizations.of(context)!.login,
                                 style: const TextStyle(
-                                    color: Constants.BACKGROUND,
+                                    color: Constants.background,
                                     fontWeight: FontWeight.w600,
                                     decoration: TextDecoration.underline,
-                                    fontFamily: Constants.FONTFAMILY),
+                                    fontFamily: Constants.textFontFamily),
                               ))
                         ],
                       )
@@ -242,7 +241,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         icon: const Icon(
           Icons.person_outline,
           size: 20,
-          color: Constants.BACKGROUND,
+          color: Constants.background,
         ),
         validator: (str) {
           if (str!.isNotEmpty) {
@@ -264,14 +263,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
           icon: const Icon(
             Icons.lock_outline,
             size: 20,
-            color: Constants.BACKGROUND,
+            color: Constants.background,
           ),
           obscureText: state.obsText,
           iconSuffix: GestureDetector(
             child: Icon(
               // Based on passwordVisible state choose the icon
               state.obsText ? Icons.visibility_off : Icons.visibility,
-              color: Constants.BACKGROUND,
+              color: Constants.background,
             ),
             onTap: () {
               _passwordVisible = !_passwordVisible;
@@ -298,13 +297,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
           icon: const Icon(
             Icons.lock_outline,
             size: 20,
-            color: Constants.BACKGROUND,
+            color: Constants.background,
           ),
           obscureText: state.confirmObsText,
           iconSuffix: GestureDetector(
             child: Icon(
               state.confirmObsText ? Icons.visibility_off : Icons.visibility,
-              color: Constants.BACKGROUND,
+              color: Constants.background,
             ),
             onTap: () {
               passwordVisibleConfirm = !passwordVisibleConfirm;
@@ -332,7 +331,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         icon: const Icon(
           Icons.person_outline,
           size: 20,
-          color: Constants.BACKGROUND,
+          color: Constants.background,
         ),
         validator: (str) {
           if (str!.isEmpty) {

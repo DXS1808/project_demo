@@ -6,7 +6,7 @@ enum SignOutStatus {initial, loading,success,failed}
 class SignOutState extends Equatable {
   final SignOutStatus signOutStatus;
   final String successMessage;
-  SignOutState({this.signOutStatus = SignOutStatus.initial,this.successMessage = ""});
+  const SignOutState({this.signOutStatus = SignOutStatus.initial,this.successMessage = ""});
   @override
   // TODO: implement props
   List<Object?> get props => [signOutStatus,successMessage];

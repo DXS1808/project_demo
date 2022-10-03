@@ -8,15 +8,15 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../common/category_text.dart';
 
 class MovieVideo extends StatefulWidget {
-  int movieId;
+  final int movieId;
 
-  MovieVideo({Key? key, required this.movieId}) : super(key: key);
+  const MovieVideo({Key? key, required this.movieId}) : super(key: key);
 
   @override
-  _MovieVideoState createState() => _MovieVideoState();
+  MovieVideoState createState() => MovieVideoState();
 }
 
-class _MovieVideoState extends State<MovieVideo> {
+class MovieVideoState extends State<MovieVideo> {
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _MovieVideoState extends State<MovieVideo> {
           ),
         );
       } else if (state.videoMovieStatus == VideoMovieStatus.success) {
-        return state.movieVideo!.results!.isNotEmpty ? videoList(state.movieVideo!.results!,context):Text("");
+        return state.movieVideo!.results!.isNotEmpty ? videoList(state.movieVideo!.results!,context): const Text("");
       }
       return Container();
     });

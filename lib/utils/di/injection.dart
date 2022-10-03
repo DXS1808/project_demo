@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:intl/intl.dart';
 import 'package:project_demo/data/data_sources/remote/rest_client.dart';
 import 'package:project_demo/data/impl/cast_detail_impl.dart';
 import 'package:project_demo/data/impl/favorite_impl.dart';

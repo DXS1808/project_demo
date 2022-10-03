@@ -26,7 +26,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     return BlocListener<SplashCubit, SplashState>(
         listener: (context, state) {
           if (state.splashStatus == SplashStatus.success) {
-            Navigator.pushNamed(context, AppRouter.LOGIN_SCREEN);
+            Navigator.pushNamed(context, AppRouter.loginScreen);
           }
         },
         child: splashScreen());
@@ -34,7 +34,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   Widget splashScreen() {
     return Material(
-        color: Constants.BACKGROUND_COLOR.withOpacity(0.7),
+        color: Constants.backgroundColor.withOpacity(0.7),
         child: Column(
           children: [
             const SizedBox(
@@ -52,7 +52,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                   textStyle: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20.0,
-                      fontFamily: Constants.FONTFAMILY),
+                      fontFamily: Constants.textFontFamily),
                   colors: [
                     Colors.purple,
                     Colors.tealAccent,

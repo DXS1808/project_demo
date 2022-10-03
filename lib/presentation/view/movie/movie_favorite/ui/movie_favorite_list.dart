@@ -11,10 +11,10 @@ class MovieFavoriteList extends StatefulWidget {
   const MovieFavoriteList({Key? key}) : super(key: key);
 
   @override
-  _MovieFavoriteListState createState() => _MovieFavoriteListState();
+  MovieFavoriteListState createState() => MovieFavoriteListState();
 }
 
-class _MovieFavoriteListState extends State<MovieFavoriteList> {
+class MovieFavoriteListState extends State<MovieFavoriteList> {
   @override
   void initState() {
     context
@@ -38,7 +38,7 @@ class _MovieFavoriteListState extends State<MovieFavoriteList> {
                   0.2,
                 ],
                 colors: [
-                  Constants.BACKGROUND_COLOR,
+                  Constants.backgroundColor,
                   Colors.white,
                 ],
               )
@@ -48,14 +48,14 @@ class _MovieFavoriteListState extends State<MovieFavoriteList> {
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              backgroundColor: Constants.BACKGROUND_COLOR,
+              backgroundColor: Constants.backgroundColor,
               centerTitle: true,
               title:Text(
                 AppLocalizations.of(context)!.movie_favorite,
                 style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 18,
-                    fontFamily: Constants.FONT_FAMILY),
+                    fontFamily: Constants.fontFamily),
               ),
             ),
             body:
@@ -77,7 +77,7 @@ class _MovieFavoriteListState extends State<MovieFavoriteList> {
                                 "No Movie Favorite",
                                 style: TextStyle(
                                     color: Colors.black,
-                                    fontFamily: Constants.FONTFAMILY,
+                                    fontFamily: Constants.textFontFamily,
                                     fontSize: 14),
                               )
                             ],

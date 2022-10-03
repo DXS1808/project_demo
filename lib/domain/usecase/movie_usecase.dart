@@ -1,4 +1,5 @@
 
+import 'package:flutter/foundation.dart';
 import 'package:project_demo/data/model/video_movie/video_movie.dart';
 import 'package:project_demo/domain/repository/movie_repository.dart';
 
@@ -55,7 +56,9 @@ class MovieUseCase {
     try {
       return movieRepository.getReviews(apiKey, movieId);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return movieRepository.getReviews(apiKey, movieId);
   }
@@ -65,7 +68,9 @@ class MovieUseCase {
     try {
       return movieRepository.getListSimilar(apiKey, movieId,page);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return movieRepository.getListSimilar(apiKey, movieId,page);
   }
@@ -76,7 +81,9 @@ class MovieUseCase {
     try {
       return movieRepository.getMovieImage(apiKey, movieId);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return movieRepository.getMovieImage(apiKey, movieId);
   }
@@ -86,7 +93,9 @@ class MovieUseCase {
     try {
       return movieRepository.getSearchMovie(apiKey, query);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return movieRepository.getSearchMovie(apiKey, query);
   }
@@ -97,7 +106,9 @@ class MovieUseCase {
     try{
       return movieRepository.getVideo(apiKey, movieId);
     }catch (e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return movieRepository.getVideo(apiKey, movieId);
   }

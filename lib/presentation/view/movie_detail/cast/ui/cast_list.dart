@@ -6,8 +6,8 @@ import '../cast_cubit/cast_cubit.dart';
 import 'cast_item.dart';
 
 class CreditCastList extends StatefulWidget {
-  int movieId;
-  CreditCastList({Key? key,required this.movieId}) : super(key: key);
+  final int movieId;
+  const CreditCastList({Key? key,required this.movieId}) : super(key: key);
 
   @override
   State<CreditCastList> createState() => _CreditCastListState();
@@ -17,6 +17,7 @@ class _CreditCastListState extends State<CreditCastList> {
 
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
     context.read<CreditCastCubit>().get(widget.movieId);
   }

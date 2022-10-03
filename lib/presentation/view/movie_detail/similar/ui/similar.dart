@@ -1,24 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project_demo/presentation/common/movie_detail_item.dart';
 import 'package:project_demo/presentation/view/movie_detail/similar/similar_cubit/similar_cubit.dart';
 import 'package:project_demo/presentation/view/movie_detail/similar/ui/similar_list.dart';
 
 import '../../../../../data/model/movie/movie.dart';
 
-class Similar extends StatefulWidget {
-  int movieId;
- Similar({Key? key,required this.movieId}) : super(key: key);
+class SimilarScreen extends StatefulWidget {
+  final int movieId;
+
+  const SimilarScreen({Key? key, required this.movieId}) : super(key: key);
 
   @override
-  _SimilarState createState() => _SimilarState();
+  SimilarScreenState createState() => SimilarScreenState();
 }
 
-class _SimilarState extends State<Similar> {
-
+class SimilarScreenState extends State<SimilarScreen> {
   @override
   void initState() {
-    context.read<SimilarCubit>().get(widget.movieId,false,1);
+    context.read<SimilarCubit>().get(widget.movieId, false, 1);
     // TODO: implement initState
     super.initState();
   }
@@ -33,9 +32,9 @@ class _SimilarState extends State<Similar> {
             : SimilarList(movieListItem: listSimilar);
       },
       listener: (context, state) {
-        if(state.similarStatus == SimilarStatus.success){
+        if (state.similarStatus == SimilarStatus.success) {
           listSimilar = state.movieListItem;
-        }else if(state.similarStatus == SimilarStatus.isLoading){
+        } else if (state.similarStatus == SimilarStatus.isLoading) {
           listSimilar.addAll(state.movieListItem);
         }
       },

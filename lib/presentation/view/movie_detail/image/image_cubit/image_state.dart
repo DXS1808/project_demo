@@ -4,10 +4,10 @@ enum ImageStatus{initial, loading, success, failed}
 
 @immutable
 class ImageState extends Equatable {
-  ImageStatus imageStatus;
-  MovieImage ? movieImage;
+  final ImageStatus imageStatus;
+  final MovieImage ? movieImage;
 
-  ImageState({this.imageStatus = ImageStatus.initial,this.movieImage});
+  const ImageState({this.imageStatus = ImageStatus.initial,this.movieImage});
 
   @override
   // TODO: implement props

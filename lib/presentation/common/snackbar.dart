@@ -7,7 +7,7 @@ class ShowSnackBar extends StatelessWidget {
   final TypeSnack typeSnack;
   final String content;
 
-  ShowSnackBar(this.typeSnack, this.content);
+  const ShowSnackBar(this.typeSnack, this.content, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class ShowSnackBar extends StatelessWidget {
                 style: const TextStyle(
                     color: Colors.white,
                     fontSize: 14,
-                    fontFamily: Constants.FONTFAMILY),
+                    fontFamily: Constants.textFontFamily),
 
     ));
   }

@@ -1,14 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
-import 'package:meta/meta.dart';
-
 import '../../../../../data/model/favorite/favorite.dart';
 
 part 'check_favorite_state.dart';
 
 class CheckFavoriteCubit extends Cubit<CheckFavoriteState> {
-  CheckFavoriteCubit() : super(CheckFavoriteState());
+  CheckFavoriteCubit() : super(const CheckFavoriteState());
 
   void checkFavorite(int id,String userId){
     try{
@@ -20,7 +19,9 @@ class CheckFavoriteCubit extends Cubit<CheckFavoriteState> {
         emit(state.copyWith(checkFavoriteStatus: CheckFavoriteStatus.notMarked,id: id));
       }
     }catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 }

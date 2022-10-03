@@ -6,16 +6,16 @@ import 'package:project_demo/presentation/common/category_text.dart';
 
 import '../cast_image_cubit/cast_image_cubit.dart';
 
-class CastImage extends StatefulWidget {
-  int castId;
+class CastImageScreen extends StatefulWidget {
+  final int castId;
 
-  CastImage({Key? key, required this.castId}) : super(key: key);
+  const CastImageScreen({Key? key, required this.castId}) : super(key: key);
 
   @override
-  _CastImageState createState() => _CastImageState();
+  CastImageScreenState createState() => CastImageScreenState();
 }
 
-class _CastImageState extends State<CastImage> {
+class CastImageScreenState extends State<CastImageScreen> {
   @override
   void initState() {
     context.read<CastImageCubit>().getProfiles(widget.castId);
@@ -41,7 +41,7 @@ class _CastImageState extends State<CastImage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CategoryText(
+                const CategoryText(
                   category: "Cast Image",
                   color: Colors.black,
                   fontWeight: FontWeight.w600,

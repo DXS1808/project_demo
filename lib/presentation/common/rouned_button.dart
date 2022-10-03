@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:project_demo/config/constants.dart';
 
 class RounedButton extends StatelessWidget {
-  VoidCallback onPress;
-  String text;
-  RounedButton({required this.onPress,required this.text});
+  final VoidCallback onPress;
+  final String text;
+  const RounedButton({super.key, required this.onPress,required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +13,10 @@ class RounedButton extends StatelessWidget {
       style: TextButton.styleFrom(
         padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 20.0),
         elevation: 5.0,
-        backgroundColor:Constants.BACKGROUND,
+        backgroundColor:Constants.background,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // <-- Radius
         ),
-
-        primary: Colors.white,
       ),
       child: Text(
         text,

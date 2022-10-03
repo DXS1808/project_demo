@@ -5,15 +5,15 @@ import 'package:project_demo/presentation/view/movie_detail/recommendation/recom
 import 'package:project_demo/presentation/view/movie_detail/recommendation/ui/recommendation_list.dart';
 
 class Recommendations extends StatefulWidget {
-  int movieId;
+  final int movieId;
 
-  Recommendations({Key? key, required this.movieId}) : super(key: key);
+  const Recommendations({Key? key, required this.movieId}) : super(key: key);
 
   @override
-  _RecommendationsState createState() => _RecommendationsState();
+  RecommendationsState createState() => RecommendationsState();
 }
 
-class _RecommendationsState extends State<Recommendations> {
+class RecommendationsState extends State<Recommendations> {
   @override
   void initState() {
     context.read<RecommendationCubit>().get(widget.movieId, false, 1);

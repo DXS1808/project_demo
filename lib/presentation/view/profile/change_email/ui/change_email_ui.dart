@@ -9,20 +9,19 @@ import '../../../../../config/constants.dart';
 import '../../../../../utils/string_ultis.dart';
 import '../../../../common/input_text_wrap.dart';
 
-class ChangeEmail extends StatefulWidget {
-  const ChangeEmail({Key? key}) : super(key: key);
+class ChangeEmailScreen extends StatefulWidget {
+  const ChangeEmailScreen({Key? key}) : super(key: key);
 
   @override
-  _ChangeEmailState createState() => _ChangeEmailState();
+  ChangeEmailScreenState createState() => ChangeEmailScreenState();
 }
 
-class _ChangeEmailState extends State<ChangeEmail> {
-
-
+class ChangeEmailScreenState extends State<ChangeEmailScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController emailNew = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   late User user;
+
   @override
   void initState() {
     user = FirebaseAuth.instance.currentUser!;
@@ -30,65 +29,64 @@ class _ChangeEmailState extends State<ChangeEmail> {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
-          title:  const Text(
+          title: const Text(
             "Change Email",
             style: TextStyle(
                 color: Colors.white,
-                fontFamily: Constants.FONT_FAMILY,
-                fontSize: 16
-            ),
+                fontFamily: Constants.fontFamily,
+                fontSize: 16),
           ),
           centerTitle: true,
         ),
         body: Form(
-          key: _key,
-          child: SingleChildScrollView(
-            child: Stack(
-              children: [
-                Container(
-                  color: Colors.black,
-                  height: size.height,
-                  width: size.width,
-                ),
-                Positioned(
-                  bottom: 0,
-                  child: Container(
+            key: _key,
+            child: SingleChildScrollView(
+              child: Stack(
+                children: [
+                  Container(
+                    color: Colors.black,
+                    height: size.height,
                     width: size.width,
-                    height: size.height*0.9,
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(50))
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      width: size.width,
+                      height: size.height * 0.9,
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              BorderRadius.only(topLeft: Radius.circular(50))),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 100,
+                          ),
+                          inputEmail(),
+                          const SizedBox(height: 20),
+                          inputEmailNew(),
+                          const SizedBox(
+                            height: 25,
+                          ),
+                          btnUpdate()
+                        ],
+                      ),
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 100,
-                        ),
-                        inputEmail(),
-                        const SizedBox(height: 20),
-                        inputEmailNew(),
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        btnUpdate()
-                      ],
-                    ),
-                  ),)
-              ],
-            ),
-          )
-        ));
+                  )
+                ],
+              ),
+            )));
   }
 
   inputEmail() {
-
     return InputTextWrap(
         label: "Email...",
         controller: email,
@@ -96,14 +94,14 @@ class _ChangeEmailState extends State<ChangeEmail> {
         icon: const Icon(
           Icons.person_outline,
           size: 20,
-          color: Constants.BACKGROUND,
+          color: Constants.background,
         ),
         validator: (str) {
           if (StringUltis.isEmail(str!) == false && str.isNotEmpty) {
             return "Wrong email format";
           } else if (str.isEmpty) {
             return "Email is required";
-          } else if(str != user.email){
+          } else if (str != user.email) {
             return "Email failed";
           }
           return null;
@@ -118,7 +116,7 @@ class _ChangeEmailState extends State<ChangeEmail> {
         icon: const Icon(
           Icons.person_outline,
           size: 20,
-          color: Constants.BACKGROUND,
+          color: Constants.background,
         ),
         validator: (str) {
           if (StringUltis.isEmail(str!) == false && str.isNotEmpty) {
@@ -136,9 +134,9 @@ class _ChangeEmailState extends State<ChangeEmail> {
     return BlocListener<ChangeEmailCubit, ChangeEmailState>(
       listener: (context, state) {
         if (state.changeEmailStatus == ChangeEmailStatus.success) {
-          AlertShowMessage.success(context,state.message);
+          AlertShowMessage.success(context, state.message);
         } else if (state.changeEmailStatus == ChangeEmailStatus.failed) {
-          AlertShowMessage.error(context,state.message);
+          AlertShowMessage.error(context, state.message);
         }
       },
       child: RounedButton(

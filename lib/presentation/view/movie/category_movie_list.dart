@@ -6,11 +6,11 @@ import '../../common/movie_item.dart';
 class CategoryMovieList extends StatefulWidget {
   final List<dynamic> movieListItem;
   final String? searchText;
-  ScrollController? scrollController;
-  bool ? isLoading;
-  bool favorite = false;
+  final ScrollController? scrollController;
+  final bool ? isLoading;
+  final bool favorite;
 
-  CategoryMovieList(
+  const CategoryMovieList(
       {Key? key,
       required this.movieListItem,
       this.searchText,

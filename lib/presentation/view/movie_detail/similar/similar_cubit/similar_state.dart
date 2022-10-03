@@ -7,7 +7,7 @@ class SimilarState extends Equatable {
   final List<MovieListItem> movieListItem;
   final SimilarStatus similarStatus;
 
-  SimilarState({this.movieListItem = const [],this.similarStatus = SimilarStatus.initial });
+  const SimilarState({this.movieListItem = const [],this.similarStatus = SimilarStatus.initial });
 
   @override
   // TODO: implement props

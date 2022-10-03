@@ -23,15 +23,15 @@ import 'cast/ui/cast_list.dart';
 import 'image/image_cubit/image_cubit.dart';
 
 class MovieDetailBody extends StatefulWidget {
-  MovieDetail movieDetail;
+  final MovieDetail movieDetail;
 
-  MovieDetailBody({Key? key, required this.movieDetail}) : super(key: key);
+  const MovieDetailBody({Key? key, required this.movieDetail}) : super(key: key);
 
   @override
-  _MovieDetailBodyState createState() => _MovieDetailBodyState();
+  MovieDetailBodyState createState() => MovieDetailBodyState();
 }
 
-class _MovieDetailBodyState extends State<MovieDetailBody> {
+class MovieDetailBodyState extends State<MovieDetailBody> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -65,7 +65,7 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
           ),
         ),
         const Divider(
-          color: Constants.BACKGROUND_COLOR,
+          color: Constants.backgroundColor,
         ),
         if (widget.movieDetail.overview!.isNotEmpty)
           elevationCategory(
@@ -105,7 +105,7 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
           create: (context) => SimilarCubit(
             MovieUseCase(MovieImpl(RestClientDio.restClient)),
           ),
-          child: elevationCategory(Similar(movieId: widget.movieDetail.id!)),
+          child: elevationCategory(SimilarScreen(movieId: widget.movieDetail.id!)),
         ),
         const SizedBox(
           height: 15.0,
@@ -159,7 +159,7 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
                       style: const TextStyle(
                           fontSize: 16,
                           color: Colors.black,
-                          fontFamily: Constants.FONT_FAMILY,
+                          fontFamily: Constants.fontFamily,
                           fontWeight: FontWeight.w600),
                     ),
                     genres(widget.movieDetail.genres!),
@@ -168,7 +168,7 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
                         voteStar(
                           const Icon(
                             Icons.star,
-                            color: Constants.BACKGROUND_COLOR,
+                            color: Constants.backgroundColor,
                             size: 16,
                           ),
                           "${widget.movieDetail.voteAverage!.toStringAsFixed(1)}/10",
@@ -177,7 +177,7 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 1.0,horizontal: 10.0),
                           decoration: const BoxDecoration(
-                            color: Constants.BACKGROUND_COLOR,
+                            color: Constants.backgroundColor,
                             border: Border(
                             ),
                             borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -187,7 +187,7 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
                             style: const TextStyle(
                                 fontSize: 11,
                                 color: Colors.white,
-                                fontFamily: Constants.FONT_FAMILY,
+                                fontFamily: Constants.fontFamily,
                                 fontWeight: FontWeight.w400),
                           ),
                         )
@@ -196,7 +196,7 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
                     voteStar(
                       const Icon(
                         Icons.access_time,
-                        color: Constants.BACKGROUND_COLOR,
+                        color: Constants.backgroundColor,
                         size: 16,
                       ),
                       "${widget.movieDetail.runtime} mins",
@@ -212,7 +212,7 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
                             padding: const EdgeInsets.only(top: 1.0),
                             child: const Icon(
                               Icons.location_on_outlined,
-                              color: Constants.BACKGROUND_COLOR,
+                              color: Constants.backgroundColor,
                               size: 16,
                             ),
                           ),
@@ -266,7 +266,7 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
           color: Colors.grey,
           fontSize: 12,
           fontWeight: FontWeight.w600,
-          fontFamily: Constants.FONT_FAMILY),
+          fontFamily: Constants.fontFamily),
     );
   }
 
@@ -288,8 +288,8 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
             color: Colors.black,
             fontSize: 12,
           ),
-          moreStyle: const TextStyle(color: Constants.BACKGROUND_COLOR),
-          lessStyle: const TextStyle(color: Constants.BACKGROUND_COLOR),
+          moreStyle: const TextStyle(color: Constants.backgroundColor),
+          lessStyle: const TextStyle(color: Constants.backgroundColor),
         )
       ],
     );
@@ -312,7 +312,7 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
       style: const TextStyle(
           fontSize: 10,
           color: Colors.black,
-          fontFamily: Constants.FONT_FAMILY,
+          fontFamily: Constants.fontFamily,
           fontWeight: FontWeight.w400),
     );
   }
@@ -339,7 +339,7 @@ class _MovieDetailBodyState extends State<MovieDetailBody> {
       style: const TextStyle(
           fontSize: 10,
           color: Colors.black,
-          fontFamily: Constants.FONT_FAMILY,
+          fontFamily: Constants.fontFamily,
           fontWeight: FontWeight.w400),
     );
   }

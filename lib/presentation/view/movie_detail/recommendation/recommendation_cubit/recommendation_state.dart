@@ -7,7 +7,7 @@ class RecommendationState extends Equatable {
   final RecommendationStatus recommendationStatus;
   final List<MovieListItem> movieListItem;
 
-  RecommendationState(
+  const RecommendationState(
       {this.recommendationStatus = RecommendationStatus.initial, this.movieListItem = const[]});
 
   @override

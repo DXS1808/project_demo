@@ -1,12 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 class SocialMedia extends StatelessWidget {
-  VoidCallback press;
-  Color color;
-  Widget icon;
-  SocialMedia({Key? key,required this.press,required this.color,required this.icon}) : super(key: key);
+  final VoidCallback press;
+  final Color color;
+  final Widget icon;
+  const SocialMedia({Key? key,required this.press,required this.color,required this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

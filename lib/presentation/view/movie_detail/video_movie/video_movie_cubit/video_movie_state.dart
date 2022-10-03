@@ -7,7 +7,7 @@ class VideoMovieState extends Equatable {
   final VideoMovieStatus videoMovieStatus;
   final MovieVideo ? movieVideo;
 
-  VideoMovieState({this.videoMovieStatus = VideoMovieStatus.initial,this.movieVideo});
+  const VideoMovieState({this.videoMovieStatus = VideoMovieStatus.initial,this.movieVideo});
 
   @override
   // TODO: implement props

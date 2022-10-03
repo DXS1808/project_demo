@@ -41,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       if (state.profileStatus == ProfileStatus.loading) {
         return const Center(
           child: CircularProgressIndicator(
-            color: Constants.BACKGROUND_COLOR,
+            color: Constants.backgroundColor,
           ),
         );
       } else if (state.profileStatus == ProfileStatus.success) {
@@ -53,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  fontFamily: Constants.FONT_FAMILY),
+                  fontFamily: Constants.fontFamily),
             ),
             backgroundColor: Colors.transparent,
           ),
@@ -68,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Container(
                         height: 350,
                         decoration: BoxDecoration(
-                            color: Constants.BACKGROUND_COLOR.withOpacity(0.8),
+                            color: Constants.backgroundColor.withOpacity(0.8),
                             borderRadius: const BorderRadius.only(
                                 bottomRight: Radius.circular(20),
                                 bottomLeft: Radius.circular(20))),
@@ -98,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Text(
                                 FirebaseAuth.instance.currentUser!.displayName!,
                                 style: const TextStyle(
-                                  fontFamily: Constants.FONTFAMILY,
+                                  fontFamily: Constants.textFontFamily,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 14,
                                 ),
@@ -108,7 +108,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 FirebaseAuth.instance.currentUser!.email!,
                                 style: const TextStyle(
                                   color: Colors.grey,
-                                  fontFamily: Constants.FONTFAMILY,
+                                  fontFamily: Constants.textFontFamily,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
                                 ),
@@ -122,14 +122,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 icon: Icons.lock,
                                 onTap: () {
                                   Navigator.pushNamed(
-                                      context, AppRouter.CHANGE_PASSWORD);
+                                      context, AppRouter.changePassword);
                                 }),
                             ProfileItem(
                                 content: AppLocalizations.of(context)!.change_email,
                                 icon: Icons.edit,
                                 onTap: () {
                                   Navigator.pushNamed(
-                                      context, AppRouter.CHANGE_EMAIL);
+                                      context, AppRouter.changeEmail);
                                 }),
                             ProfileItem(
                                 content: AppLocalizations.of(context)!.language,
@@ -150,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ? const Center(
                                               child:
                                               CircularProgressIndicator(
-                                                color: Constants.BACKGROUND_COLOR,
+                                                color: Constants.backgroundColor,
                                               ),
                                             )
                                                 : SizedBox(
@@ -204,7 +204,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     .pop_up,
                                                 style: const TextStyle(
                                                   fontSize: 14,
-                                                  fontFamily: Constants.FONT_FAMILY,
+                                                  fontFamily: Constants.fontFamily,
                                                 ),
                                               ),
                                               actions: [
@@ -225,7 +225,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                             SignOutState>(
                                                           listener: (context, state) {
                                                             if (state.signOutStatus == SignOutStatus.success) {
-                                                              Navigator.pushNamed(context, AppRouter.LOGIN_SCREEN);
+                                                              Navigator.pushNamed(context, AppRouter.loginScreen);
                                                             }
                                                           },
                                                           child: button(() {

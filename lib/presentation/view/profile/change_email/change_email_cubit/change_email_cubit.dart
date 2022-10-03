@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/cupertino.dart';
 
 part 'change_email_state.dart';
 
 class ChangeEmailCubit extends Cubit<ChangeEmailState> {
-  ChangeEmailCubit() : super(ChangeEmailState());
+  ChangeEmailCubit() : super(const ChangeEmailState());
 
   void changeEmail(String email) {
     try {

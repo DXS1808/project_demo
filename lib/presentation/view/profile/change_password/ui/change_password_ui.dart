@@ -11,10 +11,10 @@ class ChangePassWord extends StatefulWidget {
   const ChangePassWord({Key? key}) : super(key: key);
 
   @override
-  _ChangePassWordState createState() => _ChangePassWordState();
+  ChangePassWordState createState() => ChangePassWordState();
 }
 
-class _ChangePassWordState extends State<ChangePassWord> {
+class ChangePassWordState extends State<ChangePassWord> {
   bool obsTextConfirm = true;
   bool obsTextOld = true;
   bool obsTextNew = true;
@@ -41,7 +41,7 @@ class _ChangePassWordState extends State<ChangePassWord> {
           "Reset Password",
           style: TextStyle(
               color: Colors.white,
-              fontFamily: Constants.FONT_FAMILY,
+              fontFamily: Constants.fontFamily,
               fontSize: 16),
         ),
         centerTitle: true,
@@ -98,14 +98,14 @@ class _ChangePassWordState extends State<ChangePassWord> {
           icon: const Icon(
             Icons.lock_outline,
             size: 20,
-            color: Constants.BACKGROUND,
+            color: Constants.background,
           ),
           obscureText: state.obsTextOld,
           iconSuffix: GestureDetector(
             child: Icon(
               // Based on passwordVisible state choose the icon
               state.obsTextOld ? Icons.visibility_off : Icons.visibility,
-              color: Constants.BACKGROUND,
+              color: Constants.background,
             ),
             onTap: () {
               obsTextOld = !obsTextOld;
@@ -130,13 +130,13 @@ class _ChangePassWordState extends State<ChangePassWord> {
           icon: const Icon(
             Icons.lock_outline,
             size: 20,
-            color: Constants.BACKGROUND,
+            color: Constants.background,
           ),
           obscureText: state.obsTextNew,
           iconSuffix: GestureDetector(
             child: Icon(
               state.obsTextNew ? Icons.visibility_off : Icons.visibility,
-              color: Constants.BACKGROUND,
+              color: Constants.background,
             ),
             onTap: () {
               obsTextNew = !obsTextNew;
@@ -163,13 +163,13 @@ class _ChangePassWordState extends State<ChangePassWord> {
           icon: const Icon(
             Icons.lock_outline,
             size: 20,
-            color: Constants.BACKGROUND,
+            color: Constants.background,
           ),
           obscureText: state.obsTextConfirm,
           iconSuffix: GestureDetector(
             child: Icon(
               state.obsTextConfirm ? Icons.visibility_off : Icons.visibility,
-              color: Constants.BACKGROUND,
+              color: Constants.background,
             ),
             onTap: () {
               obsTextConfirm = !obsTextConfirm;

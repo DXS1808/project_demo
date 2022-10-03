@@ -80,7 +80,6 @@ class MovieImpl implements MovieRepository {
     return restClient.getVideo(apiKey, movieId);
   }
 
-  @override
   Future removeFavorite(String userId, int movieId) {
     // TODO: implement removeFavorite
     throw UnimplementedError();

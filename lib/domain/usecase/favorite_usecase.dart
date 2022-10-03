@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:project_demo/data/model/favorite/favorite.dart';
 import 'package:project_demo/domain/repository/favorite_repository.dart';
 
@@ -10,7 +11,9 @@ class FavoriteUseCase {
     try {
       return favoriteRepository.addFavorite(userId, movieId, favorite);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -18,7 +21,9 @@ class FavoriteUseCase {
     try {
       return favoriteRepository.removeFavorite(userId, movieId);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 }

@@ -62,7 +62,7 @@ class SkeletonMovieDetail extends StatelessWidget {
 
   Widget headerLoad(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       width: size.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,

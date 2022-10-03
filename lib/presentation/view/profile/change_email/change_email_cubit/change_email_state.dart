@@ -5,8 +5,8 @@ enum ChangeEmailStatus {initial,loading,success,failed}
 @immutable
 class ChangeEmailState extends Equatable {
   final ChangeEmailStatus changeEmailStatus;
-  String message;
-  ChangeEmailState({this.changeEmailStatus = ChangeEmailStatus.initial,this.message = ''});
+  final String message;
+  const ChangeEmailState({this.changeEmailStatus = ChangeEmailStatus.initial,this.message = ''});
 
   @override
   // TODO: implement props

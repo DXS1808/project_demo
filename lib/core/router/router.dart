@@ -30,17 +30,17 @@ import '../../presentation/view/splash/ui/splash_screen.dart';
 import '../../utils/rest_client_dio.dart';
 
 class AppRouter {
-  static const String HOME_SCREEN = "/home_screen";
-  static const String LOGIN_SCREEN = "/login";
-  static const String SIGN_UP = "/signup";
-  static const String MOVIE_DETAIL = "/movie_detail";
-  static const String CAST_DETAIL = "/cast_detail";
-  static const String CHANGE_PASSWORD = "/change_password";
-  static const String CHANGE_EMAIL = "/change_email";
-  static const String SPLASH = "/splash";
-  static const String MOVIE_SEE_ALL = "/movie_see_all";
+  static const String homeScreen = "/home_screen";
+  static const String loginScreen = "/login";
+  static const String signUp = "/signup";
+  static const String movieDetail = "/movie_detail";
+  static const String castDetail = "/cast_detail";
+  static const String changePassword = "/change_password";
+  static const String changeEmail = "/change_email";
+  static const String splash = "/splash";
+  static const String movieSeeAll = "/movie_see_all";
   static Map<String, WidgetBuilder> define = {
-    HOME_SCREEN: (context) {
+    homeScreen: (context) {
       return MultiBlocProvider(providers: [
         BlocProvider<HomeCubit>(
             create: (context) => HomeCubit(
@@ -50,20 +50,20 @@ class AppRouter {
             create: (context) => NetworkServicesCubit()),
       ], child: const HomeScreen());
     },
-    LOGIN_SCREEN: (context) {
+    loginScreen: (context) {
       return MultiBlocProvider(providers: [
         BlocProvider<LoginCubit>.value(
           value: LoginCubit(),
         ),
-      ], child: LoginScreen());
+      ], child: const LoginScreen());
     },
-    SIGN_UP: (context) {
+    signUp: (context) {
       return BlocProvider<SignUpCubit>.value(
         value: SignUpCubit(),
         child: const SignUpScreen(),
       );
     },
-    MOVIE_DETAIL: (context) {
+    movieDetail: (context) {
       final movieFavoriteRouter =
           ModalRoute.of(context)!.settings.arguments as MovieFavoriteRouter;
       return MultiBlocProvider(
@@ -82,7 +82,7 @@ class AppRouter {
         child: MovieDetailScreen(movieId: movieFavoriteRouter.movieId),
       );
     },
-    CAST_DETAIL: (context) {
+    castDetail: (context) {
       final castId = ModalRoute.of(context)!.settings.arguments as int;
       return MultiBlocProvider(providers: [
         BlocProvider<CastDetailCubit>.value(
@@ -96,20 +96,20 @@ class AppRouter {
         personId: castId,
       ),);
     },
-    CHANGE_PASSWORD: (context) {
+    changePassword: (context) {
       return BlocProvider<ChangePasswordCubit>.value(
         value: ChangePasswordCubit(),
         child: const ChangePassWord(),
       );
     },
-    CHANGE_EMAIL: (context) {
+    changeEmail: (context) {
       return BlocProvider<ChangeEmailCubit>.value(
         value: ChangeEmailCubit(),
-        child: const ChangeEmail(),
+        child: const ChangeEmailScreen(),
       );
     },
-    SPLASH: (context) => const Splash(),
-    MOVIE_SEE_ALL: (context) {
+    splash: (context) => const Splash(),
+    movieSeeAll: (context) {
       final movieRouter =
           ModalRoute.of(context)!.settings.arguments as MovieRouterData;
       return BlocProvider<MovieFavoriteCubit>.value(

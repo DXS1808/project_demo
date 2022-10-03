@@ -7,11 +7,11 @@ class CacheImage extends StatelessWidget {
   final double heightImage;
   final double widthImage;
   final BoxFit ? fit;
-  CacheImage(this.imgUrl,this.heightImage,this.widthImage, this.fit);
+  const CacheImage(this.imgUrl,this.heightImage,this.widthImage, this.fit, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    String url = Constants.IMAGE_URL + imgUrl;
+    String url = Constants.imageUrl + imgUrl;
     return CachedNetworkImage(
       imageUrl: url,
       height: heightImage,

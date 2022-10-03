@@ -8,16 +8,16 @@ import 'cache_image.dart';
 import 'image_url_null.dart';
 
 class MovieItemDetail extends StatelessWidget {
-  Color colorText;
-  dynamic movieListItem;
+  final Color colorText;
+  final dynamic movieListItem;
 
-  MovieItemDetail({Key? key, required this.movieListItem, required this.colorText}) : super(key: key);
+  const MovieItemDetail({Key? key, required this.movieListItem, required this.colorText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, AppRouter.MOVIE_DETAIL,
+        Navigator.pushNamed(context, AppRouter.movieDetail,
             arguments: MovieFavoriteRouter(
                 context.read<MovieFavoriteCubit>(), movieListItem.id));
       },
@@ -84,7 +84,7 @@ class MovieItemDetail extends StatelessWidget {
                   style: TextStyle(
                       color: colorText,
                       fontSize: 10,
-                      fontFamily: Constants.FONT_FAMILY),
+                      fontFamily: Constants.fontFamily),
                 ),
               )
             ],

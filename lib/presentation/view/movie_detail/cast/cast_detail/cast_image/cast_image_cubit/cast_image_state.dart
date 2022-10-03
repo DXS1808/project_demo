@@ -4,10 +4,10 @@ enum CastImageStatus{initial,loading,success,failed}
 
 @immutable
 class CastImageState extends Equatable {
-  CastImageStatus castImageStatus;
-  List<Profiles> profiles;
+  final CastImageStatus castImageStatus;
+  final List<Profiles> profiles;
 
-  CastImageState({this.castImageStatus = CastImageStatus.initial,this.profiles = const []});
+  const CastImageState({this.castImageStatus = CastImageStatus.initial,this.profiles = const []});
 
   @override
   // TODO: implement props

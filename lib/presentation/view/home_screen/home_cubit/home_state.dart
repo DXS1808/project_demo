@@ -20,7 +20,7 @@ enum HomeStatus {
 
 @immutable
 class HomeState extends Equatable {
-  HomeStatus homeStatus;
+  final HomeStatus homeStatus;
   final List<MovieListItem> popularList;
   final List<MovieListItem> topRatedList;
   final List<MovieListItem> nowPlayingList;
@@ -28,7 +28,7 @@ class HomeState extends Equatable {
   final List<MovieListItem> searchMovieList;
   final bool checkSearch;
 
-  HomeState({
+  const HomeState({
     this.homeStatus = HomeStatus.initial,
     this.popularList = const [],
     this.topRatedList = const [],

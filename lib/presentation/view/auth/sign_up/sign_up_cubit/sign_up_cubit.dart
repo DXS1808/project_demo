@@ -30,8 +30,6 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(state.copyWith(status: SignUpStatus.loading));
     try {
       final facebookLoginResult = await FacebookAuth.instance.login();
-      final userData = await FacebookAuth.instance.getUserData();
-
       final facebookAuthCredential = FacebookAuthProvider.credential(
           facebookLoginResult.accessToken!.token);
 
@@ -40,7 +38,6 @@ class SignUpCubit extends Cubit<SignUpState> {
           status: SignUpStatus.successFb,
           successMessage: "SignUp Facebook Successfully"));
     } on Exception catch (e) {
-      print(e);
       emit(state.copyWith(
           status: SignUpStatus.failedFb, errorMessage: e.toString()));
     }
@@ -58,7 +55,6 @@ class SignUpCubit extends Cubit<SignUpState> {
           status: SignUpStatus.successGoogle,
           successMessage: "SignUp Google Successfully"));
     } catch (e) {
-      print("error:  $e ");
       emit(state.copyWith(
           status: SignUpStatus.failedGoogle, errorMessage: e.toString()));
     }

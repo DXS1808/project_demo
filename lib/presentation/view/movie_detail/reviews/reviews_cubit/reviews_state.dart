@@ -7,7 +7,7 @@ class ReviewsState extends Equatable {
   final List<Results> results;
   final ReviewsStatus reviewsStatus;
 
-  ReviewsState({this.reviewsStatus = ReviewsStatus.initial,this.results = const []});
+  const ReviewsState({this.reviewsStatus = ReviewsStatus.initial,this.results = const []});
 
   @override
   // TODO: implement props

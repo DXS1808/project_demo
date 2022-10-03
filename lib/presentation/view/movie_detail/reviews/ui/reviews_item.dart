@@ -8,15 +8,15 @@ import 'package:project_demo/presentation/common/image_url_null.dart';
 import 'package:readmore/readmore.dart';
 
 class ReviewsItem extends StatefulWidget {
-  Results results;
+  final Results results;
 
-  ReviewsItem({Key? key, required this.results}) : super(key: key);
+  const ReviewsItem({Key? key, required this.results}) : super(key: key);
 
   @override
-  _ReviewsItemState createState() => _ReviewsItemState();
+  ReviewsItemState createState() => ReviewsItemState();
 }
 
-class _ReviewsItemState extends State<ReviewsItem> {
+class ReviewsItemState extends State<ReviewsItem> {
   
   @override
   void initState() {
@@ -65,7 +65,7 @@ class _ReviewsItemState extends State<ReviewsItem> {
                 color: Colors.black,
                 fontWeight: FontWeight.w600,
                 fontSize: 12,
-                fontFamily: Constants.FONT_FAMILY,
+                fontFamily: Constants.fontFamily,
               ),
               ),
               ReadMoreText(
@@ -76,16 +76,16 @@ class _ReviewsItemState extends State<ReviewsItem> {
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 12,
-                fontFamily: Constants.FONT_FAMILY,
+                fontFamily: Constants.fontFamily,
               ),
-                moreStyle: const TextStyle(color: Constants.BACKGROUND_COLOR),
-                lessStyle: const TextStyle(color: Constants.BACKGROUND_COLOR),
+                moreStyle: const TextStyle(color: Constants.backgroundColor),
+                lessStyle: const TextStyle(color: Constants.backgroundColor),
             ),
               Text(timer,
               style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 10,
-                fontFamily: Constants.FONT_FAMILY,
+                fontFamily: Constants.fontFamily,
               ),
               )
 

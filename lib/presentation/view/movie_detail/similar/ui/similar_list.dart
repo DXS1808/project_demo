@@ -3,9 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:project_demo/data/model/movie/movie.dart';
 import 'package:project_demo/presentation/common/movie_see_all.dart';
-
-import '../../../../../core/router/moive_router_data.dart';
-import '../../../../../core/router/router.dart';
 import '../../../../../data/impl/favorite_impl.dart';
 import '../../../../../domain/usecase/favorite_usecase.dart';
 import '../../../../common/category_text.dart';
@@ -14,9 +11,9 @@ import '../../../movie/movie_favorite/movie_favorite_cubit/movie_favorite_cubit.
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SimilarList extends StatelessWidget {
-  List<MovieListItem> movieListItem;
+  final List<MovieListItem> movieListItem;
 
-  SimilarList({Key? key, required this.movieListItem}) : super(key: key);
+  const SimilarList({Key? key, required this.movieListItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +72,9 @@ class SimilarList extends StatelessWidget {
               )
             ],
           )
-        : Container(
+        : SizedBox(
             width: MediaQuery.of(context).size.width,
-            child: CategoryText(
+            child: const CategoryText(
               category: "No Similar",
               fontSize: 16,
               fontWeight: FontWeight.w600,

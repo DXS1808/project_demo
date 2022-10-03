@@ -1,14 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:meta/meta.dart';
-
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginState());
+  LoginCubit() : super(const LoginState());
 
   void signIn(String email, String password) async {
     emit(state.copyWith(loginStatus: LoginStatus.loading));
@@ -32,8 +31,6 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(loginStatus: LoginStatus.loading));
     try {
       final facebookLoginResult = await FacebookAuth.instance.login();
-      final userData = await FacebookAuth.instance.getUserData();
-
       final facebookAuthCredential = FacebookAuthProvider.credential(
           facebookLoginResult.accessToken!.token);
 
@@ -42,7 +39,6 @@ class LoginCubit extends Cubit<LoginState> {
           loginStatus: LoginStatus.successFacebook,
           successMessage: "Login Facebook Successfully"));
     } on Exception catch (e) {
-      print(e);
       emit(state.copyWith(
           loginStatus: LoginStatus.failedFb,
           errorMessage: e.toString()));
@@ -59,7 +55,6 @@ class LoginCubit extends Cubit<LoginState> {
       await FirebaseAuth.instance.signInWithCredential(credential);
       emit(state.copyWith(loginStatus: LoginStatus.successGoogle,successMessage: "Login Google Successfully"));
     } catch (e) {
-      print("error:  $e ");
       emit(state.copyWith(loginStatus: LoginStatus.failedGoogle,errorMessage: e.toString()));
     }
   }

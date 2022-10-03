@@ -11,9 +11,9 @@ import '../../../../common/movie_see_all.dart';
 import '../../../movie/movie_favorite/movie_favorite_cubit/movie_favorite_cubit.dart';
 
 class RecommendationList extends StatelessWidget {
-  List<MovieListItem> movieListItem;
+  final List<MovieListItem> movieListItem;
 
-  RecommendationList({Key? key, required this.movieListItem}) : super(key: key);
+  const RecommendationList({Key? key, required this.movieListItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +69,9 @@ class RecommendationList extends StatelessWidget {
               )
             ],
           )
-        : Container(
+        : SizedBox(
             width: MediaQuery.of(context).size.width,
-            child: CategoryText(
+            child: const CategoryText(
               category: "No Recommendation",
               fontSize: 16,
               fontWeight: FontWeight.w600,

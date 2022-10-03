@@ -6,15 +6,15 @@ import 'package:project_demo/presentation/view/movie_detail/image/ui/image_item.
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ImageList extends StatefulWidget {
-  int movieId;
+  final int movieId;
 
-  ImageList({Key? key, required this.movieId}) : super(key: key);
+  const ImageList({Key? key, required this.movieId}) : super(key: key);
 
   @override
-  _ImageListState createState() => _ImageListState();
+  ImageListState createState() => ImageListState();
 }
 
-class _ImageListState extends State<ImageList> {
+class ImageListState extends State<ImageList> {
   @override
   void initState() {
     context.read<ImageCubit>().getMovieImage(widget.movieId);
@@ -52,9 +52,9 @@ class _ImageListState extends State<ImageList> {
                   )
                 ],
               )
-            : Container(
+            : SizedBox(
                 width: MediaQuery.of(context).size.width,
-                child: CategoryText(
+                child: const CategoryText(
                   category: "No Image Movie",
                   fontSize: 16,
                   fontWeight: FontWeight.w600,

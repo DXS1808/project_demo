@@ -5,11 +5,11 @@ enum CreditMovieStatus{initial, loading, success,failed}
 @immutable
 class CreditMovieState extends Equatable {
 
-  CreditMovieStatus creditMovieStatus;
-  List<CastMovie> castMovie;
-  List<CastCareer> castCareer;
+  final CreditMovieStatus creditMovieStatus;
+  final List<CastMovie> castMovie;
+  final List<CastCareer> castCareer;
 
-  CreditMovieState({this.creditMovieStatus = CreditMovieStatus.initial,this.castMovie = const [],this.castCareer = const []});
+  const CreditMovieState({this.creditMovieStatus = CreditMovieStatus.initial,this.castMovie = const [],this.castCareer = const []});
 
   @override
   // TODO: implement props

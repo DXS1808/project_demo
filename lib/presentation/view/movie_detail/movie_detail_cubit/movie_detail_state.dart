@@ -9,7 +9,7 @@ enum MovieDetailStatus {initial,loading, success, failed}
 
   final MovieDetail ? movieDetail;
 
-  MovieDetailState({this.movieDetailStatus = MovieDetailStatus.initial,this.movieDetail});
+  const MovieDetailState({this.movieDetailStatus = MovieDetailStatus.initial,this.movieDetail});
 
   @override
   // TODO: implement props

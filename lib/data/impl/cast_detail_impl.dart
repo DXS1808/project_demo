@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:project_demo/data/data_sources/remote/rest_client.dart';
 import 'package:project_demo/data/model/cast/cast_detail.dart';
 import 'package:project_demo/data/model/credit_movie/credit_movie.dart';
@@ -13,7 +14,9 @@ class CastDetailImpl implements CastRepository{
     try{
       restClient.getCastDetail(apiKey, personId);
     }catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return restClient.getCastDetail(apiKey, personId);
   }
@@ -23,7 +26,9 @@ class CastDetailImpl implements CastRepository{
     try{
       restClient.getCastImage(apiKey, castId);
     }catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return restClient.getCastImage(apiKey, castId);
   }
@@ -33,7 +38,9 @@ class CastDetailImpl implements CastRepository{
     try{
       restClient.getCreditMovie(apiKey, castId);
     }catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return restClient.getCreditMovie(apiKey, castId);
   }

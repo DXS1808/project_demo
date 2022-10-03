@@ -14,8 +14,8 @@ class InputTextWrap extends StatelessWidget {
   final List<TextInputFormatter> ? inputFormatters;
   final Color ? colors;
 
-  InputTextWrap(
-      {required this.label,
+  const InputTextWrap(
+      {super.key, required this.label,
         required this.controller,
         required this.icon,
         required this.validator,
@@ -37,7 +37,7 @@ class InputTextWrap extends StatelessWidget {
       },
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(15.0),
-          labelStyle: const TextStyle(color: Constants.BACKGROUND,fontSize: 14),
+          labelStyle: const TextStyle(color: Constants.background,fontSize: 14),
           labelText: label,
           prefixIcon: icon,
           fillColor: Colors.white,
@@ -46,17 +46,17 @@ class InputTextWrap extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius:  const BorderRadius.all( Radius.circular(20.0)),
             borderSide:
-            BorderSide(color: colors ?? Constants.BACKGROUND, width: 1.0),
+            BorderSide(color: colors ?? Constants.background, width: 1.0),
           ),
           enabledBorder:OutlineInputBorder(
             borderRadius:  const BorderRadius.all(Radius.circular(20.0)),
             borderSide:
-            BorderSide(color: colors ?? Constants.BACKGROUND, width: 1.0),
+            BorderSide(color: colors ?? Constants.background, width: 1.0),
           ),
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
             borderSide: BorderSide(
-              color: Constants.BACKGROUND,
+              color: Constants.background,
             ),
           )),
       validator: validator,

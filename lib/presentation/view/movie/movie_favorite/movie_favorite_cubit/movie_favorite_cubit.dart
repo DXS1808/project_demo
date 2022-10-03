@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
-import 'package:meta/meta.dart';
 import 'package:project_demo/data/model/favorite/favorite.dart';
 import 'package:project_demo/domain/usecase/favorite_usecase.dart';
 
@@ -12,7 +12,7 @@ part 'movie_favorite_state.dart';
 class MovieFavoriteCubit extends Cubit<MovieFavoriteState> {
   FavoriteUseCase favoriteUseCase;
 
-  MovieFavoriteCubit(this.favoriteUseCase) : super(MovieFavoriteState());
+  MovieFavoriteCubit(this.favoriteUseCase) : super(const MovieFavoriteState());
 
   void get(String userId) {
     emit(state.copyWith(movieFavoriteStatus: MovieFavoriteStatus.loading));
@@ -23,16 +23,15 @@ class MovieFavoriteCubit extends Cubit<MovieFavoriteState> {
             movieFavoriteStatus: MovieFavoriteStatus.success,
             getListFavorite: data));
       } catch (e) {
-        // emit(state.copyWith(
-        //     movieFavoriteStatus: MovieFavoriteStatus.failed));
-        print(e);
+        if (kDebugMode) {
+          print(e);
+        }
       }
     });
   }
 
   void markFavorite(String userId, int movieId, Favorite favorite) async {
     try {
-      print("MovieID:${movieId}");
       await favoriteUseCase.addFavorite(userId, movieId, favorite);
       final data = Hive.box<Favorite>("favorite_$userId")
           .values
@@ -51,7 +50,6 @@ class MovieFavoriteCubit extends Cubit<MovieFavoriteState> {
 
   void removeFavorite(String userId, int movieId) async {
     try {
-      print("MovieID:${movieId}");
       await favoriteUseCase.removeFavorite(userId, movieId);
       final data = Hive.box<Favorite>("favorite_$userId").values.toList();
       emit(state.copyWith(
@@ -59,7 +57,9 @@ class MovieFavoriteCubit extends Cubit<MovieFavoriteState> {
           getListFavorite: data,
           movieId: movieId));
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 }

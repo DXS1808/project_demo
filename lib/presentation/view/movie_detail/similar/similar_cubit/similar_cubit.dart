@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:project_demo/config/constants.dart';
 import 'package:project_demo/data/model/movie/movie.dart';
 import 'package:project_demo/domain/usecase/movie_usecase.dart';
@@ -9,7 +9,7 @@ part 'similar_state.dart';
 
 class SimilarCubit extends Cubit<SimilarState> {
   MovieUseCase movieUseCase;
-  SimilarCubit(this.movieUseCase) : super(SimilarState());
+  SimilarCubit(this.movieUseCase) : super(const SimilarState());
 
   void get(int movieId, bool isLoading, int page) async {
     if (isLoading == false) {
@@ -19,14 +19,14 @@ class SimilarCubit extends Cubit<SimilarState> {
       List<MovieListItem> listSimilar = [];
       if (isLoading == false) {
         final data = await movieUseCase.getListSimilar(
-            Constants.API_KEY, movieId, 1);
+            Constants.apiKey, movieId, 1);
         listSimilar.addAll(data.results);
         emit(state.copyWith(
             similarStatus: SimilarStatus.success,
             movieListItem: listSimilar));
       } else if (isLoading == true) {
         final data = await movieUseCase.getListSimilar(
-            Constants.API_KEY, movieId, page);
+            Constants.apiKey, movieId, page);
         listSimilar.addAll(data.results);
         emit(state.copyWith(
             similarStatus: SimilarStatus.isLoading,

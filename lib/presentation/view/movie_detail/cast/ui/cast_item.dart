@@ -7,9 +7,9 @@ import '../../../../../data/model/cast/cast.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreditCastItem extends StatelessWidget {
-  CreditCast creditCast;
+  final CreditCast creditCast;
 
-  CreditCastItem({Key? key, required this.creditCast}) : super(key: key);
+  const CreditCastItem({Key? key, required this.creditCast}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class CreditCastItem extends StatelessWidget {
   Widget creditCastItem(Cast item, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, AppRouter.CAST_DETAIL,
+        Navigator.pushNamed(context, AppRouter.castDetail,
             arguments: item.id!);
       },
       child: Container(
@@ -71,7 +71,7 @@ class CreditCastItem extends StatelessWidget {
             Text(item.originalName!,
                 style: const TextStyle(
                   color: Colors.black,
-                  fontFamily: Constants.FONT_FAMILY,
+                  fontFamily: Constants.fontFamily,
                   fontSize: 10,
                 ))
           ],

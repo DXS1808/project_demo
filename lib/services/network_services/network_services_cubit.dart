@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
 part 'network_services_state.dart';
 
 class NetworkServicesCubit extends Cubit<NetworkServicesState> {
@@ -20,7 +20,9 @@ class NetworkServicesCubit extends Cubit<NetworkServicesState> {
               state.copyWith(networkServicesStatus: NetworkServicesStatus.offline));
         }
     } on SocketException catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
